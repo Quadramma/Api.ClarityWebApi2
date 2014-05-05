@@ -1,0 +1,232 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"angul",
+				"angular-resource"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"js",
+				"Set Syntax: JavaScript"
+			]
+		],
+		"width": 416.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/GIT/NMS/server/server.js",
+		"/C/GIT/NMS/public/js/services/TemaService.js",
+		"/C/GIT/NMS/public/js/config/app.js",
+		"/C/GIT/NMS/public/index.html",
+		"/C/GIT/NMS/public/js/controllers/TemaController.js",
+		"/C/GIT/NMS/bower.json",
+		"/C/GIT/jqm-angular-sample/app.js",
+		"/C/GIT/NMS/package.json",
+		"/C/GIT/jqm-angular-sample/public/js/controllers.js",
+		"/C/GIT/NMS/public/js/app/app.js",
+		"/C/GIT/jqm-angular-sample/public/js/services.js",
+		"/C/GIT/jqm-angular-sample/index.html",
+		"/C/GIT/jqm-angular-sample/package.json",
+		"/C/GIT/SinglePageAppNodeAngular/server.js",
+		"/C/IIS_LOCAL/WebApi/public/main.js",
+		"/C/GIT/NMS/.bowerrc",
+		"/C/GIT/NMS/.gitignore",
+		"/C/GIT/jqm-angular-sample/.gitignore",
+		"/C/GIT/WebApi-Clarity/WebApiClarity/App_Start/RouteConfig.cs",
+		"/C/Users/Javier/Google Drive/Clarity/Framework2014/ClarityHealthSolution/ClarityHealthTempleateProject/Web.config",
+		"/C/IIS_LOCAL/WebApi/index.html",
+		"/C/GIT/WebApi-Clarity/README.md",
+		"/C/GIT/WebApi-Clarity/WebApiClarity/WebApiClarity.sln",
+		"/C/GIT/WebApi-Clarity/WebApiClarity.sln",
+		"/C/GIT/WebApi-Clarity/EmptyWebApiProject.sln",
+		"/C/GIT/EmptyWebApiProject/LICENSE.txt",
+		"/C/GIT/Template-Nodejs-SupervisorReload/public/index.html",
+		"/C/GIT/Template-Nodejs-SupervisorReload/package.json",
+		"/C/GIT/Template-Nodejs-SupervisorReload/server.js",
+		"/C/GIT/Template-Nodejs-SupervisorReload/README.md",
+		"/C/GIT/Template-Nodejs-SupervisorReload/index.html",
+		"/C/GIT/Template-Nodejs-SupervisorReload/.bowerrc",
+		"/C/GIT/Template-Nodejs-SupervisorReload/bower.json",
+		"/C/GIT/Template-Nodejs-SupervisorReload/package.jsoin",
+		"/C/Users/Javier/Desktop/PHPP2/run_web_server.ini",
+		"/C/Users/Javier/Desktop/LightTPD/conf/README.txt",
+		"/C/Users/Javier/Desktop/LightTPD/conf/auth.user",
+		"/C/Users/Javier/Desktop/LightTPD/conf/lighttpd.conf",
+		"/C/Users/Javier/Desktop/LightTPD/README-LightTPD.txt",
+		"/C/Users/Javier/Google Drive/info/probar_frameworks.txt",
+		"/C/Users/Javier/Google Drive/info/brazil_laboral.txt",
+		"/C/Users/Javier/Google Drive/info/propiedades.info",
+		"/C/Users/Javier/Google Drive/sistemas/FacSistemaWinForm/BasicERP_Installer/BasicERP_Installer/Express/DVD-5/DiskImages/DISK1/LEER.txt",
+		"/C/UltKey.txt",
+		"/C/Users/Javier/Google Drive/Clarity/Website/less/clarity.less",
+		"/C/Users/Javier/AppData/Local/Temp/Rar$DRa0.207/MIG_DocumentoFromQTECH_sp.sql",
+		"/C/Users/Javier/Google Drive/sistemas/FacSistemaWinForm/BasicERP_Server/bin/Debug/config.json",
+		"/C/Users/Javier/Google Drive/Clarity/Website/index.html",
+		"/C/Users/Javier/Google Drive/Frases/la_olvide_sin_querer.txt",
+		"/C/Users/Javier/Google Drive/Frases/Gabriel_Celaya.txt",
+		"/C/Users/Javier/Google Drive/Frases/un_cuerpo_es_el_mejor_amigo.txt",
+		"/C/Users/Javier/Google Drive/Frases/Erígone_Luis_G_Urbina.txt",
+		"/C/Users/Javier/Google Drive/Frases/CXharles_Bukowski.txt",
+		"/C/Users/Javier/Google Drive/Clarity/POLO/Modulos",
+		"/C/Users/Javier/Google Drive/Clarity/IISServices/LedorVador/Web_agregarEstasLineas.config",
+		"/C/Users/Javier/Google Drive/Clarity/IISServices/LedorVador/service.log",
+		"/C/Users/Javier/Google Drive/Clarity/IISServices/LedorVador/LedorVadorFlowService.svc",
+		"/C/Users/Javier/Google Drive/Clarity/IISServices/LedorVador/bin/desktop.ini",
+		"/C/clarity/Web.config",
+		"/C/clarity/index.html",
+		"/C/Users/Javier/Google Drive/Clarity/POLO/SDK/SolucionVS2013/PoloWinPruebas/bin/Debug/data.json",
+		"/C/Users/Javier/Desktop/index.html",
+		"/C/Users/Javier/Google Drive/teamviewer.txt",
+		"/C/Users/Javier/Google Drive/Clarity/Website/contactar.asp"
+	],
+	"find":
+	{
+		"height": 38.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"todoId",
+			"todoModel",
+			"admin",
+			"port"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"temaId",
+			"temaModel"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "WebApiClarity.sublime-project",
+	"replace":
+	{
+		"height": 70.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 314.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
