@@ -23,9 +23,9 @@
 // 
 // The following connection settings were used to generate this file
 // 
-//     Connection String Name: `ClarityDBSimpleConn`
+//     Connection String Name: `jlapc`
 //     Provider:               `System.Data.SqlClient`
-//     Connection String:      `Data Source=localhost;Initial Catalog=ClarityDB;Integrated Security=False;User Id=desa;password=**zapped**;MultipleActiveResultSets=True`
+//     Connection String:      `Data Source=localhost;Initial Catalog=ClarityHealth;Integrated Security=False;User Id=desa;password=**zapped**;MultipleActiveResultSets=True`
 //     Schema:                 ``
 //     Include Views:          `False`
 
@@ -40,15 +40,15 @@ using PetaPoco;
 namespace ClarityDB.T4
 {
 
-	public partial class ClarityDBSimpleConnDB : Database
+	public partial class jlapcDB : Database
 	{
-		public ClarityDBSimpleConnDB() 
-			: base("ClarityDBSimpleConn")
+		public jlapcDB() 
+			: base("jlapc")
 		{
 			CommonConstruct();
 		}
 
-		public ClarityDBSimpleConnDB(string connectionStringName) 
+		public jlapcDB(string connectionStringName) 
 			: base(connectionStringName)
 		{
 			CommonConstruct();
@@ -58,11 +58,11 @@ namespace ClarityDB.T4
 		
 		public interface IFactory
 		{
-			ClarityDBSimpleConnDB GetInstance();
+			jlapcDB GetInstance();
 		}
 		
 		public static IFactory Factory { get; set; }
-        public static ClarityDBSimpleConnDB GetInstance()
+        public static jlapcDB GetInstance()
         {
 			if (_instance!=null)
 				return _instance;
@@ -70,10 +70,10 @@ namespace ClarityDB.T4
 			if (Factory!=null)
 				return Factory.GetInstance();
 			else
-				return new ClarityDBSimpleConnDB();
+				return new jlapcDB();
         }
 
-		[ThreadStatic] static ClarityDBSimpleConnDB _instance;
+		[ThreadStatic] static jlapcDB _instance;
 		
 		public override void OnBeginTransaction()
 		{
@@ -90,7 +90,7 @@ namespace ClarityDB.T4
 
 		public class Record<T> where T:new()
 		{
-			public static ClarityDBSimpleConnDB repo { get { return ClarityDBSimpleConnDB.GetInstance(); } }
+			public static jlapcDB repo { get { return jlapcDB.GetInstance(); } }
 			public bool IsNew() { return repo.IsNew(this); }
 			public object Insert() { return repo.Insert(this); }
 
@@ -135,92 +135,318 @@ namespace ClarityDB.T4
 
 
     
-	[TableName("PerfilArbol")]
+	[TableName("TurnoPractica")]
+
+
+	[PrimaryKey("TurnoPracticaID")]
+
 
 
 	[ExplicitColumns]
-    public partial class PerfilArbol : ClarityDBSimpleConnDB.Record<PerfilArbol>  
+    public partial class TurnoPractica : jlapcDB.Record<TurnoPractica>  
     {
 
 
 
-		[Column] public int PerfilArbolID { get; set; }
+		[Column] public int TurnoPracticaID { get; set; }
 
 
 
 
 
-		[Column] public int PerfilID { get; set; }
+		[Column] public int AgendaID { get; set; }
 
 
 
 
 
-		[Column] public int ModuloID { get; set; }
+		[Column] public int PracticaID { get; set; }
 
 
 
 
 
-		[Column] public int? PadreID { get; set; }
+		[Column] public short? Cantidad { get; set; }
 
 
 
 
 
-		[Column] public string Descripcion { get; set; }
+		[Column] public int? ProfesionalID { get; set; }
 
 
 
 
 
-		[Column] public string ToolTipText { get; set; }
+		[Column] public byte Facturable { get; set; }
 
 
 
 
 
-		[Column] public string ParametrosLink { get; set; }
+		[Column] public byte? Estado { get; set; }
 
 
 
 
 
-		[Column] public int? WindowsCommandID { get; set; }
+		[Column] public byte? Instancia { get; set; }
 
 
 
 
 
-		[Column] public int? Orden { get; set; }
+		[Column] public int? MotivoRechazoTurnoConsumoID { get; set; }
 
 
 
 
 
-		[Column] public int? ExternWebsiteID { get; set; }
+		[Column] public string Observaciones { get; set; }
 
 
 
 
 
-		[Column] public byte TipoExcepcion { get; set; }
+		[Column] public int? MovimientoIDCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios { get; set; }
+
+
+
+
+
+		[Column] public int PlanID { get; set; }
+
+
+
+
+
+		[Column] public string NumAfiliado { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public decimal? ValorUnitario { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaID { get; set; }
+
+
+
+
+
+		[Column] public int? PresupuestoPracticaID { get; set; }
+
+
+
+
+
+		[Column] public string NumeroAutorizacion { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoConsumoID_Interno { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoConsumoID_Externo { get; set; }
+
+
+
+
+
+		[Column] public int? OrigenPacienteID { get; set; }
+
+
+
+
+
+		[Column] public byte FaltaBono { get; set; }
+
+
+
+
+
+		[Column] public string MotivoCambioValorUnitario { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaAjustada { get; set; }
+
+
+
+
+
+		[Column] public byte? Externo { get; set; }
+
+
+
+
+
+		[Column] public int? ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int? UsuarioID_CambioValor { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoEtarioID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoConciliacion { get; set; }
+
+
+
+
+
+		[Column] public int? TipoConciliacionManual { get; set; }
 
 
 
 	}
 
     
-	[TableName("SYS_Modulo")]
+	[TableName("TimeSheet")]
+
+
+	[PrimaryKey("TimesheetID")]
+
 
 
 	[ExplicitColumns]
-    public partial class SYS_Modulo : ClarityDBSimpleConnDB.Record<SYS_Modulo>  
+    public partial class TimeSheet : jlapcDB.Record<TimeSheet>  
     {
 
 
 
-		[Column] public int ModuloID { get; set; }
+		[Column] public DateTime Entrada { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Salida { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int? ExternTimesheetID { get; set; }
+
+
+
+
+
+		[Column] public int TimesheetID { get; set; }
+
+
+
+
+
+		[Column] public int TimesheetUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoDeHorarioID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public int? TimeSheetLocacionID { get; set; }
+
+
+
+
+
+		[Column] public bool? EntradaModificadaManualmente { get; set; }
+
+
+
+
+
+		[Column] public bool? SalidaModificadaManualmente { get; set; }
+
+
+
+
+
+		[Column] public bool? TimeSheetDesdeDispositivo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoSubcuentaContable")]
+
+
+	[PrimaryKey("TipoSubcuentaContableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoSubcuentaContable : jlapcDB.Record<TipoSubcuentaContable>  
+    {
+
+
+
+		[Column] public int TipoSubcuentaContableID { get; set; }
 
 
 
@@ -232,7 +458,549 @@ namespace ClarityDB.T4
 
 
 
-		[Column] public string ToolTipText { get; set; }
+		[Column] public int PlanContableID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HC_InformeExcel")]
+
+
+	[PrimaryKey("HC_InformeExcelID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HC_InformeExcel : jlapcDB.Record<HC_InformeExcel>  
+    {
+
+
+
+		[Column] public int HC_InformeExcelID { get; set; }
+
+
+
+
+
+		[Column] public int HC_InformeID { get; set; }
+
+
+
+
+
+		[Column] public int? VariableID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public short? Fila { get; set; }
+
+
+
+
+
+		[Column] public string Columna { get; set; }
+
+
+
+
+
+		[Column] public string Hoja { get; set; }
+
+
+
+
+
+		[Column] public int? HCTipoIndividuoID { get; set; }
+
+
+
+
+
+		[Column] public int? NroIndividuo { get; set; }
+
+
+
+
+
+		[Column] public int? Repeticion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConsumoDefaultMedicamento")]
+
+
+	[PrimaryKey("ConsumoDefaultID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ConsumoDefaultMedicamento : jlapcDB.Record<ConsumoDefaultMedicamento>  
+    {
+
+
+
+		[Column] public int ConsumoDefaultID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ModeloHorario")]
+
+
+	[PrimaryKey("ModeloHorarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ModeloHorario : jlapcDB.Record<ModeloHorario>  
+    {
+
+
+
+		[Column] public int ModeloHorarioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ArchivoElectronicoBibliorato")]
+
+
+	[PrimaryKey("ArchivoElectronicoBiblioratoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ArchivoElectronicoBibliorato : jlapcDB.Record<ArchivoElectronicoBibliorato>  
+    {
+
+
+
+		[Column] public int ArchivoElectronicoBiblioratoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TimeSheetUsuario")]
+
+
+	[PrimaryKey("TimeSheetUsuarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TimeSheetUsuario : jlapcDB.Record<TimeSheetUsuario>  
+    {
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Apellido { get; set; }
+
+
+
+
+
+		[Column] public string LogIn { get; set; }
+
+
+
+
+
+		[Column] public string IP { get; set; }
+
+
+
+
+
+		[Column] public bool? Admin { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int TimeSheetUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int? ExternTimeSheetUsuarioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VarianteComparativoHCGrafico")]
+
+
+	[PrimaryKey("VarianteComparativoHCGraficoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VarianteComparativoHCGrafico : jlapcDB.Record<VarianteComparativoHCGrafico>  
+    {
+
+
+
+		[Column] public int VarianteComparativoHCGraficoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int VarianteComparativoHCID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Consumo_Control")]
+
+
+	[PrimaryKey("IFSAP_Consumo_ControlID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_Consumo_Control : jlapcDB.Record<IFSAP_Consumo_Control>  
+    {
+
+
+
+		[Column] public int IFSAP_Consumo_ControlID { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_Consumo_OrigenID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaUltimoProceso { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Sitio")]
+
+
+	[PrimaryKey("SitioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Sitio : jlapcDB.Record<Sitio>  
+    {
+
+
+
+		[Column] public int SitioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Deposito")]
+
+
+	[PrimaryKey("DepositoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Deposito : jlapcDB.Record<Deposito>  
+    {
+
+
+
+		[Column] public int DepositoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int? SucursalID { get; set; }
+
+
+
+
+
+		[Column] public bool AdministraLote { get; set; }
+
+
+
+
+
+		[Column] public string GLN { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VencimientoRenovacion")]
+
+
+	[PrimaryKey("VencimientoRenovacionID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class VencimientoRenovacion : jlapcDB.Record<VencimientoRenovacion>  
+    {
+
+
+
+		[Column] public int VencimientoRenovacionID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MenuGastronomicoDisponibilidad")]
+
+
+	[PrimaryKey("MenuGastronomicoDisponibilidadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MenuGastronomicoDisponibilidad : jlapcDB.Record<MenuGastronomicoDisponibilidad>  
+    {
+
+
+
+		[Column] public int MenuGastronomicoDisponibilidadID { get; set; }
+
+
+
+
+
+		[Column] public int MenuGastronomicoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime VigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaHasta { get; set; }
+
+
+
+
+
+		[Column] public decimal Precio { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoConsultaMedica")]
+
+
+	[PrimaryKey("EstadoConsultaMedicaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EstadoConsultaMedica : jlapcDB.Record<EstadoConsultaMedica>  
+    {
+
+
+
+		[Column] public int EstadoConsultaMedicaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("AgendaVencimientos")]
+
+
+	[PrimaryKey("AgendaVencimientosID")]
+
+
+
+	[ExplicitColumns]
+    public partial class AgendaVencimiento : jlapcDB.Record<AgendaVencimiento>  
+    {
+
+
+
+		[Column] public int AgendaVencimientosID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_ArbolItem")]
+
+
+	[PrimaryKey("ArbolItemID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_ArbolItem : jlapcDB.Record<SYS_ArbolItem>  
+    {
+
+
+
+		[Column] public int ArbolItemID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
 
 
 
@@ -244,15 +1012,6765 @@ namespace ClarityDB.T4
 
 
 
-		[Column] public string ArchivoAyuda { get; set; }
+		[Column] public int PadreID { get; set; }
 
 
 
 
 
-		[Column] public string ExplicacionParametrosPerfilArbol { get; set; }
+		[Column] public int orden { get; set; }
 
 
+
+
+
+		[Column] public bool isFolder { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoInterrupcionDeActividadesSala")]
+
+
+	[PrimaryKey("TipoInterrupcionDeActividadesSalaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoInterrupcionDeActividadesSala : jlapcDB.Record<TipoInterrupcionDeActividadesSala>  
+    {
+
+
+
+		[Column] public int TipoInterrupcionDeActividadesSalaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Novedad")]
+
+
+	[PrimaryKey("NovedadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Novedad : jlapcDB.Record<Novedad>  
+    {
+
+
+
+		[Column] public int NovedadID { get; set; }
+
+
+
+
+
+		[Column] public int ContactoID { get; set; }
+
+
+
+
+
+		[Column] public string Asunto { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaAlta { get; set; }
+
+
+
+
+
+		[Column] public string UsuarioAlta { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaModi { get; set; }
+
+
+
+
+
+		[Column] public string UsuarioModi { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Fecha { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ModeloHorarioDefinicion")]
+
+
+	[PrimaryKey("ModeloHorarioDefinicionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ModeloHorarioDefinicion : jlapcDB.Record<ModeloHorarioDefinicion>  
+    {
+
+
+
+		[Column] public int ModeloHorarioDefinicionID { get; set; }
+
+
+
+
+
+		[Column] public int ModeloHorarioID { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public DateTime? HoraDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? HoraHasta { get; set; }
+
+
+
+
+
+		[Column] public int? DiasSemanaEnDecimal { get; set; }
+
+
+
+
+
+		[Column] public int? Cada { get; set; }
+
+
+
+
+
+		[Column] public int? DiaInicioID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? HoraCorte { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufactura")]
+
+
+	[PrimaryKey("OrdenManufacturaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrdenManufactura : jlapcDB.Record<OrdenManufactura>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaAlta { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public float CantidadPedida { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaPrevistaInicio { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaPrevistaFin { get; set; }
+
+
+
+
+
+		[Column] public int? EmpleadoID_Operario1 { get; set; }
+
+
+
+
+
+		[Column] public int? EmpleadoID_Operario2 { get; set; }
+
+
+
+
+
+		[Column] public int? MaquinariaID { get; set; }
+
+
+
+
+
+		[Column] public int Numero { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaPrevistaEntrega { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoID { get; set; }
+
+
+
+
+
+		[Column] public int? DepositoID { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public int? ProductoID_Scrap { get; set; }
+
+
+
+
+
+		[Column] public int? Vinculada_OrdenManufacturaID { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DiasSemana")]
+
+
+	[PrimaryKey("DiasSemanaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DiasSemana : jlapcDB.Record<DiasSemana>  
+    {
+
+
+
+		[Column] public int DiasSemanaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? DiaEnDecimal { get; set; }
+
+
+
+
+
+		[Column] public int Indice { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ArchivoElectronicoCuenta")]
+
+
+	[PrimaryKey("ArchivoElectronicoCuentaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ArchivoElectronicoCuentum : jlapcDB.Record<ArchivoElectronicoCuentum>  
+    {
+
+
+
+		[Column] public int ArchivoElectronicoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string POP_server { get; set; }
+
+
+
+
+
+		[Column] public string POP_usr { get; set; }
+
+
+
+
+
+		[Column] public string POP_pwd { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CuentaPaciente")]
+
+
+	[PrimaryKey("CuentaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CuentaPaciente : jlapcDB.Record<CuentaPaciente>  
+    {
+
+
+
+		[Column] public int CuentaID { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SitioAcceso")]
+
+
+	[PrimaryKey("SitioAccesoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SitioAcceso : jlapcDB.Record<SitioAcceso>  
+    {
+
+
+
+		[Column] public int SitioAccesoID { get; set; }
+
+
+
+
+
+		[Column] public int SitioID { get; set; }
+
+
+
+
+
+		[Column] public int SitioTipoAccesoID { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public int CantidadCLick { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TDocumentoTMovimiento")]
+
+
+	[PrimaryKey("TipoDocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TDocumentoTMovimiento : jlapcDB.Record<TDocumentoTMovimiento>  
+    {
+
+
+
+		[Column] public int TipoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoMovimientoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SubEstadoConsultaMedica")]
+
+
+	[PrimaryKey("SubEstadoConsultaMedicaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SubEstadoConsultaMedica : jlapcDB.Record<SubEstadoConsultaMedica>  
+    {
+
+
+
+		[Column] public int SubEstadoConsultaMedicaID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoConsultaMedicaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MovimientoFleje")]
+
+
+	[PrimaryKey("MovimientoFlejeID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MovimientoFleje : jlapcDB.Record<MovimientoFleje>  
+    {
+
+
+
+		[Column] public int MovimientoFlejeID { get; set; }
+
+
+
+
+
+		[Column] public int? MovimientoID { get; set; }
+
+
+
+
+
+		[Column] public decimal? Ancho { get; set; }
+
+
+
+
+
+		[Column] public decimal? Espesor { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadRollo { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadBobina { get; set; }
+
+
+
+
+
+		[Column] public int? AnchoBobina { get; set; }
+
+
+
+
+
+		[Column] public double? Scrap { get; set; }
+
+
+
+
+
+		[Column] public decimal? Proceso { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoConsumoPractica")]
+
+
+	[PrimaryKey("GrupoConsumoPracticaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoConsumoPractica : jlapcDB.Record<GrupoConsumoPractica>  
+    {
+
+
+
+		[Column] public int GrupoConsumoPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int? CapituloID { get; set; }
+
+
+
+
+
+		[Column] public int? PracticaID { get; set; }
+
+
+
+
+
+		[Column] public int NomencladorID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoRetencionIIBBBsAs")]
+
+
+	[PrimaryKey("GrupoRetencionIIBBBsAsID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class GrupoRetencionIIBBBsA : jlapcDB.Record<GrupoRetencionIIBBBsA>  
+    {
+
+
+
+		[Column] public int GrupoRetencionIIBBBsAsID { get; set; }
+
+
+
+
+
+		[Column] public float AlicuotaRetencion { get; set; }
+
+
+
+
+
+		[Column] public float AlicuotaPercepcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("AgendaVencimientosVencimiento")]
+
+
+	[PrimaryKey("AgendaVencimientosVencimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class AgendaVencimientosVencimiento : jlapcDB.Record<AgendaVencimientosVencimiento>  
+    {
+
+
+
+		[Column] public int AgendaVencimientosVencimientoID { get; set; }
+
+
+
+
+
+		[Column] public int AgendaVencimientosID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public string Periodo { get; set; }
+
+
+
+
+
+		[Column] public int TipoNumeroTerminacionID { get; set; }
+
+
+
+
+
+		[Column] public string DigitoVerificador { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Sector")]
+
+
+	[PrimaryKey("SectorID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Sector : jlapcDB.Record<Sector>  
+    {
+
+
+
+		[Column] public int SectorID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VarianteComparativoHCGraficoVariable")]
+
+
+	[PrimaryKey("VarianteComparativoHCGraficoVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VarianteComparativoHCGraficoVariable : jlapcDB.Record<VarianteComparativoHCGraficoVariable>  
+    {
+
+
+
+		[Column] public int VarianteComparativoHCGraficoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int VarianteComparativoHCGraficoID { get; set; }
+
+
+
+
+
+		[Column] public int VarianteComparativoHCVariableID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_MovimStock_ClaseMovimiento")]
+
+
+	[PrimaryKey("IFSAP_MovimStock_ClaseMovimientoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_MovimStock_ClaseMovimiento : jlapcDB.Record<IFSAP_MovimStock_ClaseMovimiento>  
+    {
+
+
+
+		[Column] public int IFSAP_MovimStock_ClaseMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PacienteCategoria")]
+
+
+	[PrimaryKey("PacienteCategoriaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PacienteCategorium : jlapcDB.Record<PacienteCategorium>  
+    {
+
+
+
+		[Column] public int PacienteCategoriaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Mes")]
+
+
+	[PrimaryKey("MesID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Me : jlapcDB.Record<Me>  
+    {
+
+
+
+		[Column] public int MesID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloTorneo")]
+
+
+	[PrimaryKey("PoloTorneoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloTorneo : jlapcDB.Record<PoloTorneo>  
+    {
+
+
+
+		[Column] public int PoloTorneoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Handicap { get; set; }
+
+
+
+	}
+
+    
+	[TableName("RED_CuentaCorriente")]
+
+
+	[PrimaryKey("RED_CuentaCorrienteID")]
+
+
+
+	[ExplicitColumns]
+    public partial class RED_CuentaCorriente : jlapcDB.Record<RED_CuentaCorriente>  
+    {
+
+
+
+		[Column] public int RED_CuentaCorrienteID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaID { get; set; }
+
+
+
+
+
+		[Column] public int? SucursalID { get; set; }
+
+
+
+
+
+		[Column] public byte TipoPeriodo { get; set; }
+
+
+
+
+
+		[Column] public DateTime InicioPeriodo { get; set; }
+
+
+
+
+
+		[Column] public decimal ImporteCuentaCorriente { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoProductoSucursal")]
+
+
+	[ExplicitColumns]
+    public partial class TipoProductoSucursal : jlapcDB.Record<TipoProductoSucursal>  
+    {
+
+
+
+		[Column] public int TipoProductoSucursalID { get; set; }
+
+
+
+
+
+		[Column] public int TipoProductoID { get; set; }
+
+
+
+
+
+		[Column] public int? SucursalID { get; set; }
+
+
+
+
+
+		[Column] public int DepositoID_Default { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Accidente")]
+
+
+	[PrimaryKey("AccidenteID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Accidente : jlapcDB.Record<Accidente>  
+    {
+
+
+
+		[Column] public int AccidenteID { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? DiagnosticoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public int? NroDenuncia { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoAdjunto")]
+
+
+	[PrimaryKey("TipoAdjuntoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoAdjunto : jlapcDB.Record<TipoAdjunto>  
+    {
+
+
+
+		[Column] public int TipoAdjuntoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoTipoAdjuntoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SubCuentaContable")]
+
+
+	[PrimaryKey("SubCuentaContableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SubCuentaContable : jlapcDB.Record<SubCuentaContable>  
+    {
+
+
+
+		[Column] public int SubCuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public int TipoSubcuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoCama")]
+
+
+	[PrimaryKey("EstadoCamaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EstadoCama : jlapcDB.Record<EstadoCama>  
+    {
+
+
+
+		[Column] public int EstadoCamaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TBL_SHOWCONTIG")]
+
+
+	[ExplicitColumns]
+    public partial class TBL_SHOWCONTIG : jlapcDB.Record<TBL_SHOWCONTIG>  
+    {
+
+
+
+		[Column] public string ObjectName { get; set; }
+
+
+
+
+
+		[Column] public int? ObjectId { get; set; }
+
+
+
+
+
+		[Column] public string IndexName { get; set; }
+
+
+
+
+
+		[Column] public int? IndexId { get; set; }
+
+
+
+
+
+		[Column] public int? Lvl { get; set; }
+
+
+
+
+
+		[Column] public int? CountPages { get; set; }
+
+
+
+
+
+		[Column] public int? CountRows { get; set; }
+
+
+
+
+
+		[Column] public int? MinRecSize { get; set; }
+
+
+
+
+
+		[Column] public int? MaxRecSize { get; set; }
+
+
+
+
+
+		[Column] public int? AvgRecSize { get; set; }
+
+
+
+
+
+		[Column] public int? ForRecCount { get; set; }
+
+
+
+
+
+		[Column] public int? Extents { get; set; }
+
+
+
+
+
+		[Column] public int? ExtentSwitches { get; set; }
+
+
+
+
+
+		[Column] public int? AvgFreeBytes { get; set; }
+
+
+
+
+
+		[Column] public int? AvgPageDensity { get; set; }
+
+
+
+
+
+		[Column] public decimal? ScanDensity { get; set; }
+
+
+
+
+
+		[Column] public int? BestCount { get; set; }
+
+
+
+
+
+		[Column] public int? ActualCount { get; set; }
+
+
+
+
+
+		[Column] public decimal? LogicalFrag { get; set; }
+
+
+
+
+
+		[Column] public decimal? ExtentFrag { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioHorario")]
+
+
+	[PrimaryKey("ConvenioHorarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioHorario : jlapcDB.Record<ConvenioHorario>  
+    {
+
+
+
+		[Column] public int ConvenioHorarioID { get; set; }
+
+
+
+
+
+		[Column] public int EmpleadoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaHasta { get; set; }
+
+
+
+
+
+		[Column] public int ModeloHorarioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoCompra")]
+
+
+	[PrimaryKey("EstadoCompraID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EstadoCompra : jlapcDB.Record<EstadoCompra>  
+    {
+
+
+
+		[Column] public int EstadoCompraID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PacienteAttachment")]
+
+
+	[PrimaryKey("PacienteAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PacienteAttachment : jlapcDB.Record<PacienteAttachment>  
+    {
+
+
+
+		[Column] public int PacienteAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_nombre { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_asBase64 { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VencimientoUsuarioAviso")]
+
+
+	[PrimaryKey("VencimientoUsuarioAvisoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VencimientoUsuarioAviso : jlapcDB.Record<VencimientoUsuarioAviso>  
+    {
+
+
+
+		[Column] public int VencimientoUsuarioAvisoID { get; set; }
+
+
+
+
+
+		[Column] public int VencimientoUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaAviso { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConsultaMedica")]
+
+
+	[PrimaryKey("ConsultaMedicaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConsultaMedica : jlapcDB.Record<ConsultaMedica>  
+    {
+
+
+
+		[Column] public int ConsultaMedicaID { get; set; }
+
+
+
+
+
+		[Column] public string Asunto { get; set; }
+
+
+
+
+
+		[Column] public int SubEstadoConsultaMedicaID { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_MovimStock_Almacen")]
+
+
+	[PrimaryKey("IFSAP_MovimStock_AlmacenID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_MovimStock_Almacen : jlapcDB.Record<IFSAP_MovimStock_Almacen>  
+    {
+
+
+
+		[Column] public int IFSAP_MovimStock_AlmacenID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloPosicion")]
+
+
+	[PrimaryKey("PoloPosicionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloPosicion : jlapcDB.Record<PoloPosicion>  
+    {
+
+
+
+		[Column] public int PoloPosicionID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ModalidadRetencionIIBB")]
+
+
+	[PrimaryKey("ModalidadRetencionIIBBID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ModalidadRetencionIIBB : jlapcDB.Record<ModalidadRetencionIIBB>  
+    {
+
+
+
+		[Column] public int ModalidadRetencionIIBBID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Explicativo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Transaccion")]
+
+
+	[PrimaryKey("TransaccionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Transaccion : jlapcDB.Record<Transaccion>  
+    {
+
+
+
+		[Column] public int TransaccionID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public byte GeneraConsumoAutomatico { get; set; }
+
+
+
+
+
+		[Column] public int? DepositoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public byte? OmiteStock { get; set; }
+
+
+
+
+
+		[Column] public byte? NoFacturable { get; set; }
+
+
+
+
+
+		[Column] public int? TransaccionID_Factura { get; set; }
+
+
+
+
+
+		[Column] public int? TransaccionID_Remito { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloPartidoCaballoSuplente")]
+
+
+	[PrimaryKey("PoloPartidoCaballoSuplenteID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloPartidoCaballoSuplente : jlapcDB.Record<PoloPartidoCaballoSuplente>  
+    {
+
+
+
+		[Column] public int PoloPartidoCaballoSuplenteID { get; set; }
+
+
+
+
+
+		[Column] public int PoloPartidoID { get; set; }
+
+
+
+
+
+		[Column] public int PoloPartidoJugadorID { get; set; }
+
+
+
+
+
+		[Column] public int? PoloCaballoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public bool CambioCorregido { get; set; }
+
+
+
+
+
+		[Column] public string MAC { get; set; }
+
+
+
+
+
+		[Column] public string ExternID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SalaRecurso")]
+
+
+	[PrimaryKey("SalaRecursoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SalaRecurso : jlapcDB.Record<SalaRecurso>  
+    {
+
+
+
+		[Column] public int SalaRecursoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("RequisitoriaCompra")]
+
+
+	[PrimaryKey("RequisitoriaCompraID")]
+
+
+
+	[ExplicitColumns]
+    public partial class RequisitoriaCompra : jlapcDB.Record<RequisitoriaCompra>  
+    {
+
+
+
+		[Column] public int RequisitoriaCompraID { get; set; }
+
+
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int SectorID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoCompraID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCResultadoAttachment")]
+
+
+	[PrimaryKey("HCResultadoAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCResultadoAttachment : jlapcDB.Record<HCResultadoAttachment>  
+    {
+
+
+
+		[Column] public int HCResultadoAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int HCResultadoID { get; set; }
+
+
+
+
+
+		[Column] public string NombreArchivo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Sistema")]
+
+
+	[PrimaryKey("IFSAP_SistemaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_Sistema : jlapcDB.Record<IFSAP_Sistema>  
+    {
+
+
+
+		[Column] public int IFSAP_SistemaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Consumo_CentroCosto")]
+
+
+	[PrimaryKey("IFSAP_Consumo_CentroCostoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_Consumo_CentroCosto : jlapcDB.Record<IFSAP_Consumo_CentroCosto>  
+    {
+
+
+
+		[Column] public int IFSAP_Consumo_CentroCostoID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public byte Vigencia { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioRolTipoValor")]
+
+
+	[PrimaryKey("ConvenioRolTipoValorID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioRolTipoValor : jlapcDB.Record<ConvenioRolTipoValor>  
+    {
+
+
+
+		[Column] public int ConvenioRolTipoValorID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoCuentaCuotas")]
+
+
+	[PrimaryKey("GrupoCuentaCuotasID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoCuentaCuota : jlapcDB.Record<GrupoCuentaCuota>  
+    {
+
+
+
+		[Column] public int GrupoCuentaCuotasID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public int Cantidad { get; set; }
+
+
+
+
+
+		[Column] public decimal Interes { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaProvinciaRetencionIIBB")]
+
+
+	[PrimaryKey("EmpresaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EmpresaProvinciaRetencionIIBB : jlapcDB.Record<EmpresaProvinciaRetencionIIBB>  
+    {
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public int ModalidadRetencionIIBBID { get; set; }
+
+
+
+
+
+		[Column] public string CodigoAgenteRetencion { get; set; }
+
+
+
+
+
+		[Column] public byte? OmitePercibirMismaJurisdiccion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaFormula")]
+
+
+	[PrimaryKey("OrdenManufacturaFormulaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaFormula : jlapcDB.Record<OrdenManufacturaFormula>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaFormulaID { get; set; }
+
+
+
+
+
+		[Column] public int OrdenManufacturaID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public float Cantidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ArchivoElectronicoDocumento")]
+
+
+	[PrimaryKey("ArchivoElectronicoDocumentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ArchivoElectronicoDocumento : jlapcDB.Record<ArchivoElectronicoDocumento>  
+    {
+
+
+
+		[Column] public int ArchivoElectronicoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int ArchivoElectronicoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Fecha { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaRecepcion { get; set; }
+
+
+
+
+
+		[Column] public string EnteCodigo { get; set; }
+
+
+
+
+
+		[Column] public string EnteDescripcion { get; set; }
+
+
+
+
+
+		[Column] public string Identificador { get; set; }
+
+
+
+
+
+		[Column] public string BiblioratoCodigo { get; set; }
+
+
+
+
+
+		[Column] public int? ArchivoElectronicoBiblioratoID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloSede")]
+
+
+	[PrimaryKey("PoloSedeID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloSede : jlapcDB.Record<PoloSede>  
+    {
+
+
+
+		[Column] public int PoloSedeID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("UnidadTiempo")]
+
+
+	[PrimaryKey("UnidadTiempoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class UnidadTiempo : jlapcDB.Record<UnidadTiempo>  
+    {
+
+
+
+		[Column] public int UnidadTiempoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Agenda")]
+
+
+	[PrimaryKey("AgendaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Agenda : jlapcDB.Record<Agenda>  
+    {
+
+
+
+		[Column] public int AgendaID { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Desde { get; set; }
+
+
+
+
+
+		[Column] public short Duracion { get; set; }
+
+
+
+
+
+		[Column] public byte Dinamica { get; set; }
+
+
+
+
+
+		[Column] public byte Bloqueado { get; set; }
+
+
+
+
+
+		[Column] public int? ConsultorioID { get; set; }
+
+
+
+
+
+		[Column] public int? BloqueAgendaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoSeleccion")]
+
+
+	[PrimaryKey("DocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoSeleccion : jlapcDB.Record<DocumentoSeleccion>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoRendicionCobranzas { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProductoTipoTexto")]
+
+
+	[PrimaryKey("ProductoTipoTextoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ProductoTipoTexto : jlapcDB.Record<ProductoTipoTexto>  
+    {
+
+
+
+		[Column] public int ProductoTipoTextoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_MovimStock_ClaseMovimiento_Sistema")]
+
+
+	[PrimaryKey("IFSAP_MovimStock_ClaseMovimiento_SistemaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_MovimStock_ClaseMovimiento_Sistema : jlapcDB.Record<IFSAP_MovimStock_ClaseMovimiento_Sistema>  
+    {
+
+
+
+		[Column] public int IFSAP_MovimStock_ClaseMovimiento_SistemaID { get; set; }
+
+
+
+
+
+		[Column] public int IFSAP_SistemaID { get; set; }
+
+
+
+
+
+		[Column] public int IFSAP_MovimStock_ClaseMovimientoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EvolucionesAccesoGrupoVarianteReporteador")]
+
+
+	[PrimaryKey("EvolucionesAccesoGrupoVarianteReportadorID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EvolucionesAccesoGrupoVarianteReporteador : jlapcDB.Record<EvolucionesAccesoGrupoVarianteReporteador>  
+    {
+
+
+
+		[Column] public int EvolucionesAccesoGrupoVarianteReportadorID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoVarianteReporteadorID { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloGPS")]
+
+
+	[PrimaryKey("PoloGPSID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloGP : jlapcDB.Record<PoloGP>  
+    {
+
+
+
+		[Column] public int PoloGPSID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string MAC { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoTratamiento")]
+
+
+	[PrimaryKey("EstadoTratamientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EstadoTratamiento : jlapcDB.Record<EstadoTratamiento>  
+    {
+
+
+
+		[Column] public int EstadoTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+
+
+		[Column] public byte EsLaboratorio { get; set; }
+
+
+
+	}
+
+    
+	[TableName("FacturaElectronicaMotivo")]
+
+
+	[PrimaryKey("FacturaElectronicaMotivoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class FacturaElectronicaMotivo : jlapcDB.Record<FacturaElectronicaMotivo>  
+    {
+
+
+
+		[Column] public int FacturaElectronicaMotivoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CirugiaAttachment")]
+
+
+	[PrimaryKey("CirugiaAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CirugiaAttachment : jlapcDB.Record<CirugiaAttachment>  
+    {
+
+
+
+		[Column] public int CirugiaAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int CirugiaID { get; set; }
+
+
+
+
+
+		[Column] public string NombreArchivo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstablecimientoTipoDocumento")]
+
+
+	[PrimaryKey("EstablecimientoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EstablecimientoTipoDocumento : jlapcDB.Record<EstablecimientoTipoDocumento>  
+    {
+
+
+
+		[Column] public int EstablecimientoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int? FacturaSerialID { get; set; }
+
+
+
+
+
+		[Column] public byte EsFacturaElectronica { get; set; }
+
+
+
+
+
+		[Column] public byte EsImpresoraFiscal { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CentroCostos")]
+
+
+	[PrimaryKey("CentroCostosID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CentroCosto : jlapcDB.Record<CentroCosto>  
+    {
+
+
+
+		[Column] public int CentroCostosID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int PlanContableID { get; set; }
+
+
+
+
+
+		[Column] public int TipoCuentaCorrienteID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioRol")]
+
+
+	[PrimaryKey("ConvenioRolID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioRol : jlapcDB.Record<ConvenioRol>  
+    {
+
+
+
+		[Column] public int ConvenioRolID { get; set; }
+
+
+
+
+
+		[Column] public int ConvenioPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int RolID { get; set; }
+
+
+
+
+
+		[Column] public int ConvenioRolTipoValorID { get; set; }
+
+
+
+
+
+		[Column] public decimal Valor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoTarjeta")]
+
+
+	[PrimaryKey("DocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoTarjetum : jlapcDB.Record<DocumentoTarjetum>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoCuentaCuotasID { get; set; }
+
+
+
+
+
+		[Column] public decimal Importe { get; set; }
+
+
+
+
+
+		[Column] public decimal ImporteTotal { get; set; }
+
+
+
+
+
+		[Column] public int MovimientoID { get; set; }
+
+
+
+
+
+		[Column] public decimal ImporteDivisa { get; set; }
+
+
+
+
+
+		[Column] public int Cantidad { get; set; }
+
+
+
+
+
+		[Column] public decimal Interes { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioModuloGModulo")]
+
+
+	[PrimaryKey("ConvenioModuloGModuloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioModuloGModulo : jlapcDB.Record<ConvenioModuloGModulo>  
+    {
+
+
+
+		[Column] public int ConvenioModuloGModuloID { get; set; }
+
+
+
+
+
+		[Column] public int ConvenioModuloID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoModuloID { get; set; }
+
+
+
+
+
+		[Column] public int? ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? Limite { get; set; }
+
+
+
+
+
+		[Column] public byte Inclusion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EscalaRetencionGanancias")]
+
+
+	[PrimaryKey("EscalaRetencionGananciasID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EscalaRetencionGanancia : jlapcDB.Record<EscalaRetencionGanancia>  
+    {
+
+
+
+		[Column] public int EscalaRetencionGananciasID { get; set; }
+
+
+
+
+
+		[Column] public int CategoriaGananciaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime VigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public decimal Minimo { get; set; }
+
+
+
+
+
+		[Column] public decimal Fijo { get; set; }
+
+
+
+
+
+		[Column] public decimal Porcentaje { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaHasta { get; set; }
+
+
+
+
+
+		[Column] public decimal? MinimoNoImponible { get; set; }
+
+
+
+
+
+		[Column] public decimal? RetencionMinima { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Movimiento")]
+
+
+	[PrimaryKey("MovimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Movimiento : jlapcDB.Record<Movimiento>  
+    {
+
+
+
+		[Column] public int MovimientoID { get; set; }
+
+
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int? FacturaID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public decimal Importe { get; set; }
+
+
+
+
+
+		[Column] public float Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? TurnoPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoImpuestoID { get; set; }
+
+
+
+
+
+		[Column] public int? ProductoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public int? CentroCostosID { get; set; }
+
+
+
+
+
+		[Column] public byte IvaIncluido { get; set; }
+
+
+
+
+
+		[Column] public decimal? ImporteIvaIncluido { get; set; }
+
+
+
+
+
+		[Column] public byte EsRedondeo { get; set; }
+
+
+
+
+
+		[Column] public decimal? ImporteBruto { get; set; }
+
+
+
+
+
+		[Column] public decimal? Descuento { get; set; }
+
+
+
+
+
+		[Column] public int? SubCuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public int? MovimientoID_Aplicacion { get; set; }
+
+
+
+
+
+		[Column] public byte? EsDescuentoGlobal { get; set; }
+
+
+
+
+
+		[Column] public string NumeroRenglonLicitacion { get; set; }
+
+
+
+
+
+		[Column] public short? Orden { get; set; }
+
+
+
+
+
+		[Column] public int? DocumentoVencimientoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaPrevistaEntrega { get; set; }
+
+
+
+
+
+		[Column] public decimal? ImporteBrutoEnDivisaReferencia { get; set; }
+
+
+
+
+
+		[Column] public bool? SaldoPendienteCancelado { get; set; }
+
+
+
+
+
+		[Column] public float? CantidadEnUnidadDeEmpaque { get; set; }
+
+
+
+
+
+		[Column] public int? UnidadMedidaID_Empaque { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoVehiculo")]
+
+
+	[PrimaryKey("TipoVehiculoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoVehiculo : jlapcDB.Record<TipoVehiculo>  
+    {
+
+
+
+		[Column] public int TipoVehiculoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Banco")]
+
+
+	[PrimaryKey("BancoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Banco : jlapcDB.Record<Banco>  
+    {
+
+
+
+		[Column] public int BancoID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoConsultaMedicaMensaje")]
+
+
+	[PrimaryKey("TipoConsultaMedicaMensajeID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoConsultaMedicaMensaje : jlapcDB.Record<TipoConsultaMedicaMensaje>  
+    {
+
+
+
+		[Column] public int TipoConsultaMedicaMensajeID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProductoTexto")]
+
+
+	[PrimaryKey("ProductoTextoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ProductoTexto : jlapcDB.Record<ProductoTexto>  
+    {
+
+
+
+		[Column] public int ProductoTextoID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoTipoTextoID { get; set; }
+
+
+
+
+
+		[Column] public string Texto { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PrestadorConsumo")]
+
+
+	[PrimaryKey("PrestadorConsumoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PrestadorConsumo : jlapcDB.Record<PrestadorConsumo>  
+    {
+
+
+
+		[Column] public int PrestadorConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int? PacienteID { get; set; }
+
+
+
+
+
+		[Column] public string NumAfiliado { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID_Efector { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaID_Prestador { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public short? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoRechazoTurnoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaHora { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_Prescriptor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_WindowsCommand")]
+
+
+	[PrimaryKey("WindowsCommandID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SYS_WindowsCommand : jlapcDB.Record<SYS_WindowsCommand>  
+    {
+
+
+
+		[Column] public int WindowsCommandID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string WindowsCommandPath { get; set; }
+
+
+
+
+
+		[Column] public string WindowsCommand { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaLoteProduccion")]
+
+
+	[PrimaryKey("OrdenManufacturaLoteProduccionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaLoteProduccion : jlapcDB.Record<OrdenManufacturaLoteProduccion>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaLoteProduccionID { get; set; }
+
+
+
+
+
+		[Column] public int OrdenManufacturaID { get; set; }
+
+
+
+
+
+		[Column] public float Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int Numero { get; set; }
+
+
+
+
+
+		[Column] public int? OrdenManufacturaFormulaLoteProductoID { get; set; }
+
+
+
+
+
+		[Column] public int? OrdenManufacturaMovimientoNotaPedidoID { get; set; }
+
+
+
+
+
+		[Column] public decimal? CantidadProducida { get; set; }
+
+
+
+
+
+		[Column] public int? LoteProductoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ArchivoElectronicoRemitente")]
+
+
+	[PrimaryKey("ArchivoElectronicoRemitenteID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ArchivoElectronicoRemitente : jlapcDB.Record<ArchivoElectronicoRemitente>  
+    {
+
+
+
+		[Column] public int ArchivoElectronicoRemitenteID { get; set; }
+
+
+
+
+
+		[Column] public int ArchivoElectronicoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public string Email { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloClub")]
+
+
+	[PrimaryKey("PoloClubID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloClub : jlapcDB.Record<PoloClub>  
+    {
+
+
+
+		[Column] public int PoloClubID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("RequisitoriaCompraProducto")]
+
+
+	[PrimaryKey("RequisitoriaCompraProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class RequisitoriaCompraProducto : jlapcDB.Record<RequisitoriaCompraProducto>  
+    {
+
+
+
+		[Column] public int RequisitoriaCompraProductoID { get; set; }
+
+
+
+
+
+		[Column] public int RequisitoriaCompraID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public int CantidadPedida { get; set; }
+
+
+
+
+
+		[Column] public int CantidadRecibida { get; set; }
+
+
+
+
+
+		[Column] public int? Estado { get; set; }
+
+
+
+
+
+		[Column] public int? DocumentoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoFacturaElectronica")]
+
+
+	[PrimaryKey("DocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoFacturaElectronica : jlapcDB.Record<DocumentoFacturaElectronica>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int ID_Lote { get; set; }
+
+
+
+
+
+		[Column] public string CAE { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VencimientoCAE { get; set; }
+
+
+
+
+
+		[Column] public string Resultado { get; set; }
+
+
+
+
+
+		[Column] public int? FacturaElectronicaMotivoID { get; set; }
+
+
+
+
+
+		[Column] public int? ErrorCode { get; set; }
+
+
+
+
+
+		[Column] public string ErrorMessage { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoRetencionIIBB")]
+
+
+	[PrimaryKey("DocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoRetencionIIBB : jlapcDB.Record<DocumentoRetencionIIBB>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int? ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public int? ModalidadRetencionIIBBID { get; set; }
+
+
+
+
+
+		[Column] public float? Alicuota { get; set; }
+
+
+
+
+
+		[Column] public decimal? BaseImponible { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionRegimenRetencion { get; set; }
+
+
+
+
+
+		[Column] public string CodigoDeNorma { get; set; }
+
+
+
+
+
+		[Column] public string ProvinciaDescripcion { get; set; }
+
+
+
+
+
+		[Column] public decimal? Importe { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioProfesionalGastos")]
+
+
+	[PrimaryKey("ConvenioProfesionalGastosID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioProfesionalGasto : jlapcDB.Record<ConvenioProfesionalGasto>  
+    {
+
+
+
+		[Column] public int ConvenioProfesionalGastosID { get; set; }
+
+
+
+
+
+		[Column] public int? ConvenioProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? ConvenioProfesionalModuloID { get; set; }
+
+
+
+
+
+		[Column] public int ConvenioProfesionalTipoGastosID { get; set; }
+
+
+
+
+
+		[Column] public int? RolID { get; set; }
+
+
+
+
+
+		[Column] public decimal? MontoFijo { get; set; }
+
+
+
+
+
+		[Column] public float? Porcentaje { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoPractica")]
+
+
+	[PrimaryKey("GrupoPracticaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoPractica : jlapcDB.Record<GrupoPractica>  
+    {
+
+
+
+		[Column] public int GrupoPracticaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaContableID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConsultaMedicaMensaje")]
+
+
+	[PrimaryKey("ConsultaMedicaMensajeID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConsultaMedicaMensaje : jlapcDB.Record<ConsultaMedicaMensaje>  
+    {
+
+
+
+		[Column] public int ConsultaMedicaMensajeID { get; set; }
+
+
+
+
+
+		[Column] public int ConsultaMedicaID { get; set; }
+
+
+
+
+
+		[Column] public string Mensaje { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public int TipoConsultaMedicaMensajeID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Sala")]
+
+
+	[PrimaryKey("SalaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Sala : jlapcDB.Record<Sala>  
+    {
+
+
+
+		[Column] public int SalaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? SalaID_Contenedora { get; set; }
+
+
+
+
+
+		[Column] public int SucursalSectorID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_MovimStock_TipoProveedor")]
+
+
+	[PrimaryKey("IFSAP_MovimStock_TipoProveedorID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_MovimStock_TipoProveedor : jlapcDB.Record<IFSAP_MovimStock_TipoProveedor>  
+    {
+
+
+
+		[Column] public int IFSAP_MovimStock_TipoProveedorID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Asiento")]
+
+
+	[PrimaryKey("AsientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Asiento : jlapcDB.Record<Asiento>  
+    {
+
+
+
+		[Column] public int AsientoID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int Numero { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int TipoOrigenID { get; set; }
+
+
+
+
+
+		[Column] public int? OrigenID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoID { get; set; }
+
+
+
+
+
+		[Column] public int? ClasificacionAsientoID { get; set; }
+
+
+
+
+
+		[Column] public int Neutro { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PacientePlan")]
+
+
+	[PrimaryKey("PacientePlanID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PacientePlan : jlapcDB.Record<PacientePlan>  
+    {
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int PlanID { get; set; }
+
+
+
+
+
+		[Column] public string NumAfiliado { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public byte Predeterminado { get; set; }
+
+
+
+
+
+		[Column] public int PacientePlanID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Desde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Hasta { get; set; }
+
+
+
+
+
+		[Column] public int? PlanParentescoID { get; set; }
+
+
+
+
+
+		[Column] public string Empresa { get; set; }
+
+
+
+
+
+		[Column] public string MotivoBaja { get; set; }
+
+
+
+
+
+		[Column] public int? MetodoPagoId { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoCheque")]
+
+
+	[PrimaryKey("DocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoCheque : jlapcDB.Record<DocumentoCheque>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public string CUIT { get; set; }
+
+
+
+
+
+		[Column] public string RazonSocial { get; set; }
+
+
+
+
+
+		[Column] public string Sucursal { get; set; }
+
+
+
+
+
+		[Column] public string Banco { get; set; }
+
+
+
+
+
+		[Column] public int? BancoID { get; set; }
+
+
+
+
+
+		[Column] public int? NumeroDeposito { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_Ente { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ModuloEspecialidad")]
+
+
+	[PrimaryKey("ModuloEspecialidadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ModuloEspecialidad : jlapcDB.Record<ModuloEspecialidad>  
+    {
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public int? CentroCostosID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloEspecialidadID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("UsuarioSistema")]
+
+
+	[PrimaryKey("UsuarioSistemaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class UsuarioSistema : jlapcDB.Record<UsuarioSistema>  
+    {
+
+
+
+		[Column] public int UsuarioSistemaID { get; set; }
+
+
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public string Sistema { get; set; }
+
+
+
+
+
+		[Column] public string Usuario { get; set; }
+
+
+
+
+
+		[Column] public string Password { get; set; }
+
+
+
+
+
+		[Column] public int? Trxid { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionPerfil { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ContactoVencimiento")]
+
+
+	[PrimaryKey("ContactoVencimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ContactoVencimiento : jlapcDB.Record<ContactoVencimiento>  
+    {
+
+
+
+		[Column] public int ContactoVencimientoID { get; set; }
+
+
+
+
+
+		[Column] public int ContactoID { get; set; }
+
+
+
+
+
+		[Column] public int VencimientoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaLoteProduccionHojaMetalica")]
+
+
+	[PrimaryKey("OrdenManufacturaLoteProduccionID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaLoteProduccionHojaMetalica : jlapcDB.Record<OrdenManufacturaLoteProduccionHojaMetalica>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaLoteProduccionID { get; set; }
+
+
+
+
+
+		[Column] public int CantidadHojas { get; set; }
+
+
+
+
+
+		[Column] public float Largo { get; set; }
+
+
+
+
+
+		[Column] public float? ToleranciaPositiva { get; set; }
+
+
+
+
+
+		[Column] public float? ToleranciaNegativo { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadPiezas { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EspecialidadSygma")]
+
+
+	[PrimaryKey("EspecialidadID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EspecialidadSygma : jlapcDB.Record<EspecialidadSygma>  
+    {
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadSygmaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ArchivoElectronicoDocumentoAttachment")]
+
+
+	[PrimaryKey("ArchivoElectronicoDocumentoAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ArchivoElectronicoDocumentoAttachment : jlapcDB.Record<ArchivoElectronicoDocumentoAttachment>  
+    {
+
+
+
+		[Column] public int ArchivoElectronicoDocumentoAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int ArchivoElectronicoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_nombre { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ArchivoElectronicoBiblioratoPermiso")]
+
+
+	[PrimaryKey("ArchivoElectronicoBiblioratoPermisoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ArchivoElectronicoBiblioratoPermiso : jlapcDB.Record<ArchivoElectronicoBiblioratoPermiso>  
+    {
+
+
+
+		[Column] public int ArchivoElectronicoBiblioratoPermisoID { get; set; }
+
+
+
+
+
+		[Column] public int BiblioratoID { get; set; }
+
+
+
+
+
+		[Column] public int? PerfilID { get; set; }
+
+
+
+
+
+		[Column] public int? UsuarioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("I18NLanguage")]
+
+
+	[PrimaryKey("I18NLanguageID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class I18NLanguage : jlapcDB.Record<I18NLanguage>  
+    {
+
+
+
+		[Column] public int I18NLanguageID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MailerCampania")]
+
+
+	[PrimaryKey("MailerCampaniaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MailerCampanium : jlapcDB.Record<MailerCampanium>  
+    {
+
+
+
+		[Column] public int MailerCampaniaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string MailAsunto { get; set; }
+
+
+
+
+
+		[Column] public string MailCuerpo { get; set; }
+
+
+
+
+
+		[Column] public string MailCuerpo_Pie { get; set; }
+
+
+
+
+
+		[Column] public byte Activa { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Alta { get; set; }
+
+
+
+
+
+		[Column] public int MailerCuentaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaInicio { get; set; }
+
+
+
+
+
+		[Column] public int? TipoCampaniaID { get; set; }
+
+
+
+
+
+		[Column] public int? MailerplantillaID { get; set; }
+
+
+
+
+
+		[Column] public int? MailerCampaniaVelocidadID { get; set; }
+
+
+
+
+
+		[Column] public int MailerContratoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CondicionIva")]
+
+
+	[PrimaryKey("CondicionIvaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CondicionIva : jlapcDB.Record<CondicionIva>  
+    {
+
+
+
+		[Column] public int CondicionIvaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_MovimStock_CodigoVerifarma")]
+
+
+	[PrimaryKey("IFSAP_MovimStock_CodigoVerifarmaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_MovimStock_CodigoVerifarma : jlapcDB.Record<IFSAP_MovimStock_CodigoVerifarma>  
+    {
+
+
+
+		[Column] public int IFSAP_MovimStock_CodigoVerifarmaID { get; set; }
+
+
+
+
+
+		[Column] public int Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Origen { get; set; }
+
+
+
+
+
+		[Column] public string Destino { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TiposCampania")]
+
+
+	[PrimaryKey("TipoCampaniaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TiposCampanium : jlapcDB.Record<TiposCampanium>  
+    {
+
+
+
+		[Column] public int TipoCampaniaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PlanContable")]
+
+
+	[PrimaryKey("PlanContableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PlanContable : jlapcDB.Record<PlanContable>  
+    {
+
+
+
+		[Column] public int PlanContableID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Perfil")]
+
+
+	[PrimaryKey("PerfilID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Perfil : jlapcDB.Record<Perfil>  
+    {
+
+
+
+		[Column] public int PerfilID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoUsuarioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EnteExterno")]
+
+
+	[PrimaryKey("EnteExternoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EnteExterno : jlapcDB.Record<EnteExterno>  
+    {
+
+
+
+		[Column] public int EnteExternoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoProducto")]
+
+
+	[PrimaryKey("TipoProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoProducto : jlapcDB.Record<TipoProducto>  
+    {
+
+
+
+		[Column] public int TipoProductoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int? DepositoID_Default { get; set; }
+
+
+
+
+
+		[Column] public int CongelaPrecio { get; set; }
+
+
+
+
+
+		[Column] public int? TipoExtensionProductoID { get; set; }
+
+
+
+
+
+		[Column] public byte? AdministraLote { get; set; }
+
+
+
+
+
+		[Column] public int? TipoProductoEstadoCentroCostosID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SubEstadoContacto")]
+
+
+	[PrimaryKey("SubEstadoContactoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SubEstadoContacto : jlapcDB.Record<SubEstadoContacto>  
+    {
+
+
+
+		[Column] public int SubEstadoContactoID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoContactoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? TipoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("AsientoRenglon")]
+
+
+	[PrimaryKey("AsientoRenglonID")]
+
+
+
+	[ExplicitColumns]
+    public partial class AsientoRenglon : jlapcDB.Record<AsientoRenglon>  
+    {
+
+
+
+		[Column] public int AsientoRenglonID { get; set; }
+
+
+
+
+
+		[Column] public int AsientoID { get; set; }
+
+
+
+
+
+		[Column] public int CuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public int? SubcuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public int? CentroCostosID { get; set; }
+
+
+
+
+
+		[Column] public byte Columna { get; set; }
+
+
+
+
+
+		[Column] public decimal Importe { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public int? TipoCuentaContableID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConfiguracionRetencionIIBB")]
+
+
+	[PrimaryKey("ConfiguracionRetencionIIBBID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConfiguracionRetencionIIBB : jlapcDB.Record<ConfiguracionRetencionIIBB>  
+    {
+
+
+
+		[Column] public int ConfiguracionRetencionIIBBID { get; set; }
+
+
+
+
+
+		[Column] public int ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public int ModalidadRetencionIIBBID { get; set; }
+
+
+
+
+
+		[Column] public DateTime VigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaHasta { get; set; }
+
+
+
+
+
+		[Column] public decimal? RetencionMinima { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoOrdenTrabajo")]
+
+
+	[PrimaryKey("DocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoOrdenTrabajo : jlapcDB.Record<DocumentoOrdenTrabajo>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int OrdenTrabajoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoPaciente")]
+
+
+	[PrimaryKey("DocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoPaciente : jlapcDB.Record<DocumentoPaciente>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public string NumAfiliado { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? PrestadorID { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia { get; set; }
+
+
+
+	}
+
+    
+	[TableName("LoteCrioRecipiente")]
+
+
+	[PrimaryKey("LoteCrioRecipienteID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class LoteCrioRecipiente : jlapcDB.Record<LoteCrioRecipiente>  
+    {
+
+
+
+		[Column] public int LoteCrioRecipienteID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCEvolucion")]
+
+
+	[PrimaryKey("HCEvolucionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCEvolucion : jlapcDB.Record<HCEvolucion>  
+    {
+
+
+
+		[Column] public int HCEvolucionID { get; set; }
+
+
+
+
+
+		[Column] public int? PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public string UsuarioAlta { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaAlta { get; set; }
+
+
+
+
+
+		[Column] public string TextoHCEvolucion { get; set; }
+
+
+
+
+
+		[Column] public int? HCFedeErratasID { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoConsultaID { get; set; }
+
+
+
+
+
+		[Column] public byte Cerrado { get; set; }
+
+
+
+
+
+		[Column] public int? AgendaID { get; set; }
+
+
+
+
+
+		[Column] public int? Variable_NroProtocolo { get; set; }
+
+
+
+
+
+		[Column] public int? NroProtocolo { get; set; }
+
+
+
+
+
+		[Column] public int? HCTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public byte? EsIndicacionMedica { get; set; }
+
+
+
+
+
+		[Column] public int? SucursalID { get; set; }
+
+
+
+
+
+		[Column] public byte DesdeEnfermeriaTurno { get; set; }
+
+
+
+	}
+
+    
+	[TableName("FiltroFijo")]
+
+
+	[PrimaryKey("FiltroFijoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class FiltroFijo : jlapcDB.Record<FiltroFijo>  
+    {
+
+
+
+		[Column] public int FiltroFijoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaAutorizacionWSAA")]
+
+
+	[PrimaryKey("EmpresaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EmpresaAutorizacionWSAA : jlapcDB.Record<EmpresaAutorizacionWSAA>  
+    {
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string Token { get; set; }
+
+
+
+
+
+		[Column] public string Sign { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public int? UltimoNumeroLote { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_Elemento")]
+
+
+	[PrimaryKey("ElementoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_Elemento : jlapcDB.Record<SYS_Elemento>  
+    {
+
+
+
+		[Column] public int ElementoID { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public int TipoElementoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoDeHorario")]
+
+
+	[PrimaryKey("TipoDeHorarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoDeHorario : jlapcDB.Record<TipoDeHorario>  
+    {
+
+
+
+		[Column] public int TipoDeHorarioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_MovimStock_MotivoMovimiento")]
+
+
+	[PrimaryKey("IFSAP_MovimStock_MotivoMovimientoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_MovimStock_MotivoMovimiento : jlapcDB.Record<IFSAP_MovimStock_MotivoMovimiento>  
+    {
+
+
+
+		[Column] public int IFSAP_MovimStock_MotivoMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("UsuarioPerfilArbol_Excepciones")]
+
+
+	[PrimaryKey("UsuarioPerfilArbol_ExcepcionesID")]
+
+
+
+	[ExplicitColumns]
+    public partial class UsuarioPerfilArbol_Excepcione : jlapcDB.Record<UsuarioPerfilArbol_Excepcione>  
+    {
+
+
+
+		[Column] public int UsuarioPerfilArbol_ExcepcionesID { get; set; }
+
+
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int PerfilArbolID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaHojaMetalica")]
+
+
+	[PrimaryKey("OrdenManufacturaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaHojaMetalica : jlapcDB.Record<OrdenManufacturaHojaMetalica>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaID { get; set; }
+
+
+
+
+
+		[Column] public float? Ancho { get; set; }
+
+
+
+
+
+		[Column] public float Espesor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_AuditoriaObjeto")]
+
+
+	[PrimaryKey("AuditoriaObjetoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_AuditoriaObjeto : jlapcDB.Record<SYS_AuditoriaObjeto>  
+    {
+
+
+
+		[Column] public string AuditoriaObjetoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionLaboratorio")]
+
+
+	[PrimaryKey("HomologacionLaboratorioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HomologacionLaboratorio : jlapcDB.Record<HomologacionLaboratorio>  
+    {
+
+
+
+		[Column] public int HomologacionLaboratorioID { get; set; }
+
+
+
+
+
+		[Column] public int EnteExternoID { get; set; }
+
+
+
+
+
+		[Column] public int LaboratorioID { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionHomologacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ActividadAFIP")]
+
+
+	[PrimaryKey("ActividadAFIPID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ActividadAFIP : jlapcDB.Record<ActividadAFIP>  
+    {
+
+
+
+		[Column] public int ActividadAFIPID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string CodigoRentas { get; set; }
+
+
+
+	}
+
+    
+	[TableName("I18NCountry")]
+
+
+	[PrimaryKey("I18NCountryID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class I18NCountry : jlapcDB.Record<I18NCountry>  
+    {
+
+
+
+		[Column] public int I18NCountryID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoLiquidacionSueldos")]
+
+
+	[PrimaryKey("GrupoLiquidacionSueldosID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoLiquidacionSueldo : jlapcDB.Record<GrupoLiquidacionSueldo>  
+    {
+
+
+
+		[Column] public int GrupoLiquidacionSueldosID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Pelicula")]
+
+
+	[ExplicitColumns]
+    public partial class Pelicula : jlapcDB.Record<Pelicula>  
+    {
+
+
+
+		[Column] public int? ID { get; set; }
+
+
+
+
+
+		[Column] public string nombre { get; set; }
+
+
+
+
+
+		[Column] public string descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CirugiaPracticaCirugiaProfesional")]
+
+
+	[PrimaryKey("CirugiaPracticaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CirugiaPracticaCirugiaProfesional : jlapcDB.Record<CirugiaPracticaCirugiaProfesional>  
+    {
+
+
+
+		[Column] public int CirugiaPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public int RolID { get; set; }
+
+
+
+
+
+		[Column] public int CuotaParteDeLiquidacionAProfesionalesID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CierreCajaFisica")]
+
+
+	[PrimaryKey("CierreCajaFisicaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CierreCajaFisica : jlapcDB.Record<CierreCajaFisica>  
+    {
+
+
+
+		[Column] public int CierreCajaFisicaID { get; set; }
+
+
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Fecha { get; set; }
+
+
+
+
+
+		[Column] public string Referencia { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TCuentaTDocumento")]
+
+
+	[PrimaryKey("TipoCuentaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TCuentaTDocumento : jlapcDB.Record<TCuentaTDocumento>  
+    {
+
+
+
+		[Column] public int TipoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public int TipoDocumentoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VencimientoContacto")]
+
+
+	[PrimaryKey("VencimientoContactoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VencimientoContacto : jlapcDB.Record<VencimientoContacto>  
+    {
+
+
+
+		[Column] public int VencimientoContactoID { get; set; }
+
+
+
+
+
+		[Column] public int VencimientoID { get; set; }
+
+
+
+
+
+		[Column] public int ContactoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("UsuarioGrupo")]
+
+
+	[PrimaryKey("UsuarioGrupoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class UsuarioGrupo : jlapcDB.Record<UsuarioGrupo>  
+    {
+
+
+
+		[Column] public int UsuarioGrupoID { get; set; }
+
+
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int PerfilID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Categoria")]
+
+
+	[PrimaryKey("CategoriaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Categorium : jlapcDB.Record<Categorium>  
+    {
+
+
+
+		[Column] public int CategoriaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoVencimiento")]
+
+
+	[PrimaryKey("TipoVencimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoVencimiento : jlapcDB.Record<TipoVencimiento>  
+    {
+
+
+
+		[Column] public int TipoVencimientoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoTipoVencimientoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MailerDireccion")]
+
+
+	[PrimaryKey("MailerDireccionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MailerDireccion : jlapcDB.Record<MailerDireccion>  
+    {
+
+
+
+		[Column] public int MailerDireccionID { get; set; }
+
+
+
+
+
+		[Column] public int MailerCampaniaID { get; set; }
+
+
+
+
+
+		[Column] public string NombreDestinatario { get; set; }
+
+
+
+
+
+		[Column] public string email { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaEnviado { get; set; }
+
+
+
+
+
+		[Column] public byte NoEnviar { get; set; }
+
+
+
+
+
+		[Column] public string MensajeRecibido { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaMensajeRecibido { get; set; }
+
+
+
+
+
+		[Column] public string MensajeLeido { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaMensajeLeido { get; set; }
+
+
+
+
+
+		[Column] public string Campo1 { get; set; }
+
+
+
+
+
+		[Column] public string Campo2 { get; set; }
+
+
+
+
+
+		[Column] public string Campo3 { get; set; }
+
+
+
+
+
+		[Column] public string Campo4 { get; set; }
+
+
+
+
+
+		[Column] public string Campo5 { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaEnviar { get; set; }
+
+
+
+
+
+		[Column] public byte? EstadoBloqueo { get; set; }
+
+
+
+
+
+		[Column] public string ExternID { get; set; }
+
+
+
+
+
+		[Column] public string Campo6 { get; set; }
+
+
+
+
+
+		[Column] public string Campo7 { get; set; }
+
+
+
+
+
+		[Column] public string Campo8 { get; set; }
+
+
+
+
+
+		[Column] public string Campo9 { get; set; }
+
+
+
+
+
+		[Column] public string Campo10 { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaCancelacionEnvio { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaEnviarDesdeHora { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaEnviarHastaHora { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoSeleccion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TriggerCRM")]
+
+
+	[PrimaryKey("TriggerCRMID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TriggerCRM : jlapcDB.Record<TriggerCRM>  
+    {
+
+
+
+		[Column] public int TriggerCRMID { get; set; }
+
+
+
+
+
+		[Column] public int? PracticaID { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public string Asunto { get; set; }
+
+
+
+
+
+		[Column] public int? TemaID { get; set; }
+
+
+
+
+
+		[Column] public int? Evento { get; set; }
+
+
+
+
+
+		[Column] public byte? Solo1ravez { get; set; }
+
+
+
+
+
+		[Column] public int Dias { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaVigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaVigenciaHasta { get; set; }
+
+
+
+
+
+		[Column] public int? AvisoID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int? ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoConsumo { get; set; }
+
+
+
+
+
+		[Column] public byte? EnlazadoAFacetaComercial { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_Control")]
+
+
+	[PrimaryKey("ControlID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_Control : jlapcDB.Record<SYS_Control>  
+    {
+
+
+
+		[Column] public int ControlID { get; set; }
+
+
+
+
+
+		[Column] public int TipoControlID { get; set; }
+
+
+
+
+
+		[Column] public int PantallaID { get; set; }
+
+
+
+
+
+		[Column] public int? DependenciaID { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public string CaptionSP { get; set; }
+
+
+
+
+
+		[Column] public string Link { get; set; }
+
+
+
+
+
+		[Column] public short? Orden { get; set; }
+
+
+
+
+
+		[Column] public string Width { get; set; }
+
+
+
+
+
+		[Column] public string HAlign { get; set; }
+
+
+
+
+
+		[Column] public string DataFormat { get; set; }
+
+
+
+
+
+		[Column] public string WhenNull { get; set; }
+
+
+
+
+
+		[Column] public int? I18NID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioModulo")]
+
+
+	[PrimaryKey("ConvenioModuloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioModulo : jlapcDB.Record<ConvenioModulo>  
+    {
+
+
+
+		[Column] public int ConvenioModuloID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public int? ModuloID { get; set; }
+
+
+
+
+
+		[Column] public string HomologacionCod { get; set; }
+
+
+
+
+
+		[Column] public string HomologacionDesc { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaVigencia { get; set; }
+
+
+
+
+
+		[Column] public byte Fijo { get; set; }
+
+
+
+
+
+		[Column] public decimal Honorarios { get; set; }
+
+
+
+
+
+		[Column] public decimal Gastos { get; set; }
+
+
+
+
+
+		[Column] public byte FijoCopago { get; set; }
+
+
+
+
+
+		[Column] public int? FinanciadorEmpresaID { get; set; }
+
+
+
+
+
+		[Column] public decimal HonorariosCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal GastosCopago { get; set; }
+
+
+
+
+
+		[Column] public byte RequiereAutorizacion { get; set; }
+
+
+
+
+
+		[Column] public float? PorcentajeResultado { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionPorcentajeResultado { get; set; }
+
+
+
+
+
+		[Column] public int TipoImpuestoID { get; set; }
+
+
+
+
+
+		[Column] public int RequierePresupuesto { get; set; }
+
+
+
+
+
+		[Column] public byte Convenida { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_MovimStock_Relacion_CodigoVerifarma")]
+
+
+	[PrimaryKey("IFSAP_MovimStock_Relacion_CodigoVerifarmaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_MovimStock_Relacion_CodigoVerifarma : jlapcDB.Record<IFSAP_MovimStock_Relacion_CodigoVerifarma>  
+    {
+
+
+
+		[Column] public int IFSAP_MovimStock_Relacion_CodigoVerifarmaID { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_MovimStock_MotivoMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_MovimStock_CodigoVerifarmaID { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_MovimStock_TipoProveedorID { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_MovimStock_ClaseMovimientoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CondicionIVAPaciente")]
+
+
+	[PrimaryKey("CondicionIVAPacienteID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CondicionIVAPaciente : jlapcDB.Record<CondicionIVAPaciente>  
+    {
+
+
+
+		[Column] public int CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? TipoImpuestoID_IVA { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_AuditoriaAccion")]
+
+
+	[PrimaryKey("AuditoriaAccionID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_AuditoriaAccion : jlapcDB.Record<SYS_AuditoriaAccion>  
+    {
+
+
+
+		[Column] public int AuditoriaAccionID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProductoBobina")]
+
+
+	[PrimaryKey("ProductoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ProductoBobina : jlapcDB.Record<ProductoBobina>  
+    {
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public int? Ancho { get; set; }
+
+
+
+
+
+		[Column] public float? Espesor { get; set; }
+
+
+
+
+
+		[Column] public string Calidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SalaSalaDistribucion")]
+
+
+	[PrimaryKey("SalaSalaDistribucionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SalaSalaDistribucion : jlapcDB.Record<SalaSalaDistribucion>  
+    {
+
+
+
+		[Column] public int SalaSalaDistribucionID { get; set; }
+
+
+
+
+
+		[Column] public int SalaID { get; set; }
+
+
+
+
+
+		[Column] public int? SalaDistribucionID { get; set; }
+
+
+
+
+
+		[Column] public int? Capacidad { get; set; }
+
+
+
+
+
+		[Column] public DateTime? TiempoAcomodarSalaCambioDistribucion { get; set; }
+
+
+
+
+
+		[Column] public DateTime? TiempoLimpiarSala { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PrestadorConsumoPractica")]
+
+
+	[PrimaryKey("PrestadorConsumoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class PrestadorConsumoPractica : jlapcDB.Record<PrestadorConsumoPractica>  
+    {
+
+
+
+		[Column] public int PrestadorConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int PracticaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaLoteProduccionLoteProducto")]
+
+
+	[PrimaryKey("OrdenManufacturaLoteProduccionLoteProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaLoteProduccionLoteProducto : jlapcDB.Record<OrdenManufacturaLoteProduccionLoteProducto>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaLoteProduccionLoteProductoID { get; set; }
+
+
+
+
+
+		[Column] public int LoteProductoID { get; set; }
+
+
+
+
+
+		[Column] public int OrdenManufacturaLoteProduccionID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_Extension")]
+
+
+	[PrimaryKey("ExtensionID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_Extension : jlapcDB.Record<SYS_Extension>  
+    {
+
+
+
+		[Column] public string ExtensionID { get; set; }
+
+
+
+
+
+		[Column] public string Imagen { get; set; }
+
+
+
+
+
+		[Column] public byte Valido { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CierreCajaFisicaCuenta")]
+
+
+	[PrimaryKey("CierreCajaFisicaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CierreCajaFisicaCuentum : jlapcDB.Record<CierreCajaFisicaCuentum>  
+    {
+
+
+
+		[Column] public int CierreCajaFisicaID { get; set; }
+
+
+
+
+
+		[Column] public int CuentaID { get; set; }
+
+
+
+
+
+		[Column] public decimal? Importe { get; set; }
+
+
+
+
+
+		[Column] public float? TipoCambioDivisa { get; set; }
+
+
+
+
+
+		[Column] public decimal? ImporteReal { get; set; }
+
+
+
+
+
+		[Column] public int? DocumentoID_CierreCaja { get; set; }
+
+
+
+
+
+		[Column] public int? DocumentoID_DiferenciaCaja { get; set; }
+
+
+
+
+
+		[Column] public int? DocumentoID_Deposito { get; set; }
+
+
+
+
+
+		[Column] public decimal Cambio { get; set; }
+
+
+
+
+
+		[Column] public byte NoRendir { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_AuditoriaObjetoAccion")]
+
+
+	[PrimaryKey("AuditoriaObjetoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_AuditoriaObjetoAccion : jlapcDB.Record<SYS_AuditoriaObjetoAccion>  
+    {
+
+
+
+		[Column] public string AuditoriaObjetoID { get; set; }
+
+
+
+
+
+		[Column] public int AuditoriaAccionID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CondicionGanancia")]
+
+
+	[PrimaryKey("CondicionGananciaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CondicionGanancium : jlapcDB.Record<CondicionGanancium>  
+    {
+
+
+
+		[Column] public int CondicionGananciaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_Minuto_60")]
+
+
+	[PrimaryKey("MinutoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_Minuto_60 : jlapcDB.Record<SYS_Minuto_60>  
+    {
+
+
+
+		[Column] public int MinutoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoCuentaContable")]
+
+
+	[PrimaryKey("TipoCuentaContableID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoCuentaContable : jlapcDB.Record<TipoCuentaContable>  
+    {
+
+
+
+		[Column] public int TipoCuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ReporteTratamientoColumnasFijasUnidadDeTiempo")]
+
+
+	[PrimaryKey("ReporteTratamientoColumnasFijasUnidadDeTiempoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ReporteTratamientoColumnasFijasUnidadDeTiempo : jlapcDB.Record<ReporteTratamientoColumnasFijasUnidadDeTiempo>  
+    {
+
+
+
+		[Column] public int ReporteTratamientoColumnasFijasUnidadDeTiempoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CirugiaModuloCirugiaProfesional")]
+
+
+	[PrimaryKey("CirugiaModuloID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CirugiaModuloCirugiaProfesional : jlapcDB.Record<CirugiaModuloCirugiaProfesional>  
+    {
+
+
+
+		[Column] public int CirugiaModuloID { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public int RolID { get; set; }
+
+
+
+
+
+		[Column] public int CuotaParteDeLiquidacionAProfesionalesID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoBanco")]
+
+
+	[PrimaryKey("DocumentoBancoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class DocumentoBanco : jlapcDB.Record<DocumentoBanco>  
+    {
+
+
+
+		[Column] public int DocumentoBancoID { get; set; }
+
+
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public string Sucursal { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_TipoModulo")]
+
+
+	[PrimaryKey("TipoModuloID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_TipoModulo : jlapcDB.Record<SYS_TipoModulo>  
+    {
 
 
 
@@ -260,16 +7778,4296 @@ namespace ClarityDB.T4
 
 
 
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
 	}
 
     
-	[TableName("UsuarioBkp")]
+	[TableName("GrupoGrupoVariable_ValorBloqueoVariable")]
+
+
+	[PrimaryKey("GrupoGrupoVariable_ValorBloqueoVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoGrupoVariable_ValorBloqueoVariable : jlapcDB.Record<GrupoGrupoVariable_ValorBloqueoVariable>  
+    {
+
+
+
+		[Column] public int GrupoGrupoVariable_ValorBloqueoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int VariableID { get; set; }
+
+
+
+
+
+		[Column] public string Valor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DepositoHistClinica")]
+
+
+	[PrimaryKey("DepositoHistClinicaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class DepositoHistClinica : jlapcDB.Record<DepositoHistClinica>  
+    {
+
+
+
+		[Column] public int DepositoHistClinicaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("BloqueAgenda")]
+
+
+	[PrimaryKey("BloqueAgendaID ")]
+
+
+
+	[ExplicitColumns]
+    public partial class BloqueAgenda : jlapcDB.Record<BloqueAgenda>  
+    {
+
+
+
+		[Column("BloqueAgendaID ")] public int BloqueAgendaID_ { get; set; }
+
+
+
+
+
+		[Column] public DateTime Desde { get; set; }
+
+
+
+
+
+		[Column] public short HoraDesde { get; set; }
+
+
+
+
+
+		[Column] public short MinutoDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime Hasta { get; set; }
+
+
+
+
+
+		[Column] public short HoraHasta { get; set; }
+
+
+
+
+
+		[Column] public short MinutoHasta { get; set; }
+
+
+
+
+
+		[Column] public short Duracion { get; set; }
+
+
+
+
+
+		[Column] public byte Sobreturnos { get; set; }
+
+
+
+
+
+		[Column] public byte SobreturnosLibres { get; set; }
+
+
+
+
+
+		[Column] public string ReservadoPara { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PrestadorConsumoProducto")]
+
+
+	[PrimaryKey("PrestadorConsumoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class PrestadorConsumoProducto : jlapcDB.Record<PrestadorConsumoProducto>  
+    {
+
+
+
+		[Column] public int PrestadorConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PresupuestoModuloFecha")]
+
+
+	[PrimaryKey("PresupuestoModuloFechaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PresupuestoModuloFecha : jlapcDB.Record<PresupuestoModuloFecha>  
+    {
+
+
+
+		[Column] public int PresupuestoModuloFechaID { get; set; }
+
+
+
+
+
+		[Column] public int PresupuestoModuloID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoConsumoPrefacturado")]
+
+
+	[PrimaryKey("EstadoConsumoPrefacturadoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EstadoConsumoPrefacturado : jlapcDB.Record<EstadoConsumoPrefacturado>  
+    {
+
+
+
+		[Column] public int EstadoConsumoPrefacturadoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Consentimiento")]
+
+
+	[PrimaryKey("ConsentimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Consentimiento : jlapcDB.Record<Consentimiento>  
+    {
+
+
+
+		[Column] public int ConsentimientoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoConsentimientoID { get; set; }
+
+
+
+
+
+		[Column] public string Titulo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("FrecuenciaFacturacion")]
+
+
+	[PrimaryKey("FrecuenciaFacturacionID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class FrecuenciaFacturacion : jlapcDB.Record<FrecuenciaFacturacion>  
+    {
+
+
+
+		[Column] public int FrecuenciaFacturacionID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CategoriaGananciaGPJ")]
+
+
+	[PrimaryKey("CategoriaGananciaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CategoriaGananciaGPJ : jlapcDB.Record<CategoriaGananciaGPJ>  
+    {
+
+
+
+		[Column] public int CategoriaGananciaID { get; set; }
+
+
+
+
+
+		[Column] public int? CodigoRegimenRetencion { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionRegimenRetencion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Maquinaria")]
+
+
+	[PrimaryKey("MaquinariaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Maquinarium : jlapcDB.Record<Maquinarium>  
+    {
+
+
+
+		[Column] public int MaquinariaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_Auditoria")]
+
+
+	[PrimaryKey("AuditoriaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SYS_Auditorium : jlapcDB.Record<SYS_Auditorium>  
+    {
+
+
+
+		[Column] public int AuditoriaID { get; set; }
+
+
+
+
+
+		[Column] public string AuditoriaObjetoID { get; set; }
+
+
+
+
+
+		[Column] public int AuditoriaAccionID { get; set; }
+
+
+
+
+
+		[Column] public int? CodigoID { get; set; }
+
+
+
+
+
+		[Column] public string Login { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaHora { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MailerContrato")]
+
+
+	[PrimaryKey("MailerContratoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MailerContrato : jlapcDB.Record<MailerContrato>  
+    {
+
+
+
+		[Column] public int MailerContratoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int Tasa { get; set; }
+
+
+
+
+
+		[Column] public DateTime VigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaHasta { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadTotal { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Cai")]
+
+
+	[PrimaryKey("CaiID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Cai : jlapcDB.Record<Cai>  
+    {
+
+
+
+		[Column] public int CaiID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public DateTime Vencimiento { get; set; }
+
+
+
+
+
+		[Column] public int EstablecimientoID { get; set; }
+
+
+
+
+
+		[Column] public int Desde { get; set; }
+
+
+
+
+
+		[Column] public int Hasta { get; set; }
+
+
+
+
+
+		[Column] public int TipoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_Hora")]
+
+
+	[PrimaryKey("HoraID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_Hora : jlapcDB.Record<SYS_Hora>  
+    {
+
+
+
+		[Column] public int HoraID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaPlanContable")]
+
+
+	[PrimaryKey("EmpresaPlanContableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaPlanContable : jlapcDB.Record<EmpresaPlanContable>  
+    {
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime VigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public int PlanContableID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaPlanContableID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrigenPaciente2")]
+
+
+	[ExplicitColumns]
+    public partial class OrigenPaciente2 : jlapcDB.Record<OrigenPaciente2>  
+    {
+
+
+
+		[Column] public int OrigenPaciente2ID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TurnoModulo")]
+
+
+	[PrimaryKey("TurnoModuloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TurnoModulo : jlapcDB.Record<TurnoModulo>  
+    {
+
+
+
+		[Column] public int TurnoModuloID { get; set; }
+
+
+
+
+
+		[Column] public int AgendaID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public short? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public byte? Facturable { get; set; }
+
+
+
+
+
+		[Column] public int? MovimientoIDCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal? Precio { get; set; }
+
+
+
+
+
+		[Column] public int PlanID { get; set; }
+
+
+
+
+
+		[Column] public string NumAfiliado { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoRechazoTurnoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaID { get; set; }
+
+
+
+
+
+		[Column] public int? PresupuestoModuloID { get; set; }
+
+
+
+
+
+		[Column] public string NumeroAutorizacion { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoConsumoID_Interno { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoConsumoID_Externo { get; set; }
+
+
+
+
+
+		[Column] public int? OrigenPacienteID { get; set; }
+
+
+
+
+
+		[Column] public byte FaltaBono { get; set; }
+
+
+
+
+
+		[Column] public string MotivoCambioValorUnitario { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaAjustada { get; set; }
+
+
+
+
+
+		[Column] public byte? Externo { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoEtarioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("RED_Stock")]
+
+
+	[PrimaryKey("RED_StockID")]
+
+
+
+	[ExplicitColumns]
+    public partial class RED_Stock : jlapcDB.Record<RED_Stock>  
+    {
+
+
+
+		[Column] public int RED_StockID { get; set; }
+
+
+
+
+
+		[Column] public byte TipoPeriodo { get; set; }
+
+
+
+
+
+		[Column] public DateTime InicioPeriodo { get; set; }
+
+
+
+
+
+		[Column] public int? DepositoID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public float Cantidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Financiador")]
+
+
+	[PrimaryKey("EmpresaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Financiador : jlapcDB.Record<Financiador>  
+    {
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public byte SoporteMagnetico { get; set; }
+
+
+
+
+
+		[Column] public byte DocRespaldatoria { get; set; }
+
+
+
+
+
+		[Column] public int? BrokerID { get; set; }
+
+
+
+
+
+		[Column] public string PathInbox { get; set; }
+
+
+
+
+
+		[Column] public string PathOutbox { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string NombreFantasia { get; set; }
+
+
+
+
+
+		[Column] public int RequiereNroOrden { get; set; }
+
+
+
+
+
+		[Column] public byte HabilitadoTurnoOnline { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VentaPorComision")]
+
+
+	[PrimaryKey("VentaPorComisionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VentaPorComision : jlapcDB.Record<VentaPorComision>  
+    {
+
+
+
+		[Column] public int VentaPorComisionID { get; set; }
+
+
+
+
+
+		[Column] public int SucursalID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID_Cliente { get; set; }
+
+
+
+
+
+		[Column] public int TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public string NroSolicitud { get; set; }
+
+
+
+
+
+		[Column] public decimal Importe { get; set; }
+
+
+
+
+
+		[Column] public float Cantidad { get; set; }
+
+
+
+
+
+		[Column] public float Comision { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID_Vendedor { get; set; }
+
+
+
+
+
+		[Column] public int CuentaID_Vendedor { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID_Consignador { get; set; }
+
+
+
+
+
+		[Column] public int CuentaID_Consignador { get; set; }
+
+
+
+
+
+		[Column] public short Debitado { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaDebitado { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_Minuto")]
+
+
+	[PrimaryKey("MinutoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_Minuto : jlapcDB.Record<SYS_Minuto>  
+    {
+
+
+
+		[Column] public int MinutoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SalaSalaRecurso")]
+
+
+	[PrimaryKey("SalaSalaRecursoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SalaSalaRecurso : jlapcDB.Record<SalaSalaRecurso>  
+    {
+
+
+
+		[Column] public int SalaSalaRecursoID { get; set; }
+
+
+
+
+
+		[Column] public int SalaID { get; set; }
+
+
+
+
+
+		[Column] public int? SalaRecursoID { get; set; }
+
+
+
+
+
+		[Column] public int Cantidad { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpleadoFuncion")]
+
+
+	[PrimaryKey("EmpleadoFuncionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpleadoFuncion : jlapcDB.Record<EmpleadoFuncion>  
+    {
+
+
+
+		[Column] public int EmpleadoFuncionID { get; set; }
+
+
+
+
+
+		[Column] public int EmpleadoID { get; set; }
+
+
+
+
+
+		[Column] public int FuncionEmpleadoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaVigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaVigenciaHasta { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_ExternWebsite")]
+
+
+	[PrimaryKey("ExternWebsiteID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SYS_ExternWebsite : jlapcDB.Record<SYS_ExternWebsite>  
+    {
+
+
+
+		[Column] public int ExternWebsiteID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string URL { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Log")]
+
+
+	[PrimaryKey("IFSAP_LogID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_Log : jlapcDB.Record<IFSAP_Log>  
+    {
+
+
+
+		[Column] public int IFSAP_LogID { get; set; }
+
+
+
+
+
+		[Column] public string Interfaz { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaContratoObservacion")]
+
+
+	[PrimaryKey("EmpresaContratoObservacionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaContratoObservacion : jlapcDB.Record<EmpresaContratoObservacion>  
+    {
+
+
+
+		[Column] public int EmpresaContratoObservacionID { get; set; }
+
+
+
+
+
+		[Column] public string Titulo { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaContratoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("UsuarioCuenta")]
 
 
 	[PrimaryKey("UsuarioID", autoIncrement=false)]
 
 	[ExplicitColumns]
-    public partial class UsuarioBkp : ClarityDBSimpleConnDB.Record<UsuarioBkp>  
+    public partial class UsuarioCuentum : jlapcDB.Record<UsuarioCuentum>  
+    {
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int CuentaID { get; set; }
+
+
+
+
+
+		[Column] public int CuentaID_DestinoCierre { get; set; }
+
+
+
+
+
+		[Column] public float Cambio { get; set; }
+
+
+
+
+
+		[Column] public byte NoRendir { get; set; }
+
+
+
+
+
+		[Column] public int? SucursalID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCTipoIndividuo")]
+
+
+	[PrimaryKey("HCTipoIndividuoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCTipoIndividuo : jlapcDB.Record<HCTipoIndividuo>  
+    {
+
+
+
+		[Column] public int HCTipoIndividuoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PrestadorConsumoModulo")]
+
+
+	[PrimaryKey("PrestadorConsumoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class PrestadorConsumoModulo : jlapcDB.Record<PrestadorConsumoModulo>  
+    {
+
+
+
+		[Column] public int PrestadorConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MotivoRechazoTurnoConsumo")]
+
+
+	[PrimaryKey("MotivoRechazoTurnoConsumoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MotivoRechazoTurnoConsumo : jlapcDB.Record<MotivoRechazoTurnoConsumo>  
+    {
+
+
+
+		[Column] public int MotivoRechazoTurnoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioProfesionalModulo")]
+
+
+	[PrimaryKey("ConvenioProfesionalModuloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioProfesionalModulo : jlapcDB.Record<ConvenioProfesionalModulo>  
+    {
+
+
+
+		[Column] public int ConvenioProfesionalModuloID { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public int? ModuloID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaVigencia { get; set; }
+
+
+
+
+
+		[Column] public byte Clinica { get; set; }
+
+
+
+
+
+		[Column] public byte Fijo { get; set; }
+
+
+
+
+
+		[Column] public decimal Honorarios { get; set; }
+
+
+
+
+
+		[Column] public decimal Gastos { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_Prestador { get; set; }
+
+
+
+
+
+		[Column] public int RolID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CuentaContable")]
+
+
+	[PrimaryKey("CuentaContableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CuentaContable : jlapcDB.Record<CuentaContable>  
+    {
+
+
+
+		[Column] public int CuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public byte EsRubro { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaContableID_Padre { get; set; }
+
+
+
+
+
+		[Column] public int PlanContableID { get; set; }
+
+
+
+
+
+		[Column] public byte ExigeCentroCostos { get; set; }
+
+
+
+
+
+		[Column] public int? TipoSubcuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoCuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public int? ClasificacionCuentaContableID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_MovimStock_Almacen_Sistema")]
+
+
+	[PrimaryKey("IFSAP_MovimStock_Almacen_SistemaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_MovimStock_Almacen_Sistema : jlapcDB.Record<IFSAP_MovimStock_Almacen_Sistema>  
+    {
+
+
+
+		[Column] public int IFSAP_MovimStock_Almacen_SistemaID { get; set; }
+
+
+
+
+
+		[Column] public int IFSAP_SistemaID { get; set; }
+
+
+
+
+
+		[Column] public int IFSAP_MovimStock_AlmacenID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoObjetoConfiguracionContable")]
+
+
+	[PrimaryKey("TipoObjetoConfiguracionContableID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoObjetoConfiguracionContable : jlapcDB.Record<TipoObjetoConfiguracionContable>  
+    {
+
+
+
+		[Column] public int TipoObjetoConfiguracionContableID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaPadronArba")]
+
+
+	[PrimaryKey("EmpresaPadronArbaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaPadronArba : jlapcDB.Record<EmpresaPadronArba>  
+    {
+
+
+
+		[Column] public int EmpresaPadronArbaID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaEmision { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaHasta { get; set; }
+
+
+
+
+
+		[Column] public string Cuit { get; set; }
+
+
+
+
+
+		[Column] public string Dato { get; set; }
+
+
+
+
+
+		[Column] public string Dato1 { get; set; }
+
+
+
+
+
+		[Column] public string Dato2 { get; set; }
+
+
+
+
+
+		[Column] public decimal Alicuota_Percepcion_Cliente { get; set; }
+
+
+
+
+
+		[Column] public decimal Alicuota_Retencion_Proveedor { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID_Percepcion_Cliente { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID_Retencion_Proveedor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SucursalSector")]
+
+
+	[PrimaryKey("SucursalSectorID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SucursalSector : jlapcDB.Record<SucursalSector>  
+    {
+
+
+
+		[Column] public int SucursalSectorID { get; set; }
+
+
+
+
+
+		[Column] public int SucursalID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoCuenta")]
+
+
+	[PrimaryKey("TipoCuentaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoCuentum : jlapcDB.Record<TipoCuentum>  
+    {
+
+
+
+		[Column] public int TipoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public bool? Habilitado { get; set; }
+
+
+
+
+
+		[Column] public byte Seleccionable { get; set; }
+
+
+
+
+
+		[Column] public byte ColumnaCuentaCorriente { get; set; }
+
+
+
+
+
+		[Column] public byte? EsDeValores { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoNovedadEmpleado")]
+
+
+	[PrimaryKey("TipoNovedadEmpleadoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoNovedadEmpleado : jlapcDB.Record<TipoNovedadEmpleado>  
+    {
+
+
+
+		[Column] public int TipoNovedadEmpleadoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCDiagnostico")]
+
+
+	[PrimaryKey("HCDiagnosticoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCDiagnostico : jlapcDB.Record<HCDiagnostico>  
+    {
+
+
+
+		[Column] public int HCDiagnosticoID { get; set; }
+
+
+
+
+
+		[Column] public int? HCEvolucionID { get; set; }
+
+
+
+
+
+		[Column] public int? DiagnosticoID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public int? Estado { get; set; }
+
+
+
+	}
+
+    
+	[TableName("StandImagen")]
+
+
+	[PrimaryKey("StandImagenID")]
+
+
+
+	[ExplicitColumns]
+    public partial class StandImagen : jlapcDB.Record<StandImagen>  
+    {
+
+
+
+		[Column] public int StandImagenID { get; set; }
+
+
+
+
+
+		[Column] public int StandID { get; set; }
+
+
+
+
+
+		[Column] public string NombreArchivo { get; set; }
+
+
+
+
+
+		[Column] public int? Orden { get; set; }
+
+
+
+	}
+
+    
+	[TableName("UsuarioProfesional")]
+
+
+	[PrimaryKey("UsuarioID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class UsuarioProfesional : jlapcDB.Record<UsuarioProfesional>  
+    {
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Monodroga")]
+
+
+	[PrimaryKey("MonodrogaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Monodroga : jlapcDB.Record<Monodroga>  
+    {
+
+
+
+		[Column] public int MonodrogaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaContacto")]
+
+
+	[PrimaryKey("EmpresaContactoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaContacto : jlapcDB.Record<EmpresaContacto>  
+    {
+
+
+
+		[Column] public int EmpresaContactoID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string Apellido { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Telefono { get; set; }
+
+
+
+
+
+		[Column] public string Email { get; set; }
+
+
+
+
+
+		[Column] public string Cargo { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaNacimiento { get; set; }
+
+
+
+
+
+		[Column] public string Celular { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConfiguracionContable")]
+
+
+	[PrimaryKey("ConfiguracionContableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConfiguracionContable : jlapcDB.Record<ConfiguracionContable>  
+    {
+
+
+
+		[Column] public int ConfiguracionContableID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int PlanContableID { get; set; }
+
+
+
+
+
+		[Column] public DateTime VigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public int TipoCuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public int TipoObjetoConfiguracionContableID { get; set; }
+
+
+
+
+
+		[Column] public int? ObjetoConfiguracionContableID { get; set; }
+
+
+
+
+
+		[Column] public int CuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public int? SubcuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public int? CentroCostosID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public byte? Columna { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("UsuarioEmpresa")]
+
+
+	[PrimaryKey("UsuarioID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class UsuarioEmpresa : jlapcDB.Record<UsuarioEmpresa>  
+    {
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PrestadorConsumoDocumento")]
+
+
+	[PrimaryKey("PrestadorConsumoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class PrestadorConsumoDocumento : jlapcDB.Record<PrestadorConsumoDocumento>  
+    {
+
+
+
+		[Column] public int PrestadorConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("NovedadEmpleado")]
+
+
+	[PrimaryKey("NovedadEmpleadoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class NovedadEmpleado : jlapcDB.Record<NovedadEmpleado>  
+    {
+
+
+
+		[Column] public int NovedadEmpleadoID { get; set; }
+
+
+
+
+
+		[Column] public int EmpleadoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoNovedadEmpleadoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Desde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Hasta { get; set; }
+
+
+
+
+
+		[Column] public int Habilitar { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MailerCampaniaAttachment")]
+
+
+	[PrimaryKey("MailerCampaniaAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MailerCampaniaAttachment : jlapcDB.Record<MailerCampaniaAttachment>  
+    {
+
+
+
+		[Column] public int MailerCampaniaAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int MailerCampaniaID { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_nombre { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_asBase64 { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Grupo")]
+
+
+	[PrimaryKey("GrupoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Grupo : jlapcDB.Record<Grupo>  
+    {
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DiaInicio")]
+
+
+	[PrimaryKey("DiaInicioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class DiaInicio : jlapcDB.Record<DiaInicio>  
+    {
+
+
+
+		[Column] public int DiaInicioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConsultaProveedorAttachment")]
+
+
+	[PrimaryKey("ConsultaProveedorAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConsultaProveedorAttachment : jlapcDB.Record<ConsultaProveedorAttachment>  
+    {
+
+
+
+		[Column] public int ConsultaProveedorAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int ConsultaProveedorID { get; set; }
+
+
+
+
+
+		[Column] public string NombreArchivo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PrestadorConsumoDatosAuditoria")]
+
+
+	[PrimaryKey("PrestadorConsumoDatosAuditoriaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PrestadorConsumoDatosAuditorium : jlapcDB.Record<PrestadorConsumoDatosAuditorium>  
+    {
+
+
+
+		[Column] public int PrestadorConsumoDatosAuditoriaID { get; set; }
+
+
+
+
+
+		[Column] public int PrestadorConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public int Estado { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Pago")]
+
+
+	[PrimaryKey("ReciboID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Pago : jlapcDB.Record<Pago>  
+    {
+
+
+
+		[Column] public int ReciboID { get; set; }
+
+
+
+
+
+		[Column] public int PagoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoOperador")]
+
+
+	[PrimaryKey("TipoOperadorID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoOperador : jlapcDB.Record<TipoOperador>  
+    {
+
+
+
+		[Column] public int TipoOperadorID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Patologia")]
+
+
+	[PrimaryKey("PatologiaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Patologium : jlapcDB.Record<Patologium>  
+    {
+
+
+
+		[Column] public int PatologiaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCPractica")]
+
+
+	[PrimaryKey("HCPracticaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCPractica : jlapcDB.Record<HCPractica>  
+    {
+
+
+
+		[Column] public int HCPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int? HCEvolucionID { get; set; }
+
+
+
+
+
+		[Column] public int? PracticaID { get; set; }
+
+
+
+
+
+		[Column] public int? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? Cada { get; set; }
+
+
+
+
+
+		[Column] public int? Durante { get; set; }
+
+
+
+
+
+		[Column] public byte CheckOffice { get; set; }
+
+
+
+
+
+		[Column] public DateTime? UltimoSuministro { get; set; }
+
+
+
+
+
+		[Column] public short Suministrado { get; set; }
+
+
+
+
+
+		[Column] public int? PresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public string ObservacionParaPresupuesto { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PacienteReferido")]
+
+
+	[PrimaryKey("PacienteReferidoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PacienteReferido : jlapcDB.Record<PacienteReferido>  
+    {
+
+
+
+		[Column] public int PacienteReferidoID { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID_Referente { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Apellido { get; set; }
+
+
+
+
+
+		[Column] public int TipoDocumentoPersonaID { get; set; }
+
+
+
+
+
+		[Column] public string Documento { get; set; }
+
+
+
+
+
+		[Column] public int? PacienteID_Referido { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoLoteCrio")]
+
+
+	[PrimaryKey("TipoLoteCrioID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoLoteCrio : jlapcDB.Record<TipoLoteCrio>  
+    {
+
+
+
+		[Column] public int TipoLoteCrioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+
+
+		[Column] public string UnidadDeMedida { get; set; }
+
+
+
+
+
+		[Column] public int? PracticaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Establecimiento")]
+
+
+	[PrimaryKey("EstablecimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Establecimiento : jlapcDB.Record<Establecimiento>  
+    {
+
+
+
+		[Column] public int EstablecimientoID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string Numero { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public byte Interno { get; set; }
+
+
+
+
+
+		[Column] public int? ColumnaCuentaCorriente { get; set; }
+
+
+
+
+
+		[Column] public int? SucursalID { get; set; }
+
+
+
+
+
+		[Column] public int? ExternEstablecimientoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ObservacionDocumento")]
+
+
+	[PrimaryKey("ObservacionDocumentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ObservacionDocumento : jlapcDB.Record<ObservacionDocumento>  
+    {
+
+
+
+		[Column] public int ObservacionDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int TipoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Operador")]
+
+
+	[PrimaryKey("OperadorID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Operador : jlapcDB.Record<Operador>  
+    {
+
+
+
+		[Column] public int OperadorID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Simbolo { get; set; }
+
+
+
+
+
+		[Column] public int TipoOperadorID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ModuloPracticaCondicionDatoVariable")]
+
+
+	[PrimaryKey("ModuloPracticaCondicionDatoVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ModuloPracticaCondicionDatoVariable : jlapcDB.Record<ModuloPracticaCondicionDatoVariable>  
+    {
+
+
+
+		[Column] public int ModuloPracticaCondicionDatoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int PracticaID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? VariableID { get; set; }
+
+
+
+
+
+		[Column] public int? OperadorID { get; set; }
+
+
+
+
+
+		[Column] public string valor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MailerPlantilla")]
+
+
+	[PrimaryKey("MailerPlantillaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MailerPlantilla : jlapcDB.Record<MailerPlantilla>  
+    {
+
+
+
+		[Column] public int MailerPlantillaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string MailAsunto { get; set; }
+
+
+
+
+
+		[Column] public string MailCuerpo { get; set; }
+
+
+
+
+
+		[Column] public string MailCuerpo_Pie { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Empresa")]
+
+
+	[PrimaryKey("EmpresaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Empresa : jlapcDB.Record<Empresa>  
+    {
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string RazonSocial { get; set; }
+
+
+
+
+
+		[Column] public string Cuit { get; set; }
+
+
+
+
+
+		[Column] public string Domicilio { get; set; }
+
+
+
+
+
+		[Column] public string Telefono { get; set; }
+
+
+
+
+
+		[Column] public int CondicionIvaID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public byte Bloqueado { get; set; }
+
+
+
+
+
+		[Column] public int Codigo { get; set; }
+
+
+
+
+
+		[Column] public string NombreFantasia { get; set; }
+
+
+
+
+
+		[Column] public int? LocalidadID { get; set; }
+
+
+
+
+
+		[Column] public int? ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public string CodigoPostal { get; set; }
+
+
+
+
+
+		[Column] public int? PaisID { get; set; }
+
+
+
+
+
+		[Column] public string Telefono2 { get; set; }
+
+
+
+
+
+		[Column] public string Numero { get; set; }
+
+
+
+
+
+		[Column] public string Piso { get; set; }
+
+
+
+
+
+		[Column] public string Departamento { get; set; }
+
+
+
+
+
+		[Column] public string Otros { get; set; }
+
+
+
+
+
+		[Column] public string Fax { get; set; }
+
+
+
+
+
+		[Column] public string Web { get; set; }
+
+
+
+
+
+		[Column] public string Mail { get; set; }
+
+
+
+
+
+		[Column] public string ExternEmpresaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoEntregaMedicamentoProducto")]
+
+
+	[PrimaryKey("EstadoEntregaMedicamentoProductoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EstadoEntregaMedicamentoProducto : jlapcDB.Record<EstadoEntregaMedicamentoProducto>  
+    {
+
+
+
+		[Column] public int EstadoEntregaMedicamentoProductoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloPartido")]
+
+
+	[PrimaryKey("PoloPartidoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloPartido : jlapcDB.Record<PoloPartido>  
+    {
+
+
+
+		[Column] public int PoloPartidoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int PoloTorneoID { get; set; }
+
+
+
+
+
+		[Column] public int PoloSedeID { get; set; }
+
+
+
+
+
+		[Column] public int HandicapDesde { get; set; }
+
+
+
+
+
+		[Column] public int HandicapHasta { get; set; }
+
+
+
+
+
+		[Column] public int PoloEquipoD1 { get; set; }
+
+
+
+
+
+		[Column] public int PoloEquipoD2 { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Fecha { get; set; }
+
+
+
+	}
+
+    
+	[TableName("FinanciadorPlanPorDefecto")]
+
+
+	[PrimaryKey("FinanciadorPlanPorDefectoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class FinanciadorPlanPorDefecto : jlapcDB.Record<FinanciadorPlanPorDefecto>  
+    {
+
+
+
+		[Column] public int FinanciadorPlanPorDefectoID { get; set; }
+
+
+
+
+
+		[Column] public int FinanciadorID { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? ConsultorioID { get; set; }
+
+
+
+
+
+		[Column] public int PlanID_Default { get; set; }
+
+
+
+
+
+		[Column] public bool Ocultar { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MailerCampaniaImagen")]
+
+
+	[PrimaryKey("MailerCampaniaImagenID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MailerCampaniaImagen : jlapcDB.Record<MailerCampaniaImagen>  
+    {
+
+
+
+		[Column] public int MailerCampaniaImagenID { get; set; }
+
+
+
+
+
+		[Column] public int MailerCampaniaID { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_nombre { get; set; }
+
+
+
+
+
+		[Column] public string Link { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Prioridad")]
+
+
+	[PrimaryKey("PrioridadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Prioridad : jlapcDB.Record<Prioridad>  
+    {
+
+
+
+		[Column] public int PrioridadID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCMedicamento")]
+
+
+	[PrimaryKey("HCMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCMedicamento : jlapcDB.Record<HCMedicamento>  
+    {
+
+
+
+		[Column] public int HCMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int? HCEvolucionID { get; set; }
+
+
+
+
+
+		[Column] public int? MedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoEntregaID { get; set; }
+
+
+
+
+
+		[Column] public int? DocumentoID_Entrega { get; set; }
+
+
+
+
+
+		[Column] public int? Cada { get; set; }
+
+
+
+
+
+		[Column] public int? Durante { get; set; }
+
+
+
+
+
+		[Column] public int? MonodrogaID { get; set; }
+
+
+
+
+
+		[Column] public byte CheckOffice { get; set; }
+
+
+
+
+
+		[Column] public DateTime? UltimoSuministro { get; set; }
+
+
+
+
+
+		[Column] public short Suministrado { get; set; }
+
+
+
+
+
+		[Column] public int? PresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public string ObservacionParaPresupuesto { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ReporteTratamiento")]
+
+
+	[PrimaryKey("ReporteTratamientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ReporteTratamiento : jlapcDB.Record<ReporteTratamiento>  
+    {
+
+
+
+		[Column] public int ReporteTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public int? VariableID_NroProtocolo { get; set; }
+
+
+
+
+
+		[Column] public short TipoReporte { get; set; }
+
+
+
+
+
+		[Column] public bool EnReporteSoloTratamientosActivos { get; set; }
+
+
+
+
+
+		[Column] public bool EnReporteSoloUltimoTratamiento { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EntregaMedicamentoProducto")]
+
+
+	[PrimaryKey("EntregaMedicamentoProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EntregaMedicamentoProducto : jlapcDB.Record<EntregaMedicamentoProducto>  
+    {
+
+
+
+		[Column] public int EntregaMedicamentoProductoID { get; set; }
+
+
+
+
+
+		[Column] public int EntregaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public string DosisDiaria { get; set; }
+
+
+
+
+
+		[Column] public byte? PorcentajeCobertura { get; set; }
+
+
+
+
+
+		[Column] public string Expediente { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoEntregaMedicamentoProductoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("LoteCrioReserva")]
+
+
+	[PrimaryKey("LoteCrioReservaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class LoteCrioReserva : jlapcDB.Record<LoteCrioReserva>  
+    {
+
+
+
+		[Column] public int LoteCrioReservaID { get; set; }
+
+
+
+
+
+		[Column] public int? LoteCrioID { get; set; }
+
+
+
+
+
+		[Column] public int? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? HCEvolucionID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? HCTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public int? HCResultadoID { get; set; }
+
+
+
+
+
+		[Column] public int? SubLoteCrioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MailerPlantillaImagen")]
+
+
+	[PrimaryKey("MailerPlantillaImagenID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MailerPlantillaImagen : jlapcDB.Record<MailerPlantillaImagen>  
+    {
+
+
+
+		[Column] public int MailerPlantillaImagenID { get; set; }
+
+
+
+
+
+		[Column] public int MailerPlantillaID { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_nombre { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ObservacionTurno")]
+
+
+	[PrimaryKey("ObservacionTurnoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ObservacionTurno : jlapcDB.Record<ObservacionTurno>  
+    {
+
+
+
+		[Column] public int ObservacionTurnoID { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaHasta { get; set; }
+
+
+
+
+
+		[Column] public byte? FechaActual { get; set; }
+
+
+
+
+
+		[Column] public string UsuarioAlta { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaAlta { get; set; }
+
+
+
+
+
+		[Column] public string UsuarioModi { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaModi { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MenuGastronomico")]
+
+
+	[PrimaryKey("MenuGastronomicoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MenuGastronomico : jlapcDB.Record<MenuGastronomico>  
+    {
+
+
+
+		[Column] public int MenuGastronomicoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("FormularioVistaEtiqueta")]
+
+
+	[PrimaryKey("FormularioVistaEtiquetaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class FormularioVistaEtiquetum : jlapcDB.Record<FormularioVistaEtiquetum>  
+    {
+
+
+
+		[Column] public int FormularioVistaEtiquetaID { get; set; }
+
+
+
+
+
+		[Column] public int FormularioVistaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int AtributosHTMLID { get; set; }
+
+
+
+
+
+		[Column] public int PosX { get; set; }
+
+
+
+
+
+		[Column] public int PosY { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MailerCuenta")]
+
+
+	[PrimaryKey("MailerCuentaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MailerCuentum : jlapcDB.Record<MailerCuentum>  
+    {
+
+
+
+		[Column] public int MailerCuentaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Remitente_email { get; set; }
+
+
+
+
+
+		[Column] public string Remitente_nombre { get; set; }
+
+
+
+
+
+		[Column] public string SMTP_server { get; set; }
+
+
+
+
+
+		[Column] public byte SMTP_requiereAutenticacion { get; set; }
+
+
+
+
+
+		[Column] public string SMTP_usr { get; set; }
+
+
+
+
+
+		[Column] public string SMTP_pwd { get; set; }
+
+
+
+
+
+		[Column] public byte POP_enable { get; set; }
+
+
+
+
+
+		[Column] public string POP_server { get; set; }
+
+
+
+
+
+		[Column] public string POP_usr { get; set; }
+
+
+
+
+
+		[Column] public string POP_pwd { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public string ReplyTo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloJugador")]
+
+
+	[PrimaryKey("PoloJugadorID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloJugador : jlapcDB.Record<PoloJugador>  
+    {
+
+
+
+		[Column] public int PoloJugadorID { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Apellido { get; set; }
+
+
+
+
+
+		[Column] public int? SexoID { get; set; }
+
+
+
+
+
+		[Column] public int? Handicap { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaNacimiento { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoAsiento")]
+
+
+	[PrimaryKey("EstadoAsientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EstadoAsiento : jlapcDB.Record<EstadoAsiento>  
+    {
+
+
+
+		[Column] public int EstadoAsientoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoConsumoEspecialidad")]
+
+
+	[PrimaryKey("GrupoConsumoEspecialidadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoConsumoEspecialidad : jlapcDB.Record<GrupoConsumoEspecialidad>  
+    {
+
+
+
+		[Column] public int GrupoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public int? CentroCostosID { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoConsumoEspecialidadID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TimeSheetLocacion")]
+
+
+	[PrimaryKey("TimeSheetLocacionID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TimeSheetLocacion : jlapcDB.Record<TimeSheetLocacion>  
+    {
+
+
+
+		[Column] public int TimeSheetLocacionID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCModulo")]
+
+
+	[PrimaryKey("HCModuloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCModulo : jlapcDB.Record<HCModulo>  
+    {
+
+
+
+		[Column] public int HCModuloID { get; set; }
+
+
+
+
+
+		[Column] public int? HCEvolucionID { get; set; }
+
+
+
+
+
+		[Column] public int? ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? PresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public string ObservacionParaPresupuesto { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConfiguracionServicioReferidos")]
+
+
+	[PrimaryKey("ConfiguracionServicioReferidosID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConfiguracionServicioReferido : jlapcDB.Record<ConfiguracionServicioReferido>  
+    {
+
+
+
+		[Column] public int ConfiguracionServicioReferidosID { get; set; }
+
+
+
+
+
+		[Column] public int TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public int? Puntos { get; set; }
+
+
+
+
+
+		[Column] public decimal? Valor { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadCuotas { get; set; }
+
+
+
+	}
+
+    
+	[TableName("I18NLanguageCountry")]
+
+
+	[PrimaryKey("I18NLanguageID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class I18NLanguageCountry : jlapcDB.Record<I18NLanguageCountry>  
+    {
+
+
+
+		[Column] public int I18NLanguageID { get; set; }
+
+
+
+
+
+		[Column] public int I18NCountryID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoMovimiento")]
+
+
+	[PrimaryKey("TipoMovimientoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoMovimiento : jlapcDB.Record<TipoMovimiento>  
+    {
+
+
+
+		[Column] public int TipoMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TurnoGrupoConsumo")]
+
+
+	[PrimaryKey("TurnoGrupoConsumoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TurnoGrupoConsumo : jlapcDB.Record<TurnoGrupoConsumo>  
+    {
+
+
+
+		[Column] public int TurnoGrupoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int AgendaID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public short? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public byte Facturable { get; set; }
+
+
+
+
+
+		[Column] public int? MovimientoIDCopago { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public string NumAfiliado { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? EscalaHasta { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoConsulta")]
+
+
+	[PrimaryKey("TipoConsultaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoConsultum : jlapcDB.Record<TipoConsultum>  
+    {
+
+
+
+		[Column] public int TipoConsultaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Mail { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Usuario")]
+
+
+	[PrimaryKey("UsuarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Usuario : jlapcDB.Record<Usuario>  
     {
 
 
@@ -374,23 +12172,325 @@ namespace ClarityDB.T4
 
 
 
+
+
+		[Column] public bool UsuarioMantenimiento { get; set; }
+
+
+
 	}
 
     
-	[TableName("Empresa")]
+	[TableName("EstadoEntrega")]
 
 
-	[PrimaryKey("DemoEmpresaID")]
-
-
+	[PrimaryKey("EstadoEntregaID", autoIncrement=false)]
 
 	[ExplicitColumns]
-    public partial class Empresa : ClarityDBSimpleConnDB.Record<Empresa>  
+    public partial class EstadoEntrega : jlapcDB.Record<EstadoEntrega>  
     {
 
 
 
-		[Column] public int DemoEmpresaID { get; set; }
+		[Column] public int EstadoEntregaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ParticularidadProfesional")]
+
+
+	[PrimaryKey("ParticularidadProfesionalID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ParticularidadProfesional : jlapcDB.Record<ParticularidadProfesional>  
+    {
+
+
+
+		[Column] public int ParticularidadProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_ParametroValor")]
+
+
+	[PrimaryKey("ParametroValorID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SYS_ParametroValor : jlapcDB.Record<SYS_ParametroValor>  
+    {
+
+
+
+		[Column] public int ParametroValorID { get; set; }
+
+
+
+
+
+		[Column] public string ParametroID { get; set; }
+
+
+
+
+
+		[Column] public string Valor { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? PerfilID { get; set; }
+
+
+
+
+
+		[Column] public int? UsuarioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoStand")]
+
+
+	[PrimaryKey("TipoStandID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoStand : jlapcDB.Record<TipoStand>  
+    {
+
+
+
+		[Column] public int TipoStandID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ReporteTratamientoFiltroVariable")]
+
+
+	[PrimaryKey("ReporteTratamientoFiltroVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ReporteTratamientoFiltroVariable : jlapcDB.Record<ReporteTratamientoFiltroVariable>  
+    {
+
+
+
+		[Column] public int ReporteTratamientoFiltroVariableID { get; set; }
+
+
+
+
+
+		[Column] public int ReporteTratamientoCondicionID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int VariableID { get; set; }
+
+
+
+
+
+		[Column] public int OperadorID { get; set; }
+
+
+
+
+
+		[Column] public string Valor { get; set; }
+
+
+
+
+
+		[Column] public string ValorRango { get; set; }
+
+
+
+
+
+		[Column] public bool DiferenciaEnDiasFechaActual { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Origen")]
+
+
+	[PrimaryKey("IFSAP_OrigenID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_Origen : jlapcDB.Record<IFSAP_Origen>  
+    {
+
+
+
+		[Column] public int IFSAP_OrigenID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IndicacionPredefinidaPractica")]
+
+
+	[PrimaryKey("IndicacionPredefinidaPracticaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IndicacionPredefinidaPractica : jlapcDB.Record<IndicacionPredefinidaPractica>  
+    {
+
+
+
+		[Column] public int IndicacionPredefinidaPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int PracticaID { get; set; }
+
+
+
+
+
+		[Column] public int? Orden { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoMasDatos")]
+
+
+	[PrimaryKey("DocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoMasDato : jlapcDB.Record<DocumentoMasDato>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public string Expediente { get; set; }
+
+
+
+
+
+		[Column] public string OrdenCompra { get; set; }
+
+
+
+
+
+		[Column] public string Remito { get; set; }
+
+
+
+
+
+		[Column] public string NumeroLicitacion { get; set; }
 
 
 
@@ -402,59 +12502,11905 @@ namespace ClarityDB.T4
 
 
 
-		[Column] public int DemoGrupoID { get; set; }
+		[Column] public string Domicilio { get; set; }
+
+
+
+
+
+		[Column] public string Cuit { get; set; }
+
+
+
+
+
+		[Column] public int? CategoriaGananciaID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_Vendedor { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaContactoID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaListaContactoID { get; set; }
+
+
+
+
+
+		[Column] public int? MailerCampaniaID { get; set; }
+
+
+
+
+
+		[Column] public int? ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public bool? OrdenCompraAbierta { get; set; }
 
 
 
 	}
 
     
-	[TableName("Usuario")]
+	[TableName("ICD_Capitulo")]
 
 
-	[PrimaryKey("DemoUsuarioID")]
-
-
+	[PrimaryKey("ICD_CapituloID", autoIncrement=false)]
 
 	[ExplicitColumns]
-    public partial class Usuario : ClarityDBSimpleConnDB.Record<Usuario>  
+    public partial class ICD_Capitulo : jlapcDB.Record<ICD_Capitulo>  
     {
 
 
 
-		[Column] public int DemoUsuarioID { get; set; }
+		[Column] public int ICD_CapituloID { get; set; }
 
 
 
 
 
-		[Column] public string LoginName { get; set; }
-
-
-
-
-
-		[Column] public int DemoGrupoID { get; set; }
-
-
-
-
-
-		[Column] public int DemoPerfilID { get; set; }
+		[Column] public string ICD_Descripcion { get; set; }
 
 
 
 	}
 
     
-	[TableName("Grupo")]
+	[TableName("Rol")]
 
 
-	[PrimaryKey("GrupoID", autoIncrement=false)]
+	[PrimaryKey("RolID", autoIncrement=false)]
 
 	[ExplicitColumns]
-    public partial class Grupo : ClarityDBSimpleConnDB.Record<Grupo>  
+    public partial class Rol : jlapcDB.Record<Rol>  
     {
+
+
+
+		[Column] public int RolID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Orden { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoServicioEstadoCentroCostos")]
+
+
+	[PrimaryKey("TipoServicioEstadoCentroCostosID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoServicioEstadoCentroCosto : jlapcDB.Record<TipoServicioEstadoCentroCosto>  
+    {
+
+
+
+		[Column] public int TipoServicioEstadoCentroCostosID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Entrega")]
+
+
+	[PrimaryKey("EntregaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Entrega : jlapcDB.Record<Entrega>  
+    {
+
+
+
+		[Column] public int EntregaID { get; set; }
+
+
+
+
+
+		[Column] public int EntregaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int EstadoEntregaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaPrevista { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaReal { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MenuGastronomicoProducto")]
+
+
+	[PrimaryKey("MenuGastronomicoProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MenuGastronomicoProducto : jlapcDB.Record<MenuGastronomicoProducto>  
+    {
+
+
+
+		[Column] public int MenuGastronomicoProductoID { get; set; }
+
+
+
+
+
+		[Column] public int MenuGastronomicoID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public int Cantidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("LoteCrioMovimiento")]
+
+
+	[PrimaryKey("LoteCrioMovimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class LoteCrioMovimiento : jlapcDB.Record<LoteCrioMovimiento>  
+    {
+
+
+
+		[Column] public int LoteCrioMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public int? LoteCrioID { get; set; }
+
+
+
+
+
+		[Column] public int? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? HCEvolucionID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? HCTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public int? LoteCrioReservaID { get; set; }
+
+
+
+
+
+		[Column] public int? HCResultadoID { get; set; }
+
+
+
+
+
+		[Column] public int? SubLoteCrioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PresupuestoAttachment")]
+
+
+	[PrimaryKey("PresupuestoAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PresupuestoAttachment : jlapcDB.Record<PresupuestoAttachment>  
+    {
+
+
+
+		[Column] public int PresupuestoAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int PresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_asBase64 { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MailerCampaniaVelocidad")]
+
+
+	[PrimaryKey("MailerCampaniaVelocidadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MailerCampaniaVelocidad : jlapcDB.Record<MailerCampaniaVelocidad>  
+    {
+
+
+
+		[Column] public int MailerCampaniaVelocidadID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public decimal Coeficiente { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConsultaProveedor")]
+
+
+	[PrimaryKey("ConsultaProveedorID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConsultaProveedor : jlapcDB.Record<ConsultaProveedor>  
+    {
+
+
+
+		[Column] public int ConsultaProveedorID { get; set; }
+
+
+
+
+
+		[Column] public int TipoConsultaID { get; set; }
+
+
+
+
+
+		[Column] public string Asunto { get; set; }
+
+
+
+
+
+		[Column] public string Consulta { get; set; }
+
+
+
+
+
+		[Column] public string Mail { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaHora { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaProveedorID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CirugiaPropuesta")]
+
+
+	[PrimaryKey("CirugiaPropuestaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CirugiaPropuestum : jlapcDB.Record<CirugiaPropuestum>  
+    {
+
+
+
+		[Column] public int CirugiaPropuestaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ICD_Seccion")]
+
+
+	[PrimaryKey("ICD_SeccionID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ICD_Seccion : jlapcDB.Record<ICD_Seccion>  
+    {
+
+
+
+		[Column] public int ICD_SeccionID { get; set; }
+
+
+
+
+
+		[Column] public string ICD_Description { get; set; }
+
+
+
+
+
+		[Column] public int ICD_CapituloID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ExposicionTipoStand")]
+
+
+	[PrimaryKey("ExposicionTipoStandID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ExposicionTipoStand : jlapcDB.Record<ExposicionTipoStand>  
+    {
+
+
+
+		[Column] public int ExposicionTipoStandID { get; set; }
+
+
+
+
+
+		[Column] public int ExposicionID { get; set; }
+
+
+
+
+
+		[Column] public int TipoStandID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoServicioCentrosCostos")]
+
+
+	[PrimaryKey("TipoServicioID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoServicioCentrosCosto : jlapcDB.Record<TipoServicioCentrosCosto>  
+    {
+
+
+
+		[Column] public int TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public int CentroCostosID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("LoteCrioTermo")]
+
+
+	[PrimaryKey("LoteCrioTermoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class LoteCrioTermo : jlapcDB.Record<LoteCrioTermo>  
+    {
+
+
+
+		[Column] public int LoteCrioTermoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpleadoTipoVencimiento")]
+
+
+	[PrimaryKey("EmpleadoTipoVencimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpleadoTipoVencimiento : jlapcDB.Record<EmpleadoTipoVencimiento>  
+    {
+
+
+
+		[Column] public int EmpleadoTipoVencimientoID { get; set; }
+
+
+
+
+
+		[Column] public int EmpleadoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoVencimientoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaVencimiento { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFC_Log")]
+
+
+	[PrimaryKey("IFC_LogID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFC_Log : jlapcDB.Record<IFC_Log>  
+    {
+
+
+
+		[Column] public int IFC_LogID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public string Broken { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Periodo")]
+
+
+	[PrimaryKey("PeriodoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Periodo : jlapcDB.Record<Periodo>  
+    {
+
+
+
+		[Column] public int PeriodoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ClasificacionCuentaContable")]
+
+
+	[ExplicitColumns]
+    public partial class ClasificacionCuentaContable : jlapcDB.Record<ClasificacionCuentaContable>  
+    {
+
+
+
+		[Column] public int ClasificacionCuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IndicacionPredefinidaMedicamento")]
+
+
+	[PrimaryKey("IndicacionPredefinidaMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IndicacionPredefinidaMedicamento : jlapcDB.Record<IndicacionPredefinidaMedicamento>  
+    {
+
+
+
+		[Column] public int IndicacionPredefinidaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public int? Orden { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoModulo")]
+
+
+	[PrimaryKey("GrupoModuloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoModulo : jlapcDB.Record<GrupoModulo>  
+    {
+
+
+
+		[Column] public int GrupoModuloID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("RolComponenteFormula")]
+
+
+	[PrimaryKey("RolComponenteFormulaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class RolComponenteFormula : jlapcDB.Record<RolComponenteFormula>  
+    {
+
+
+
+		[Column] public int RolComponenteFormulaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaDatos")]
+
+
+	[PrimaryKey("EmpresaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EmpresaDato : jlapcDB.Record<EmpresaDato>  
+    {
+
+
+
+		[Column] public DateTime? ClienteDesde { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadPersonal { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionPagoID { get; set; }
+
+
+
+
+
+		[Column] public string NumeroIngresosBrutos { get; set; }
+
+
+
+
+
+		[Column] public string NumeroAgenciaAfip { get; set; }
+
+
+
+
+
+		[Column] public DateTime? CierreEjercicio { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoSociedadID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_GrupoEconomico { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionGananciaID { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoCivilID { get; set; }
+
+
+
+
+
+		[Column] public string Nacionalidad { get; set; }
+
+
+
+
+
+		[Column] public string DNI { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaNacimiento { get; set; }
+
+
+
+
+
+		[Column] public int? CategoriaID { get; set; }
+
+
+
+
+
+		[Column] public string ClaveFiscal { get; set; }
+
+
+
+
+
+		[Column] public int? RegimenIIBBID { get; set; }
+
+
+
+
+
+		[Column] public int? CategoriaIIBBID { get; set; }
+
+
+
+
+
+		[Column] public int? ProvinciaID_IIBB { get; set; }
+
+
+
+
+
+		[Column] public byte? EsAgenteRetencionGanancias { get; set; }
+
+
+
+
+
+		[Column] public int? CategoriaGananciaID { get; set; }
+
+
+
+
+
+		[Column] public string ClaveFiscalRentas { get; set; }
+
+
+
+
+
+		[Column] public int? ListaPreciosID { get; set; }
+
+
+
+
+
+		[Column] public byte? EsAgenteRetencionIVA { get; set; }
+
+
+
+
+
+		[Column] public byte? EsAgenteRetencionIIBB { get; set; }
+
+
+
+
+
+		[Column] public byte? EsAgenteRetencionSUSS { get; set; }
+
+
+
+
+
+		[Column] public byte? EsAgentePercepcionIIBB { get; set; }
+
+
+
+
+
+		[Column] public byte? EsAgentePercepcionIVA { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoRetencionIIBBBsAsID { get; set; }
+
+
+
+
+
+		[Column] public int? ActividadID_Principal { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public byte? EsAltoRiesgoFiscal { get; set; }
+
+
+
+
+
+		[Column] public byte? EsMonotributistaMagnitudSuperada { get; set; }
+
+
+
+
+
+		[Column] public DateTime? ClienteHasta { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_Vendedor { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionVentaID { get; set; }
+
+
+
+
+
+		[Column] public int? ZonaID { get; set; }
+
+
+
+
+
+		[Column] public decimal? LimiteCredito { get; set; }
+
+
+
+
+
+		[Column] public int? DivisaID_LimiteCredito { get; set; }
+
+
+
+
+
+		[Column] public DateTime? InicioActividades { get; set; }
+
+
+
+
+
+		[Column] public string GLN { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_TipoMovimiento")]
+
+
+	[PrimaryKey("IFSAP_TipoMovimientoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_TipoMovimiento : jlapcDB.Record<IFSAP_TipoMovimiento>  
+    {
+
+
+
+		[Column] public int IFSAP_TipoMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionCorta { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionLarga { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ClasificacionAsiento")]
+
+
+	[ExplicitColumns]
+    public partial class ClasificacionAsiento : jlapcDB.Record<ClasificacionAsiento>  
+    {
+
+
+
+		[Column] public int ClasificacionAsientoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoAttachment")]
+
+
+	[PrimaryKey("DocumentoAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class DocumentoAttachment : jlapcDB.Record<DocumentoAttachment>  
+    {
+
+
+
+		[Column] public int DocumentoAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public string NombreArchivo { get; set; }
+
+
+
+
+
+		[Column] public int? DocumentoTipoAdjuntoID { get; set; }
+
+
+
+
+
+		[Column] public int? AdjuntoObjetoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Medio")]
+
+
+	[PrimaryKey("MedioID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Medio : jlapcDB.Record<Medio>  
+    {
+
+
+
+		[Column] public int MedioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ICD_Diagnostico")]
+
+
+	[PrimaryKey("ICD_DiagnosticoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ICD_Diagnostico : jlapcDB.Record<ICD_Diagnostico>  
+    {
+
+
+
+		[Column] public int ICD_DiagnosticoID { get; set; }
+
+
+
+
+
+		[Column] public string ICD_Codigo { get; set; }
+
+
+
+
+
+		[Column] public string ICD_Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int ICD_Seccion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TopeRepeticion")]
+
+
+	[PrimaryKey("TopeRepeticionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TopeRepeticion : jlapcDB.Record<TopeRepeticion>  
+    {
+
+
+
+		[Column] public int TopeRepeticionID { get; set; }
+
+
+
+
+
+		[Column] public int FinanciadorID { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public int Tope { get; set; }
+
+
+
+
+
+		[Column] public int CantidadPeriodo { get; set; }
+
+
+
+
+
+		[Column] public int PeriodoID { get; set; }
+
+
+
+
+
+		[Column] public byte Calendario { get; set; }
+
+
+
+
+
+		[Column] public int? PacienteID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("LoteCrioCanasto")]
+
+
+	[PrimaryKey("LoteCrioCanastoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class LoteCrioCanasto : jlapcDB.Record<LoteCrioCanasto>  
+    {
+
+
+
+		[Column] public int LoteCrioCanastoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int LoteCrioTermoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SubEstado")]
+
+
+	[PrimaryKey("SubEstadoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SubEstado : jlapcDB.Record<SubEstado>  
+    {
+
+
+
+		[Column] public int SubEstadoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int EstadoID { get; set; }
+
+
+
+
+
+		[Column] public byte Predeterminado { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoModulo_Modulo")]
+
+
+	[PrimaryKey("GrupoModulo_ModuloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoModulo_Modulo : jlapcDB.Record<GrupoModulo_Modulo>  
+    {
+
+
+
+		[Column] public int GrupoModulo_ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoModuloID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProfesionalMotivoConsulta")]
+
+
+	[PrimaryKey("ProfesionalMotivoConsultaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ProfesionalMotivoConsultum : jlapcDB.Record<ProfesionalMotivoConsultum>  
+    {
+
+
+
+		[Column] public int ProfesionalMotivoConsultaID { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoConsultaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloTipoEvento")]
+
+
+	[PrimaryKey("PoloTipoEventoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class PoloTipoEvento : jlapcDB.Record<PoloTipoEvento>  
+    {
+
+
+
+		[Column] public int PoloTipoEventoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ModuloModuloOrden")]
+
+
+	[PrimaryKey("ModuloModuloOrdenID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ModuloModuloOrden : jlapcDB.Record<ModuloModuloOrden>  
+    {
+
+
+
+		[Column] public int ModuloModuloOrdenID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloModuloID { get; set; }
+
+
+
+
+
+		[Column] public int Orden { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProfesionalEspecialidad")]
+
+
+	[PrimaryKey("ProfesionalID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ProfesionalEspecialidad : jlapcDB.Record<ProfesionalEspecialidad>  
+    {
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public byte? Principal { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TimeSheetDispositivo")]
+
+
+	[PrimaryKey("TimeSheetDispositivoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TimeSheetDispositivo : jlapcDB.Record<TimeSheetDispositivo>  
+    {
+
+
+
+		[Column] public int TimeSheetDispositivoID { get; set; }
+
+
+
+
+
+		[Column] public int TimeSheetLocacionID { get; set; }
+
+
+
+
+
+		[Column] public string IP { get; set; }
+
+
+
+
+
+		[Column] public int Port { get; set; }
+
+
+
+
+
+		[Column] public int NumeroLicencia { get; set; }
+
+
+
+
+
+		[Column] public int NumeroDispositivo { get; set; }
+
+
+
+
+
+		[Column] public int? Password { get; set; }
+
+
+
+
+
+		[Column] public short ProtocolType { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ExpoTipoStandFormaPago")]
+
+
+	[PrimaryKey("ExpoTipoStandFormaPagoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ExpoTipoStandFormaPago : jlapcDB.Record<ExpoTipoStandFormaPago>  
+    {
+
+
+
+		[Column] public int ExpoTipoStandFormaPagoID { get; set; }
+
+
+
+
+
+		[Column] public int ExposicionTipoStandID { get; set; }
+
+
+
+
+
+		[Column] public float? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public float? Importe { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_MedioPago")]
+
+
+	[PrimaryKey("IFSAP_MedioPagoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_MedioPago : jlapcDB.Record<IFSAP_MedioPago>  
+    {
+
+
+
+		[Column] public int IFSAP_MedioPagoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrigenPaciente")]
+
+
+	[PrimaryKey("OrigenPacienteID")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrigenPaciente : jlapcDB.Record<OrigenPaciente>  
+    {
+
+
+
+		[Column] public int OrigenPacienteID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PlanParentesco")]
+
+
+	[PrimaryKey("PlanParentescoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class PlanParentesco : jlapcDB.Record<PlanParentesco>  
+    {
+
+
+
+		[Column] public int PlanParentescoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoViaje")]
+
+
+	[PrimaryKey("TipoViajeID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoViaje : jlapcDB.Record<TipoViaje>  
+    {
+
+
+
+		[Column] public int TipoViajeID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Consultorio")]
+
+
+	[PrimaryKey("ConsultorioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Consultorio : jlapcDB.Record<Consultorio>  
+    {
+
+
+
+		[Column] public int ConsultorioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? SucursalID { get; set; }
+
+
+
+
+
+		[Column] public int? CidecomCashier { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CondicionPago")]
+
+
+	[PrimaryKey("CondicionPagoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CondicionPago : jlapcDB.Record<CondicionPago>  
+    {
+
+
+
+		[Column] public int CondicionPagoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ReporteTratamientoColumnasVariables")]
+
+
+	[PrimaryKey("ReporteTratamientoColumnasVariablesID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ReporteTratamientoColumnasVariable : jlapcDB.Record<ReporteTratamientoColumnasVariable>  
+    {
+
+
+
+		[Column] public int ReporteTratamientoColumnasVariablesID { get; set; }
+
+
+
+
+
+		[Column] public int ReporteTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int VariableID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public short Orden { get; set; }
+
+
+
+
+
+		[Column] public short? Ordenamiento { get; set; }
+
+
+
+
+
+		[Column] public bool filtrarDesdeHasta { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoBloqueo")]
+
+
+	[PrimaryKey("TipoBloqueoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoBloqueo : jlapcDB.Record<TipoBloqueo>  
+    {
+
+
+
+		[Column] public byte TipoBloqueoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Rubro")]
+
+
+	[PrimaryKey("RubroID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Rubro : jlapcDB.Record<Rubro>  
+    {
+
+
+
+		[Column] public int RubroID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoConsumo")]
+
+
+	[PrimaryKey("TipoConsumoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoConsumo : jlapcDB.Record<TipoConsumo>  
+    {
+
+
+
+		[Column] public int TipoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IndicacionPredefinidaModulo")]
+
+
+	[PrimaryKey("IndicacionPredefinidaModuloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IndicacionPredefinidaModulo : jlapcDB.Record<IndicacionPredefinidaModulo>  
+    {
+
+
+
+		[Column] public int IndicacionPredefinidaModuloID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int? Orden { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ActividadPaciente")]
+
+
+	[PrimaryKey("ActividadPacienteID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ActividadPaciente : jlapcDB.Record<ActividadPaciente>  
+    {
+
+
+
+		[Column] public int ActividadPacienteID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int? MesesRenovacion { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaHasta { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CirugiaMembrana")]
+
+
+	[PrimaryKey("CirugiaMembranaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CirugiaMembrana : jlapcDB.Record<CirugiaMembrana>  
+    {
+
+
+
+		[Column] public int CirugiaMembranaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Pago")]
+
+
+	[PrimaryKey("IFSAP_PagoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_Pago : jlapcDB.Record<IFSAP_Pago>  
+    {
+
+
+
+		[Column] public int IFSAP_PagoID { get; set; }
+
+
+
+
+
+		[Column] public int IFSAP_DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_TipoMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_MedioPagoID { get; set; }
+
+
+
+
+
+		[Column] public decimal Importe { get; set; }
+
+
+
+
+
+		[Column] public string Titular { get; set; }
+
+
+
+
+
+		[Column] public string Numero { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaVencimiento { get; set; }
+
+
+
+
+
+		[Column] public string Institucion { get; set; }
+
+
+
+
+
+		[Column] public string TarjetaCredito { get; set; }
+
+
+
+	}
+
+    
+	[TableName("LoteCrioCaja")]
+
+
+	[PrimaryKey("LoteCrioCajaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class LoteCrioCaja : jlapcDB.Record<LoteCrioCaja>  
+    {
+
+
+
+		[Column] public int LoteCrioCajaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int LoteCrioCanastoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioModuloProducto")]
+
+
+	[PrimaryKey("ConvenioModuloProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioModuloProducto : jlapcDB.Record<ConvenioModuloProducto>  
+    {
+
+
+
+		[Column] public int ConvenioModuloProductoID { get; set; }
+
+
+
+
+
+		[Column] public int ConvenioModuloID { get; set; }
+
+
+
+
+
+		[Column] public int? MonodrogaID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoProductoID { get; set; }
+
+
+
+
+
+		[Column] public int? ProductoID { get; set; }
+
+
+
+
+
+		[Column] public int? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public byte Inclusion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoVarianteReporteador")]
+
+
+	[PrimaryKey("GrupoVarianteReporteadorID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoVarianteReporteador : jlapcDB.Record<GrupoVarianteReporteador>  
+    {
+
+
+
+		[Column] public int GrupoVarianteReporteadorID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VarianteReporteLaboratorio")]
+
+
+	[PrimaryKey("VarianteReporteLaboratorioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VarianteReporteLaboratorio : jlapcDB.Record<VarianteReporteLaboratorio>  
+    {
+
+
+
+		[Column] public int VarianteReporteLaboratorioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int Inclusion { get; set; }
+
+
+
+
+
+		[Column] public int TipoDiscriminacionColumna { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaFormulaLoteProductoMovimientoLoteProducto")]
+
+
+	[PrimaryKey("OrdenManufacturaFormulaLoteProductoMovimientoLoteProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaFormulaLoteProductoMovimientoLoteProducto : jlapcDB.Record<OrdenManufacturaFormulaLoteProductoMovimientoLoteProducto>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaFormulaLoteProductoMovimientoLoteProductoID { get; set; }
+
+
+
+
+
+		[Column] public int OrdenManufacturaFormulaLoteProductoID { get; set; }
+
+
+
+
+
+		[Column] public int MovimientoLoteProductoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoViaje")]
+
+
+	[PrimaryKey("EstadoViajeID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EstadoViaje : jlapcDB.Record<EstadoViaje>  
+    {
+
+
+
+		[Column] public int EstadoViajeID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ContactoEstudio")]
+
+
+	[PrimaryKey("ContactoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ContactoEstudio : jlapcDB.Record<ContactoEstudio>  
+    {
+
+
+
+		[Column] public int ContactoID { get; set; }
+
+
+
+
+
+		[Column] public int? NovedadID_devueltoLaboratorio { get; set; }
+
+
+
+
+
+		[Column] public int? NovedadID_entregaResultado { get; set; }
+
+
+
+
+
+		[Column] public int? NovedadID_observaciones { get; set; }
+
+
+
+	}
+
+    
+	[TableName("StandFormaPagoLink")]
+
+
+	[PrimaryKey("StandID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class StandFormaPagoLink : jlapcDB.Record<StandFormaPagoLink>  
+    {
+
+
+
+		[Column] public int StandID { get; set; }
+
+
+
+
+
+		[Column] public int ExpoTipoStandFormaPagoID { get; set; }
+
+
+
+
+
+		[Column] public string Link { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConsumoRolDocumento")]
+
+
+	[PrimaryKey("TipoConsumoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ConsumoRolDocumento : jlapcDB.Record<ConsumoRolDocumento>  
+    {
+
+
+
+		[Column] public int TipoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int ConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int RolID { get; set; }
+
+
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos { get; set; }
+
+
+
+
+
+		[Column] public decimal? IVA { get; set; }
+
+
+
+
+
+		[Column] public int CuotaParteDeLiquidacionAProfesionalesID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Laboratorio")]
+
+
+	[PrimaryKey("LaboratorioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Laboratorio : jlapcDB.Record<Laboratorio>  
+    {
+
+
+
+		[Column] public int LaboratorioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? TipoServicioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PracticaVariable")]
+
+
+	[PrimaryKey("PracticaVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PracticaVariable : jlapcDB.Record<PracticaVariable>  
+    {
+
+
+
+		[Column] public int PracticaVariableID { get; set; }
+
+
+
+
+
+		[Column] public int NomencladorID { get; set; }
+
+
+
+
+
+		[Column] public int CapituloID { get; set; }
+
+
+
+
+
+		[Column] public int PracticaID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? VariableID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TurnoConsumoDocumento")]
+
+
+	[PrimaryKey("TipoConsumoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TurnoConsumoDocumento : jlapcDB.Record<TurnoConsumoDocumento>  
+    {
+
+
+
+		[Column] public int TipoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int TurnoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos { get; set; }
+
+
+
+
+
+		[Column] public decimal? IVA { get; set; }
+
+
+
+
+
+		[Column] public int? TipoImpuestoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public int? CentroCostosID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CirugiaInicio")]
+
+
+	[PrimaryKey("CirugiaInicioID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CirugiaInicio : jlapcDB.Record<CirugiaInicio>  
+    {
+
+
+
+		[Column] public int CirugiaInicioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TopeRepeticionPractica")]
+
+
+	[PrimaryKey("TopeRepeticionID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TopeRepeticionPractica : jlapcDB.Record<TopeRepeticionPractica>  
+    {
+
+
+
+		[Column] public int TopeRepeticionID { get; set; }
+
+
+
+
+
+		[Column] public int NomencladorID { get; set; }
+
+
+
+
+
+		[Column] public int CapituloID { get; set; }
+
+
+
+
+
+		[Column] public int PracticaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MotivoConsulta")]
+
+
+	[PrimaryKey("MotivoConsultaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MotivoConsultum : jlapcDB.Record<MotivoConsultum>  
+    {
+
+
+
+		[Column] public int MotivoConsultaID { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? PracticaID { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoConsultaCircuitoID { get; set; }
+
+
+
+
+
+		[Column] public byte AReporteDiarioCirugias { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MailerDireccionAttachment")]
+
+
+	[PrimaryKey("MailerDireccionAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MailerDireccionAttachment : jlapcDB.Record<MailerDireccionAttachment>  
+    {
+
+
+
+		[Column] public int MailerDireccionAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int MailerDireccionID { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_asBase64 { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Consumo_Origen_CentroCosto")]
+
+
+	[PrimaryKey("IFSAP_Consumo_Origen_CentroCostoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_Consumo_Origen_CentroCosto : jlapcDB.Record<IFSAP_Consumo_Origen_CentroCosto>  
+    {
+
+
+
+		[Column] public int IFSAP_Consumo_Origen_CentroCostoID { get; set; }
+
+
+
+
+
+		[Column] public int IFSAP_Consumo_CentroCostoID { get; set; }
+
+
+
+
+
+		[Column] public int IFSAP_Consumo_OrigenID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoTurno")]
+
+
+	[PrimaryKey("TipoTurnoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoTurno : jlapcDB.Record<TipoTurno>  
+    {
+
+
+
+		[Column] public int TipoTurnoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VarianteReporteLaboratorioColumna")]
+
+
+	[PrimaryKey("VarianteReporteLaboratorioColumnaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VarianteReporteLaboratorioColumna : jlapcDB.Record<VarianteReporteLaboratorioColumna>  
+    {
+
+
+
+		[Column] public int VarianteReporteLaboratorioColumnaID { get; set; }
+
+
+
+
+
+		[Column] public int VarianteReporteLaboratorioID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? VariableID { get; set; }
+
+
+
+
+
+		[Column] public byte Mostrar { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Internacion")]
+
+
+	[PrimaryKey("InternacionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Internacion : jlapcDB.Record<Internacion>  
+    {
+
+
+
+		[Column] public int InternacionID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_Prestador { get; set; }
+
+
+
+
+
+		[Column] public int? PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? ICD_DiagnosticoID { get; set; }
+
+
+
+
+
+		[Column] public string Cama { get; set; }
+
+
+
+
+
+		[Column("Internacion")] public DateTime? _Internacion { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Alta { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public DateTime? PosibleAlta { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public string Responsable { get; set; }
+
+
+
+
+
+		[Column] public int? ParentescoID { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoEgresoID { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public int? OrigenPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? PatologiaID { get; set; }
+
+
+
+
+
+		[Column] public string TelefonoAlternativo { get; set; }
+
+
+
+
+
+		[Column] public string NroOrden { get; set; }
+
+
+
+
+
+		[Column] public int Numero { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VencimientoAutorizacion { get; set; }
+
+
+
+
+
+		[Column] public int? TipoAislamientoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ActividadPacientePractica")]
+
+
+	[PrimaryKey("ActividadPacientePracticaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ActividadPacientePractica : jlapcDB.Record<ActividadPacientePractica>  
+    {
+
+
+
+		[Column] public int ActividadPacientePracticaID { get; set; }
+
+
+
+
+
+		[Column] public int ActividadPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int PracticaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloEquipo")]
+
+
+	[PrimaryKey("PoloEquipoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloEquipo : jlapcDB.Record<PoloEquipo>  
+    {
+
+
+
+		[Column] public int PoloEquipoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int PoloClubID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoDocumento")]
+
+
+	[PrimaryKey("TipoDocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoDocumento : jlapcDB.Record<TipoDocumento>  
+    {
+
+
+
+		[Column] public int TipoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? Signo { get; set; }
+
+
+
+
+
+		[Column] public int? Orden { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion2 { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionCorta { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionCorta2 { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Viaje")]
+
+
+	[PrimaryKey("ViajeID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Viaje : jlapcDB.Record<Viaje>  
+    {
+
+
+
+		[Column] public int ViajeID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Desde { get; set; }
+
+
+
+
+
+		[Column] public short? Duracion { get; set; }
+
+
+
+
+
+		[Column] public int? TipoViajeID { get; set; }
+
+
+
+
+
+		[Column] public int? MedioID { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_PrestadorOrigen { get; set; }
+
+
+
+
+
+		[Column] public string DireccionOrigen { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_PrestadorDestino { get; set; }
+
+
+
+
+
+		[Column] public string DireccionDestino { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_PrestadorDelViaje { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoViajeID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? AltaRequerimiento { get; set; }
+
+
+
+
+
+		[Column] public int? ICD_DiagnosticoID { get; set; }
+
+
+
+
+
+		[Column] public string ResumenHC { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoUsuario")]
+
+
+	[PrimaryKey("GrupoUsuarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoUsuario : jlapcDB.Record<GrupoUsuario>  
+    {
+
+
+
+		[Column] public int GrupoUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoVarianteReporteador_VarianteReporteTratamiento")]
+
+
+	[PrimaryKey("GrupoVarianteReporteador_VarianteReporteTratamientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoVarianteReporteador_VarianteReporteTratamiento : jlapcDB.Record<GrupoVarianteReporteador_VarianteReporteTratamiento>  
+    {
+
+
+
+		[Column] public int GrupoVarianteReporteador_VarianteReporteTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoVarianteReporteadorID { get; set; }
+
+
+
+
+
+		[Column] public int ReporteTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public short? Orden { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MostrarHistorial")]
+
+
+	[PrimaryKey("MostrarHistorialID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class MostrarHistorial : jlapcDB.Record<MostrarHistorial>  
+    {
+
+
+
+		[Column] public int MostrarHistorialID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoParto")]
+
+
+	[PrimaryKey("TipoPartoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoParto : jlapcDB.Record<TipoParto>  
+    {
+
+
+
+		[Column] public int TipoPartoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaContrato")]
+
+
+	[PrimaryKey("EmpresaContratoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaContrato : jlapcDB.Record<EmpresaContrato>  
+    {
+
+
+
+		[Column] public int EmpresaContratoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoInstrumentoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaFirma { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaInscripcion { get; set; }
+
+
+
+
+
+		[Column] public string NumeroInscripcion { get; set; }
+
+
+
+
+
+		[Column] public string Folio { get; set; }
+
+
+
+
+
+		[Column] public string Libro { get; set; }
+
+
+
+
+
+		[Column] public string Tomo { get; set; }
+
+
+
+
+
+		[Column] public string TipoTomo { get; set; }
+
+
+
+
+
+		[Column] public string Organismo { get; set; }
+
+
+
+
+
+		[Column] public string Jurisdiccion { get; set; }
+
+
+
+
+
+		[Column] public string Legajo { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaIniciacionActividades { get; set; }
+
+
+
+
+
+		[Column] public int? PlazoBalance { get; set; }
+
+
+
+
+
+		[Column] public string FrecuenciaReuniones { get; set; }
+
+
+
+
+
+		[Column] public int? PlazoSociedad { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string Firma { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public decimal? CapitalTotal { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadAcciones { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MailerCampaniaLink")]
+
+
+	[PrimaryKey("MailerCampaniaLinkID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MailerCampaniaLink : jlapcDB.Record<MailerCampaniaLink>  
+    {
+
+
+
+		[Column] public int MailerCampaniaLinkID { get; set; }
+
+
+
+
+
+		[Column] public int MailerCampaniaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Alias { get; set; }
+
+
+
+
+
+		[Column] public string UrlDestinoOriginal { get; set; }
+
+
+
+
+
+		[Column] public bool Activo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Pais")]
+
+
+	[PrimaryKey("PaisID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Pai : jlapcDB.Record<Pai>  
+    {
+
+
+
+		[Column] public int PaisID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoRetencion")]
+
+
+	[PrimaryKey("DocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoRetencion : jlapcDB.Record<DocumentoRetencion>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int? CategoriaGananciaID { get; set; }
+
+
+
+
+
+		[Column] public float? Fijo { get; set; }
+
+
+
+
+
+		[Column] public float? TotalNetosPagosMes { get; set; }
+
+
+
+
+
+		[Column] public float? MinimoNoImponible { get; set; }
+
+
+
+
+
+		[Column] public float? Porcentaje { get; set; }
+
+
+
+
+
+		[Column] public float? RetencionAcumuladaMes { get; set; }
+
+
+
+
+
+		[Column] public decimal? RetencionMinima { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaBoletinExclusion { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaVencimientoExclusion { get; set; }
+
+
+
+
+
+		[Column] public int? PorcentajeExclusion { get; set; }
+
+
+
+
+
+		[Column] public int? NroCertificado { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionRegimenRetencion { get; set; }
+
+
+
+
+
+		[Column] public decimal? BaseImponible { get; set; }
+
+
+
+
+
+		[Column] public decimal? Importe { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MailerContacto")]
+
+
+	[PrimaryKey("MailerContactoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MailerContacto : jlapcDB.Record<MailerContacto>  
+    {
+
+
+
+		[Column] public int MailerContactoID { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Apellido { get; set; }
+
+
+
+
+
+		[Column] public string RazonSocial { get; set; }
+
+
+
+
+
+		[Column] public string email { get; set; }
+
+
+
+
+
+		[Column] public byte NoEnviar { get; set; }
+
+
+
+
+
+		[Column] public int? RubroID { get; set; }
+
+
+
+
+
+		[Column] public string Telefono { get; set; }
+
+
+
+
+
+		[Column] public string PaginaWeb { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ReporteTratamientoColumnasFijas")]
+
+
+	[PrimaryKey("ReporteTratamientoColumnasFijasID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ReporteTratamientoColumnasFija : jlapcDB.Record<ReporteTratamientoColumnasFija>  
+    {
+
+
+
+		[Column] public int ReporteTratamientoColumnasFijasID { get; set; }
+
+
+
+
+
+		[Column] public int ColumnasFijasID { get; set; }
+
+
+
+
+
+		[Column] public int ReporteTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public short? Ordenamiento { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? VariableID { get; set; }
+
+
+
+
+
+		[Column] public string Valor { get; set; }
+
+
+
+
+
+		[Column] public int? ReporteTratamientoColumnasFijasUnidadDeTiempoID { get; set; }
+
+
+
+
+
+		[Column] public short? Orden { get; set; }
+
+
+
+
+
+		[Column] public int? TratamientoID { get; set; }
+
+
+
+
+
+		[Column] public bool filtrarDesdeHasta { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MotivoConsumo")]
+
+
+	[PrimaryKey("MotivoConsumoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MotivoConsumo : jlapcDB.Record<MotivoConsumo>  
+    {
+
+
+
+		[Column] public int MotivoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public byte Interno { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_Parametro")]
+
+
+	[PrimaryKey("ParametroID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_Parametro : jlapcDB.Record<SYS_Parametro>  
+    {
+
+
+
+		[Column] public string ParametroID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string ValoresEsperados { get; set; }
+
+
+
+	}
+
+    
+	[TableName("LoteCrioPosicion")]
+
+
+	[PrimaryKey("LoteCrioPosicionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class LoteCrioPosicion : jlapcDB.Record<LoteCrioPosicion>  
+    {
+
+
+
+		[Column] public int LoteCrioPosicionID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int LoteCrioCajaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_Permiso")]
+
+
+	[PrimaryKey("PermisoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_Permiso : jlapcDB.Record<SYS_Permiso>  
+    {
+
+
+
+		[Column] public int PermisoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MotivoConsultaCircuito")]
+
+
+	[PrimaryKey("MotivoConsultaCircuitoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class MotivoConsultaCircuito : jlapcDB.Record<MotivoConsultaCircuito>  
+    {
+
+
+
+		[Column] public int MotivoConsultaCircuitoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoLiquidacionAFinanciador")]
+
+
+	[PrimaryKey("EstadoLiquidacionAFinanciadorID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EstadoLiquidacionAFinanciador : jlapcDB.Record<EstadoLiquidacionAFinanciador>  
+    {
+
+
+
+		[Column] public int EstadoLiquidacionAFinanciadorID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoGrupoVariableConsentimiento")]
+
+
+	[PrimaryKey("GrupoGrupoVariableConsentimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoGrupoVariableConsentimiento : jlapcDB.Record<GrupoGrupoVariableConsentimiento>  
+    {
+
+
+
+		[Column] public int GrupoGrupoVariableConsentimientoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? ConsentimientoID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoGrupoVariableID_Condicion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoVariableID_Condicion { get; set; }
+
+
+
+
+
+		[Column] public int? VariableID_Condicion { get; set; }
+
+
+
+
+
+		[Column] public string Valor { get; set; }
+
+
+
+
+
+		[Column] public int? OperadorID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("AtributosHTML")]
+
+
+	[PrimaryKey("AtributosHTMLID")]
+
+
+
+	[ExplicitColumns]
+    public partial class AtributosHTML : jlapcDB.Record<AtributosHTML>  
+    {
+
+
+
+		[Column] public int AtributosHTMLID { get; set; }
+
+
+
+
+
+		[Column] public bool Bold { get; set; }
+
+
+
+
+
+		[Column] public bool Italic { get; set; }
+
+
+
+
+
+		[Column] public bool Underline { get; set; }
+
+
+
+
+
+		[Column] public int TamanioLetra { get; set; }
+
+
+
+
+
+		[Column] public int TipoLetraID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CirugiaParto")]
+
+
+	[PrimaryKey("CirugiaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CirugiaParto : jlapcDB.Record<CirugiaParto>  
+    {
+
+
+
+		[Column] public int CirugiaID { get; set; }
+
+
+
+
+
+		[Column] public float? SemanasGestacion { get; set; }
+
+
+
+
+
+		[Column] public int? CirugiaMembranaID { get; set; }
+
+
+
+
+
+		[Column] public int? CirugiaInicioID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoPartoID { get; set; }
+
+
+
+
+
+		[Column] public string CaracteristicaCuello { get; set; }
+
+
+
+
+
+		[Column] public string DilatacionCuello { get; set; }
+
+
+
+
+
+		[Column] public string CaracteristicasSeguimiento { get; set; }
+
+
+
+
+
+		[Column] public string UteroYAnexos { get; set; }
+
+
+
+
+
+		[Column] public string Indicaciones { get; set; }
+
+
+
+
+
+		[Column] public string Comentarios { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaMembranaRota { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Consumo_Movimiento")]
+
+
+	[PrimaryKey("IFSAP_Consumo_MovimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_Consumo_Movimiento : jlapcDB.Record<IFSAP_Consumo_Movimiento>  
+    {
+
+
+
+		[Column] public int IFSAP_Consumo_MovimientoID { get; set; }
+
+
+
+
+
+		[Column] public string IDHIS { get; set; }
+
+
+
+
+
+		[Column] public decimal? Stock { get; set; }
+
+
+
+
+
+		[Column] public string UM { get; set; }
+
+
+
+
+
+		[Column] public string SignoTransaccion { get; set; }
+
+
+
+
+
+		[Column] public string AlmacenOrigen { get; set; }
+
+
+
+
+
+		[Column] public string AlmacenDestino { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_Consumo_CentroCostoID { get; set; }
+
+
+
+
+
+		[Column] public string IDMovimiento { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_Consumo_OrigenID { get; set; }
+
+
+
+
+
+		[Column] public string SER_SER_Codigo { get; set; }
+
+
+
+
+
+		[Column] public string SER_ESP_Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Errores { get; set; }
+
+
+
+
+
+		[Column] public byte? LeidoSAP { get; set; }
+
+
+
+
+
+		[Column] public byte? ProcesadoOkSAP { get; set; }
+
+
+
+
+
+		[Column] public byte AProcesarSAP { get; set; }
+
+
+
+
+
+		[Column] public byte AReprocesar { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaUltimoProceso { get; set; }
+
+
+
+
+
+		[Column] public string AlmacenOrigen_Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string AlmacenDestino_Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Errores_HIS { get; set; }
+
+
+
+
+
+		[Column] public int? NroDocumento { get; set; }
+
+
+
+
+
+		[Column] public string Servicio { get; set; }
+
+
+
+
+
+		[Column] public string Unidad { get; set; }
+
+
+
+
+
+		[Column] public string UM_Convertido { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionProducto { get; set; }
+
+
+
+	}
+
+    
+	[TableName("UsrDefinition")]
+
+
+	[ExplicitColumns]
+    public partial class UsrDefinition : jlapcDB.Record<UsrDefinition>  
+    {
+
+
+
+		[Column] public string UsrId { get; set; }
+
+
+
+
+
+		[Column] public string UsrPwd { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ActividadPacienteModulo")]
+
+
+	[PrimaryKey("ActividadPacienteModuloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ActividadPacienteModulo : jlapcDB.Record<ActividadPacienteModulo>  
+    {
+
+
+
+		[Column] public int ActividadPacienteModuloID { get; set; }
+
+
+
+
+
+		[Column] public int ActividadPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Duracion")]
+
+
+	[PrimaryKey("DuracionID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Duracion : jlapcDB.Record<Duracion>  
+    {
+
+
+
+		[Column] public int DuracionID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ModoConversionUnidadMedida")]
+
+
+	[PrimaryKey("ModoConversionUnidadMedidaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ModoConversionUnidadMedida : jlapcDB.Record<ModoConversionUnidadMedida>  
+    {
+
+
+
+		[Column] public int ModoConversionUnidadMedidaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioModuloPractica")]
+
+
+	[PrimaryKey("ConvenioModuloPracticaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioModuloPractica : jlapcDB.Record<ConvenioModuloPractica>  
+    {
+
+
+
+		[Column] public int ConvenioModuloPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int ConvenioModuloID { get; set; }
+
+
+
+
+
+		[Column] public int NomencladorID { get; set; }
+
+
+
+
+
+		[Column] public int? CapituloID { get; set; }
+
+
+
+
+
+		[Column] public int? PracticaID { get; set; }
+
+
+
+
+
+		[Column] public int? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public byte Inclusion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoUsuarioUsuario")]
+
+
+	[PrimaryKey("GrupoUsuarioID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class GrupoUsuarioUsuario : jlapcDB.Record<GrupoUsuarioUsuario>  
+    {
+
+
+
+		[Column] public int GrupoUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TopeRepeticionModulo")]
+
+
+	[PrimaryKey("TopeRepeticionID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TopeRepeticionModulo : jlapcDB.Record<TopeRepeticionModulo>  
+    {
+
+
+
+		[Column] public int TopeRepeticionID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("RegimenIIBB")]
+
+
+	[PrimaryKey("RegimenIIBBID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class RegimenIIBB : jlapcDB.Record<RegimenIIBB>  
+    {
+
+
+
+		[Column] public int RegimenIIBBID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ListaPreciosTipoServicio")]
+
+
+	[PrimaryKey("ListaPreciosTipoServicioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ListaPreciosTipoServicio : jlapcDB.Record<ListaPreciosTipoServicio>  
+    {
+
+
+
+		[Column] public int ListaPreciosTipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public int ListaPreciosID { get; set; }
+
+
+
+
+
+		[Column] public float? PrecioUnitario { get; set; }
+
+
+
+
+
+		[Column] public int? TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public decimal? Descuento { get; set; }
+
+
+
+
+
+		[Column] public byte IVAIncluido { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VarianteReporteLaboratorioEstadoTratamiento")]
+
+
+	[PrimaryKey("VarianteReporteLaboratorioEstadoTratamientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VarianteReporteLaboratorioEstadoTratamiento : jlapcDB.Record<VarianteReporteLaboratorioEstadoTratamiento>  
+    {
+
+
+
+		[Column] public int VarianteReporteLaboratorioEstadoTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public int VarianteReporteLaboratorioID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public short Orden { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProductoUnidadMedida")]
+
+
+	[PrimaryKey("ProductoUnidadMedidaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ProductoUnidadMedida : jlapcDB.Record<ProductoUnidadMedida>  
+    {
+
+
+
+		[Column] public int ProductoUnidadMedidaID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public int UnidadMedidaID { get; set; }
+
+
+
+
+
+		[Column] public decimal Coeficiente { get; set; }
+
+
+
+
+
+		[Column] public int ModoConversionUnidadMedidaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_MovimStock")]
+
+
+	[PrimaryKey("IFSAP_MovimStockID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_MovimStock : jlapcDB.Record<IFSAP_MovimStock>  
+    {
+
+
+
+		[Column] public int IFSAP_MovimStockID { get; set; }
+
+
+
+
+
+		[Column] public string Producto { get; set; }
+
+
+
+
+
+		[Column] public string Deposito { get; set; }
+
+
+
+
+
+		[Column] public float Cantidad { get; set; }
+
+
+
+
+
+		[Column] public string Signo { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public string Errores { get; set; }
+
+
+
+
+
+		[Column] public byte? LeidoHIS { get; set; }
+
+
+
+
+
+		[Column] public byte? ProcesadoOkHIS { get; set; }
+
+
+
+
+
+		[Column] public int AProcesarHIS { get; set; }
+
+
+
+
+
+		[Column] public byte AReprocesar { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaUltimoProceso { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionProducto { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionBodega { get; set; }
+
+
+
+
+
+		[Column] public string GenericoIDSap { get; set; }
+
+
+
+
+
+		[Column] public string MarcaNPF { get; set; }
+
+
+
+
+
+		[Column] public string UM { get; set; }
+
+
+
+
+
+		[Column] public string Lote { get; set; }
+
+
+
+
+
+		[Column] public string Lote_de_proveedor { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaDeCaducidad { get; set; }
+
+
+
+
+
+		[Column] public string DocumentoDeMaterial { get; set; }
+
+
+
+
+
+		[Column] public bool DescripcionesActualizadasOK { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_MovimStock_ClaseMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public string GTIN { get; set; }
+
+
+
+
+
+		[Column] public string NumeroDeSerieProducto { get; set; }
+
+
+
+
+
+		[Column] public string GLN_Origen { get; set; }
+
+
+
+
+
+		[Column] public string CUIT_GLN_Origen { get; set; }
+
+
+
+
+
+		[Column] public string GLN_Destino { get; set; }
+
+
+
+
+
+		[Column] public string CUIT_GLN_Destino { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaYHoraTx { get; set; }
+
+
+
+
+
+		[Column] public string NumeroRemito { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaRemito { get; set; }
+
+
+
+
+
+		[Column] public string NumeroFactura { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaFactura { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_MovimStock_TipoProveedorID { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_MovimStock_MotivoMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public string Paciente { get; set; }
+
+
+
+
+
+		[Column] public string Trazable { get; set; }
+
+
+
+
+
+		[Column] public string RazonSocialOrigen { get; set; }
+
+
+
+
+
+		[Column] public int IFSAP_MovimStock_EstadoVerifarmaID { get; set; }
+
+
+
+
+
+		[Column] public string IDANMAT { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionErrorVerifarma { get; set; }
+
+
+
+
+
+		[Column] public bool EsReproceso { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaReproceso { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_ControlPerfilPermiso")]
+
+
+	[PrimaryKey("ControlID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_ControlPerfilPermiso : jlapcDB.Record<SYS_ControlPerfilPermiso>  
+    {
+
+
+
+		[Column] public int ControlID { get; set; }
+
+
+
+
+
+		[Column] public int PerfilID { get; set; }
+
+
+
+
+
+		[Column] public int PermisoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ReporteTratamientoFiltroFijo")]
+
+
+	[PrimaryKey("ReporteTratamientoFiltroFijoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ReporteTratamientoFiltroFijo : jlapcDB.Record<ReporteTratamientoFiltroFijo>  
+    {
+
+
+
+		[Column] public int ReporteTratamientoFiltroFijoID { get; set; }
+
+
+
+
+
+		[Column] public int FiltroFijoID { get; set; }
+
+
+
+
+
+		[Column] public int ReporteTratamientoCondicionID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VarianteCashFlow")]
+
+
+	[PrimaryKey("VarianteCashFlowID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VarianteCashFlow : jlapcDB.Record<VarianteCashFlow>  
+    {
+
+
+
+		[Column] public int VarianteCashFlowID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ActividadPacienteProducto")]
+
+
+	[PrimaryKey("ActividadPacienteProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ActividadPacienteProducto : jlapcDB.Record<ActividadPacienteProducto>  
+    {
+
+
+
+		[Column] public int ActividadPacienteProductoID { get; set; }
+
+
+
+
+
+		[Column] public int ActividadPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoEstadoCheck")]
+
+
+	[PrimaryKey("DocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoEstadoCheck : jlapcDB.Record<DocumentoEstadoCheck>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public byte EstadoCheck { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ReservaEstado")]
+
+
+	[PrimaryKey("ReservaEstadoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ReservaEstado : jlapcDB.Record<ReservaEstado>  
+    {
+
+
+
+		[Column] public int ReservaEstadoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CategoriaIIBB")]
+
+
+	[PrimaryKey("CategoriaIIBBID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CategoriaIIBB : jlapcDB.Record<CategoriaIIBB>  
+    {
+
+
+
+		[Column] public int CategoriaIIBBID { get; set; }
+
+
+
+
+
+		[Column] public int ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SubLoteCrio")]
+
+
+	[PrimaryKey("SubLoteCrioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SubLoteCrio : jlapcDB.Record<SubLoteCrio>  
+    {
+
+
+
+		[Column] public int SubLoteCrioID { get; set; }
+
+
+
+
+
+		[Column] public int LoteCrioID { get; set; }
+
+
+
+
+
+		[Column] public int NroDePajuela { get; set; }
+
+
+
+
+
+		[Column] public decimal Cantidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoPresupuesto")]
+
+
+	[PrimaryKey("EstadoPresupuestoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EstadoPresupuesto : jlapcDB.Record<EstadoPresupuesto>  
+    {
+
+
+
+		[Column] public int EstadoPresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Planes")]
+
+
+	[PrimaryKey("PlanID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Plane : jlapcDB.Record<Plane>  
+    {
+
+
+
+		[Column] public int PlanID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string ModoOperacion { get; set; }
+
+
+
+
+
+		[Column] public byte Bloqueado { get; set; }
+
+
+
+
+
+		[Column] public decimal DescuentoCopago { get; set; }
+
+
+
+
+
+		[Column] public byte? AltaAutomaticaEnPaciente { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? FinanciadorLineaPlanID { get; set; }
+
+
+
+
+
+		[Column] public string Adjunto { get; set; }
+
+
+
+
+
+		[Column] public byte NoDefinido { get; set; }
+
+
+
+
+
+		[Column] public byte Requerir_NroAfiliado { get; set; }
+
+
+
+	}
+
+    
+	[TableName("FuncionEmpleado")]
+
+
+	[PrimaryKey("FuncionEmpleadoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class FuncionEmpleado : jlapcDB.Record<FuncionEmpleado>  
+    {
+
+
+
+		[Column] public int FuncionEmpleadoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoProductoCentroCostos")]
+
+
+	[PrimaryKey("TipoProductoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoProductoCentroCosto : jlapcDB.Record<TipoProductoCentroCosto>  
+    {
+
+
+
+		[Column] public int TipoProductoID { get; set; }
+
+
+
+
+
+		[Column] public int CentroCostosID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CirugiaRecienNacido")]
+
+
+	[PrimaryKey("CirugiaRecienNacidoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CirugiaRecienNacido : jlapcDB.Record<CirugiaRecienNacido>  
+    {
+
+
+
+		[Column] public int CirugiaRecienNacidoID { get; set; }
+
+
+
+
+
+		[Column] public int CirugiaID { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public int SexoID { get; set; }
+
+
+
+
+
+		[Column] public float? Peso { get; set; }
+
+
+
+
+
+		[Column] public float? Talla { get; set; }
+
+
+
+
+
+		[Column] public int? Apgar1 { get; set; }
+
+
+
+
+
+		[Column] public int? Apgar5 { get; set; }
+
+
+
+
+
+		[Column] public int? Capurro { get; set; }
+
+
+
+
+
+		[Column] public int? TipoPresentacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ActividadSala")]
+
+
+	[PrimaryKey("ActividadSalaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ActividadSala : jlapcDB.Record<ActividadSala>  
+    {
+
+
+
+		[Column] public int ActividadSalaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TopeTurnoPracticaLog")]
+
+
+	[PrimaryKey("TurnoPracticaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TopeTurnoPracticaLog : jlapcDB.Record<TopeTurnoPracticaLog>  
+    {
+
+
+
+		[Column] public int TurnoPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int Tope { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Cuenta")]
+
+
+	[PrimaryKey("CuentaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Cuentum : jlapcDB.Record<Cuentum>  
+    {
+
+
+
+		[Column] public int CuentaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int TipoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public string Numero { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaFacturaID { get; set; }
+
+
+
+
+
+		[Column] public int DivisaID { get; set; }
+
+
+
+
+
+		[Column] public int? SucursalID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public int? ConfiguracionImportacionExtractoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoCuentaReporteID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("StandReserva")]
+
+
+	[PrimaryKey("StandReservaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class StandReserva : jlapcDB.Record<StandReserva>  
+    {
+
+
+
+		[Column] public int StandReservaID { get; set; }
+
+
+
+
+
+		[Column] public int StandID { get; set; }
+
+
+
+
+
+		[Column] public int? MailerContactoID { get; set; }
+
+
+
+
+
+		[Column] public int ReservaEstadoID { get; set; }
+
+
+
+
+
+		[Column] public int? ExpoTipoStandFormaPagoID { get; set; }
+
+
+
+
+
+		[Column] public int? MetodoDePagoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("FacturaSerial")]
+
+
+	[PrimaryKey("FacturaSerialID")]
+
+
+
+	[ExplicitColumns]
+    public partial class FacturaSerial : jlapcDB.Record<FacturaSerial>  
+    {
+
+
+
+		[Column] public int FacturaSerialID { get; set; }
+
+
+
+
+
+		[Column] public int EstablecimientoID { get; set; }
+
+
+
+
+
+		[Column] public int? UltimoSerial { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string NombreReporteMasivo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Presupuesto")]
+
+
+	[PrimaryKey("PresupuestoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Presupuesto : jlapcDB.Record<Presupuesto>  
+    {
+
+
+
+		[Column] public int PresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public int EstadoPresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public byte? CumplioResultado { get; set; }
+
+
+
+
+
+		[Column] public DateTime? ProbableRealizacion { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Vencimiento { get; set; }
+
+
+
+
+
+		[Column] public string FormaDePago { get; set; }
+
+
+
+
+
+		[Column] public int? Numero { get; set; }
+
+
+
+
+
+		[Column] public string Titulo { get; set; }
+
+
+
+
+
+		[Column] public byte EsPaquete { get; set; }
+
+
+
+
+
+		[Column] public int? DocumentoID_Presupuesto { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public short? AutorizadoPorComercial { get; set; }
+
+
+
+
+
+		[Column] public int? SucursalID { get; set; }
+
+
+
+
+
+		[Column] public byte? OmitirGenerarDevengamiento { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public int? FormasPagoPresupuestoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaTipoServicio")]
+
+
+	[PrimaryKey("EmpresaTipoServicioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaTipoServicio : jlapcDB.Record<EmpresaTipoServicio>  
+    {
+
+
+
+		[Column] public int EmpresaTipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoServicioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PacienteDatosDialisis")]
+
+
+	[PrimaryKey("PacienteID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class PacienteDatosDialisi : jlapcDB.Record<PacienteDatosDialisi>  
+    {
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int WeekDays { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID_PrestadorDialisis { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID_ResponsableCentroDialisis { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ActividadPacienteEspecialidad")]
+
+
+	[PrimaryKey("ActividadPacienteEspecialidadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ActividadPacienteEspecialidad : jlapcDB.Record<ActividadPacienteEspecialidad>  
+    {
+
+
+
+		[Column] public int ActividadPacienteEspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int ActividadPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TopeTurnoModuloLog")]
+
+
+	[PrimaryKey("TurnoModuloID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TopeTurnoModuloLog : jlapcDB.Record<TopeTurnoModuloLog>  
+    {
+
+
+
+		[Column] public int TurnoModuloID { get; set; }
+
+
+
+
+
+		[Column] public int Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int Tope { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TProductoTSubCuenta")]
+
+
+	[ExplicitColumns]
+    public partial class TProductoTSubCuentum : jlapcDB.Record<TProductoTSubCuentum>  
+    {
+
+
+
+		[Column] public int TipoProductoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoSubCuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public byte TipoSubCuentaOpcional { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoAnestesia")]
+
+
+	[PrimaryKey("TipoAnestesiaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoAnestesium : jlapcDB.Record<TipoAnestesium>  
+    {
+
+
+
+		[Column] public int TipoAnestesiaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CondicionVentaPagoAutomatico")]
+
+
+	[PrimaryKey("CondicionVentaPagoAutomaticoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CondicionVentaPagoAutomatico : jlapcDB.Record<CondicionVentaPagoAutomatico>  
+    {
+
+
+
+		[Column] public int CondicionVentaPagoAutomaticoID { get; set; }
+
+
+
+
+
+		[Column] public int CondicionVentaID { get; set; }
+
+
+
+
+
+		[Column] public int CuentaID { get; set; }
+
+
+
+
+
+		[Column] public int TipoCuentaCorrienteID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaProvinciaConvenioMultilateral")]
+
+
+	[PrimaryKey("EmpresaProvinciaConvenioMultilateralID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaProvinciaConvenioMultilateral : jlapcDB.Record<EmpresaProvinciaConvenioMultilateral>  
+    {
+
+
+
+		[Column] public int EmpresaProvinciaConvenioMultilateralID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaInicio { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaBaja { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TimesheetTemporal")]
+
+
+	[PrimaryKey("TimesheetTemporalID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TimesheetTemporal : jlapcDB.Record<TimesheetTemporal>  
+    {
+
+
+
+		[Column] public int TimesheetTemporalID { get; set; }
+
+
+
+
+
+		[Column] public string LogIn { get; set; }
+
+
+
+
+
+		[Column] public int? TimesheetLocacionID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public int NumeroDispositivo { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DefinicionAgendaSala")]
+
+
+	[PrimaryKey("DefinicionAgendaSalaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class DefinicionAgendaSala : jlapcDB.Record<DefinicionAgendaSala>  
+    {
+
+
+
+		[Column] public int DefinicionAgendaSalaID { get; set; }
+
+
+
+
+
+		[Column] public int SalaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime HoraDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime HoraHasta { get; set; }
+
+
+
+
+
+		[Column] public byte? TipoBloqueoID { get; set; }
+
+
+
+
+
+		[Column] public int? WeekDays { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HC_InformeDatosPaciente")]
+
+
+	[PrimaryKey("HC_InformeDatosPacienteID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class HC_InformeDatosPaciente : jlapcDB.Record<HC_InformeDatosPaciente>  
+    {
+
+
+
+		[Column] public string HC_InformeDatosPacienteID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Funcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_TipoDocumentoPaciente")]
+
+
+	[PrimaryKey("IFSAP_TipoDocumentoPacienteID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_TipoDocumentoPaciente : jlapcDB.Record<IFSAP_TipoDocumentoPaciente>  
+    {
+
+
+
+		[Column] public int IFSAP_TipoDocumentoPacienteID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DiagnosticoPalabra")]
+
+
+	[PrimaryKey("DiagnosticoPalabraID")]
+
+
+
+	[ExplicitColumns]
+    public partial class DiagnosticoPalabra : jlapcDB.Record<DiagnosticoPalabra>  
+    {
+
+
+
+		[Column] public int DiagnosticoPalabraID { get; set; }
+
+
+
+
+
+		[Column] public int ICD_DiagnosticoID { get; set; }
+
+
+
+
+
+		[Column] public string Palabra { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCTratamientoPresupuesto")]
+
+
+	[PrimaryKey("HCTratamientoPresupuestoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCTratamientoPresupuesto : jlapcDB.Record<HCTratamientoPresupuesto>  
+    {
+
+
+
+		[Column] public int HCTratamientoPresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int PresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int HCTratamientoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MetodoPago")]
+
+
+	[PrimaryKey("MetodoPagoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MetodoPago : jlapcDB.Record<MetodoPago>  
+    {
+
+
+
+		[Column] public int MetodoPagoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VarianteCashFlowCuenta")]
+
+
+	[PrimaryKey("VarianteCashFlowCuentaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VarianteCashFlowCuentum : jlapcDB.Record<VarianteCashFlowCuentum>  
+    {
+
+
+
+		[Column] public int VarianteCashFlowCuentaID { get; set; }
+
+
+
+
+
+		[Column] public int VarianteCashFlowID { get; set; }
+
+
+
+
+
+		[Column] public int CuentaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoVencimiento")]
+
+
+	[PrimaryKey("DocumentoVencimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class DocumentoVencimiento : jlapcDB.Record<DocumentoVencimiento>  
+    {
+
+
+
+		[Column] public int DocumentoVencimientoID { get; set; }
+
+
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Fecha { get; set; }
+
+
+
+
+
+		[Column] public decimal? Importe { get; set; }
+
+
+
+
+
+		[Column] public string ExternDocumentoVencimientoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProductoLinea")]
+
+
+	[PrimaryKey("ProductoLineaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ProductoLinea : jlapcDB.Record<ProductoLinea>  
+    {
+
+
+
+		[Column] public int ProductoLineaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaDomicilio")]
+
+
+	[PrimaryKey("EmpresaDomicilioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaDomicilio : jlapcDB.Record<EmpresaDomicilio>  
+    {
+
+
+
+		[Column] public int EmpresaDomicilioID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Calle { get; set; }
+
+
+
+
+
+		[Column] public string Numero { get; set; }
+
+
+
+
+
+		[Column] public string Piso { get; set; }
+
+
+
+
+
+		[Column] public string Departamento { get; set; }
+
+
+
+
+
+		[Column] public int? PaisID { get; set; }
+
+
+
+
+
+		[Column] public int? ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public int? LocalidadID { get; set; }
+
+
+
+
+
+		[Column] public string Telefono { get; set; }
+
+
+
+
+
+		[Column] public string Telefono2 { get; set; }
+
+
+
+
+
+		[Column] public string Fax { get; set; }
+
+
+
+
+
+		[Column] public string Email { get; set; }
+
+
+
+
+
+		[Column] public string Otros { get; set; }
+
+
+
+
+
+		[Column] public string CodigoPostal { get; set; }
+
+
+
+
+
+		[Column] public string GLN { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_Flete { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MetodoDePago")]
+
+
+	[PrimaryKey("MetodoDePagoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class MetodoDePago : jlapcDB.Record<MetodoDePago>  
+    {
+
+
+
+		[Column] public int MetodoDePagoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PresupuestoPractica")]
+
+
+	[PrimaryKey("PresupuestoPracticaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PresupuestoPractica : jlapcDB.Record<PresupuestoPractica>  
+    {
+
+
+
+		[Column] public int PresupuestoPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int PresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int PracticaID { get; set; }
+
+
+
+
+
+		[Column] public short? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public byte Facturable { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoRechazoPresupuestoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public int? MovimientoIDCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public string NumAfiliado { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public decimal? ValorUnitario { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public byte Libre { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VencimientoLibre { get; set; }
+
+
+
+
+
+		[Column] public int? PresupuestoModuloID { get; set; }
+
+
+
+
+
+		[Column] public string NumeroAutorizacion { get; set; }
+
+
+
+
+
+		[Column] public string UsuarioID_CambioValor { get; set; }
+
+
+
+
+
+		[Column] public string MotivoCambioValor { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoEtarioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Tratamiento")]
+
+
+	[PrimaryKey("TratamientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Tratamiento : jlapcDB.Record<Tratamiento>  
+    {
+
+
+
+		[Column] public int TratamientoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoGrupoVariableIDRealizado { get; set; }
+
+
+
+
+
+		[Column] public short MarcarPacienteEnTratamiento { get; set; }
+
+
+
+
+
+		[Column] public short RequierePresupuesto { get; set; }
+
+
+
+
+
+		[Column] public int? TipoTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionGrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionVariableID { get; set; }
+
+
+
+
+
+		[Column] public string CondicionValor { get; set; }
+
+
+
+
+
+		[Column] public bool AsignarTurnoDesdePlanillaEstimulacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProfesionalHoraTrabajada")]
+
+
+	[PrimaryKey("ProfesionalHoraTrabajadaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ProfesionalHoraTrabajada : jlapcDB.Record<ProfesionalHoraTrabajada>  
+    {
+
+
+
+		[Column] public int ProfesionalHoraTrabajadaID { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Desde { get; set; }
+
+
+
+
+
+		[Column] public DateTime Hasta { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones_LiqProfesional { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoOrdenTrabajo")]
+
+
+	[PrimaryKey("GrupoOrdenTrabajoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoOrdenTrabajo : jlapcDB.Record<GrupoOrdenTrabajo>  
+    {
+
+
+
+		[Column] public int GrupoOrdenTrabajoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoModuloOrigen")]
+
+
+	[PrimaryKey("TipoModuloOrigenID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoModuloOrigen : jlapcDB.Record<TipoModuloOrigen>  
+    {
+
+
+
+		[Column] public int TipoModuloOrigenID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoSociedad")]
+
+
+	[PrimaryKey("TipoSociedadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoSociedad : jlapcDB.Record<TipoSociedad>  
+    {
+
+
+
+		[Column] public int TipoSociedadID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoRetencionIVA")]
+
+
+	[PrimaryKey("DocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoRetencionIVA : jlapcDB.Record<DocumentoRetencionIVA>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int CategoriaGananciaID { get; set; }
+
+
+
+
+
+		[Column] public decimal? MontoTope { get; set; }
+
+
+
+
+
+		[Column] public float? Alicuota { get; set; }
+
+
+
+
+
+		[Column] public decimal? TotalImporteAcumulado { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionRegimenRetencion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CategoriaGanancia")]
+
+
+	[PrimaryKey("CategoriaGananciaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CategoriaGanancium : jlapcDB.Record<CategoriaGanancium>  
+    {
+
+
+
+		[Column] public int CategoriaGananciaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoEtario")]
+
+
+	[PrimaryKey("GrupoEtarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoEtario : jlapcDB.Record<GrupoEtario>  
+    {
+
+
+
+		[Column] public int GrupoEtarioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ModalidadPercepcionIIBB")]
+
+
+	[PrimaryKey("ModalidadPercepcionIIBBID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ModalidadPercepcionIIBB : jlapcDB.Record<ModalidadPercepcionIIBB>  
+    {
+
+
+
+		[Column] public int ModalidadPercepcionIIBBID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Explicativo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("LoteCrio")]
+
+
+	[PrimaryKey("LoteCrioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class LoteCrio : jlapcDB.Record<LoteCrio>  
+    {
+
+
+
+		[Column] public int LoteCrioID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaDeCongelacion { get; set; }
+
+
+
+
+
+		[Column] public int? TipoLoteCrioID { get; set; }
+
+
+
+
+
+		[Column] public int? PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? HCEvolucionID { get; set; }
+
+
+
+
+
+		[Column] public int? PresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int? HCResultadoID { get; set; }
+
+
+
+
+
+		[Column] public int? LoteCrioCanastoID { get; set; }
+
+
+
+
+
+		[Column] public int? LoteCrioPosicionID { get; set; }
+
+
+
+
+
+		[Column] public string Protocolo { get; set; }
+
+
+
+
+
+		[Column] public int? LoteCrioRecipienteID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Profesional")]
+
+
+	[PrimaryKey("ProfesionalID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Profesional : jlapcDB.Record<Profesional>  
+    {
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Apellido { get; set; }
+
+
+
+
+
+		[Column] public int? TipoDocumentoPersonaID { get; set; }
+
+
+
+
+
+		[Column] public string Documento { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Nacimiento { get; set; }
+
+
+
+
+
+		[Column] public int? SexoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoMatriculaID { get; set; }
+
+
+
+
+
+		[Column] public string Matricula { get; set; }
+
+
+
+
+
+		[Column] public string CUIT { get; set; }
+
+
+
+
+
+		[Column] public string Telefono { get; set; }
+
+
+
+
+
+		[Column] public string Celular { get; set; }
+
+
+
+
+
+		[Column] public string Urgencias { get; set; }
+
+
+
+
+
+		[Column] public string email { get; set; }
+
+
+
+
+
+		[Column] public string Domicilio { get; set; }
+
+
+
+
+
+		[Column] public string CodigoPostal { get; set; }
+
+
+
+
+
+		[Column] public int? ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public int? LocalidadID { get; set; }
+
+
+
+
+
+		[Column] public byte? FirmaContrato { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Vigencia { get; set; }
+
+
+
+
+
+		[Column] public string SeguroCompania { get; set; }
+
+
+
+
+
+		[Column] public DateTime? SeguroVigenciaHasta { get; set; }
+
+
+
+
+
+		[Column] public byte? SeguroEntregaCopia { get; set; }
+
+
+
+
+
+		[Column] public byte? Sobreturnos { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int Externo { get; set; }
+
+
+
+
+
+		[Column] public byte Generico { get; set; }
+
+
+
+
+
+		[Column] public int? ParticularidadID { get; set; }
+
+
+
+
+
+		[Column] public string VariableValor_NombreProfesional { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ImportacionCorrespondencia")]
+
+
+	[PrimaryKey("ImportacionCorrespondenciaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ImportacionCorrespondencium : jlapcDB.Record<ImportacionCorrespondencium>  
+    {
+
+
+
+		[Column] public int ImportacionCorrespondenciaID { get; set; }
+
+
+
+
+
+		[Column] public int ImportacionCorrespondenciaTipoID { get; set; }
+
+
+
+
+
+		[Column] public string Origen { get; set; }
+
+
+
+
+
+		[Column] public string Destino { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProductoFamilia")]
+
+
+	[PrimaryKey("ProductoFamiliaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ProductoFamilium : jlapcDB.Record<ProductoFamilium>  
+    {
+
+
+
+		[Column] public int ProductoFamiliaID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoLineaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoCuenta")]
+
+
+	[PrimaryKey("GrupoCuentaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoCuentum : jlapcDB.Record<GrupoCuentum>  
+    {
+
+
+
+		[Column] public int GrupoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("AccionFarmacologicaMedicamento")]
+
+
+	[PrimaryKey("AccionFarmacologicaMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class AccionFarmacologicaMedicamento : jlapcDB.Record<AccionFarmacologicaMedicamento>  
+    {
+
+
+
+		[Column] public int AccionFarmacologicaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("NovedadesWeb")]
+
+
+	[PrimaryKey("NovedadesWebID")]
+
+
+
+	[ExplicitColumns]
+    public partial class NovedadesWeb : jlapcDB.Record<NovedadesWeb>  
+    {
+
+
+
+		[Column] public int NovedadesWebID { get; set; }
+
+
+
+
+
+		[Column] public string Titulo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaPublicacion { get; set; }
+
+
+
+
+
+		[Column] public byte Activo { get; set; }
+
+
+
+
+
+		[Column] public int? NovedadesWebAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int? NovedadesWebFotoID { get; set; }
+
+
+
+
+
+		[Column] public string TextoCopete { get; set; }
+
+
+
+
+
+		[Column] public string LinkCopete { get; set; }
+
+
+
+	}
+
+    
+	[TableName("InternacionAttachment")]
+
+
+	[PrimaryKey("InternacionAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class InternacionAttachment : jlapcDB.Record<InternacionAttachment>  
+    {
+
+
+
+		[Column] public int InternacionAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int InternacionID { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_nombre { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_asBase64 { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCTratamientoEstado")]
+
+
+	[PrimaryKey("HCTratamientoEstadoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class HCTratamientoEstado : jlapcDB.Record<HCTratamientoEstado>  
+    {
+
+
+
+		[Column] public int HCTratamientoEstadoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TCondicionIvaTdocumento")]
+
+
+	[PrimaryKey("CondicionIvaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TCondicionIvaTdocumento : jlapcDB.Record<TCondicionIvaTdocumento>  
+    {
+
+
+
+		[Column] public int CondicionIvaID { get; set; }
+
+
+
+
+
+		[Column] public int TipoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int CondicionIvaID_Comprador { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DonanteReceptor")]
+
+
+	[PrimaryKey("PacienteID_donante", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DonanteReceptor : jlapcDB.Record<DonanteReceptor>  
+    {
+
+
+
+		[Column] public int PacienteID_donante { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID_receptor { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaAlta { get; set; }
+
+
+
+
+
+		[Column] public int HCEvolucionID_donante { get; set; }
+
+
+
+	}
+
+    
+	[TableName("LiquidacionFinanciador")]
+
+
+	[PrimaryKey("LiquidacionFinanciadorID")]
+
+
+
+	[ExplicitColumns]
+    public partial class LiquidacionFinanciador : jlapcDB.Record<LiquidacionFinanciador>  
+    {
+
+
+
+		[Column] public int LiquidacionFinanciadorID { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public DateTime Periodo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Estado")]
+
+
+	[PrimaryKey("EstadoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Estado : jlapcDB.Record<Estado>  
+    {
+
+
+
+		[Column] public int EstadoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Turno")]
+
+
+	[PrimaryKey("AgendaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Turno : jlapcDB.Record<Turno>  
+    {
+
+
+
+		[Column] public int AgendaID { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public int? PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoTurnoID { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public byte DemandaEspontanea { get; set; }
+
+
+
+
+
+		[Column] public string NumAfiliado { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoConsultaID { get; set; }
+
+
+
+
+
+		[Column] public byte DobleTurno { get; set; }
+
+
+
+
+
+		[Column] public byte? Prioridad { get; set; }
+
+
+
+
+
+		[Column] public int? InternacionID { get; set; }
+
+
+
+
+
+		[Column] public string NroOrden { get; set; }
+
+
+
+
+
+		[Column] public byte DobleTurnoEspecial { get; set; }
+
+
+
+
+
+		[Column] public string NroCIDECOM { get; set; }
+
+
+
+
+
+		[Column] public int? NroProtocolo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Paciente")]
+
+
+	[PrimaryKey("PacienteID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Paciente : jlapcDB.Record<Paciente>  
+    {
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public string HistClinica { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Apellido { get; set; }
+
+
+
+
+
+		[Column] public int? TipoDocumentoPersonaID { get; set; }
+
+
+
+
+
+		[Column] public string Documento { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Nacimiento { get; set; }
+
+
+
+
+
+		[Column] public int? SexoID { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoCivilID { get; set; }
+
+
+
+
+
+		[Column] public int? OcupacionID { get; set; }
+
+
+
+
+
+		[Column] public string Telefono { get; set; }
+
+
+
+
+
+		[Column] public string Laboral { get; set; }
+
+
+
+
+
+		[Column] public string Celular { get; set; }
+
+
+
+
+
+		[Column] public string Domicilio { get; set; }
+
+
+
+
+
+		[Column] public int? ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public int? LocalidadID { get; set; }
+
+
+
+
+
+		[Column] public string CodigoPostal { get; set; }
+
+
+
+
+
+		[Column] public string EmailPersonal { get; set; }
+
+
+
+
+
+		[Column] public string EmailLaboral { get; set; }
+
+
+
+
+
+		[Column] public byte HabilitaEmailPersonal { get; set; }
+
+
+
+
+
+		[Column] public byte HabilitaEmailLaboral { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public byte Bloqueado { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public DateTime? AperturaHC { get; set; }
+
+
+
+
+
+		[Column] public string OtrosDatos { get; set; }
+
+
+
+
+
+		[Column] public int? OrigenPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int HabilitaMailingInstitucional { get; set; }
+
+
+
+
+
+		[Column] public string HorarioTelefono { get; set; }
+
+
+
+
+
+		[Column] public int? DepositoHistClinicaID { get; set; }
+
+
+
+
+
+		[Column] public int? PacienteCategoriaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaUltimaAtencion { get; set; }
+
+
+
+
+
+		[Column] public string ApellidoMaterno { get; set; }
+
+
+
+
+
+		[Column] public bool NoPoseeMailPersonal { get; set; }
+
+
+
+
+
+		[Column] public bool NoPoseeMailLaboral { get; set; }
+
+
+
+
+
+		[Column] public bool TieneHCDigital { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID_MedicoACargo { get; set; }
+
+
+
+
+
+		[Column] public int? NacionalidadID { get; set; }
+
+
+
+
+
+		[Column] public int? NroCalle { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaServicio")]
+
+
+	[PrimaryKey("EmpresaServicioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaServicio : jlapcDB.Record<EmpresaServicio>  
+    {
+
+
+
+		[Column] public int EmpresaServicioID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public decimal? Importe { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaPrimeraVez { get; set; }
+
+
+
+
+
+		[Column] public int Intervalo { get; set; }
+
+
+
+
+
+		[Column] public DateTime VigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaHasta { get; set; }
+
+
+
+
+
+		[Column] public int FrecuenciaFacturacionID { get; set; }
+
+
+
+
+
+		[Column] public int CuentaID { get; set; }
+
+
+
+
+
+		[Column] public int TipoImpuestoID { get; set; }
+
+
+
+
+
+		[Column] public byte IvaIncluido { get; set; }
+
+
+
+
+
+		[Column] public int Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaContactoID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaListaContactoID { get; set; }
+
+
+
+
+
+		[Column] public int? MailerCampaniaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoCuentaReporte")]
+
+
+	[PrimaryKey("TipoCuentaReporteID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoCuentaReporte : jlapcDB.Record<TipoCuentaReporte>  
+    {
+
+
+
+		[Column] public int TipoCuentaReporteID { get; set; }
+
+
+
+
+
+		[Column] public string Reporte { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int TipoCuentaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConfiguracionGrupoEtario")]
+
+
+	[PrimaryKey("ConfiguracionGrupoEtarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConfiguracionGrupoEtario : jlapcDB.Record<ConfiguracionGrupoEtario>  
+    {
+
+
+
+		[Column] public int ConfiguracionGrupoEtarioID { get; set; }
+
+
+
+
+
+		[Column] public int SuperAmbitoID { get; set; }
+
+
+
+
+
+		[Column] public int PeriodoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoEtarioID { get; set; }
+
+
+
+
+
+		[Column] public int Edad_Numero { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionAccionFarmacologicaMedicamento")]
+
+
+	[PrimaryKey("HomologacionAccionFarmacologicaMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HomologacionAccionFarmacologicaMedicamento : jlapcDB.Record<HomologacionAccionFarmacologicaMedicamento>  
+    {
+
+
+
+		[Column] public int HomologacionAccionFarmacologicaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int EnteExternoID { get; set; }
+
+
+
+
+
+		[Column] public int AccionFarmacologicaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionHomologacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("NovedadesWebAttachment")]
+
+
+	[PrimaryKey("NovedadesWebAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class NovedadesWebAttachment : jlapcDB.Record<NovedadesWebAttachment>  
+    {
+
+
+
+		[Column] public int NovedadesWebAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int NovedadesWebID { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_nombre { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_asBase64 { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ModuloModulo")]
+
+
+	[PrimaryKey("ModuloModuloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ModuloModulo : jlapcDB.Record<ModuloModulo>  
+    {
+
+
+
+		[Column] public int ModuloModuloID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID_SubModulo { get; set; }
+
+
+
+
+
+		[Column] public int Cantidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCTratamiento")]
+
+
+	[PrimaryKey("HCTratamientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCTratamiento : jlapcDB.Record<HCTratamiento>  
+    {
+
+
+
+		[Column] public int HCTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public int? HCTratamientoEstadoID { get; set; }
+
+
+
+
+
+		[Column] public int? TratamientoID { get; set; }
+
+
+
+
+
+		[Column] public int? Variable_NroProtocolo { get; set; }
+
+
+
+
+
+		[Column] public int? NroProtocolo { get; set; }
+
+
+
+
+
+		[Column] public int? pacienteid { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaRealizadoCancelado { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaInicio { get; set; }
+
+
+
+
+
+		[Column] public int? Auditado { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaAuditado { get; set; }
+
+
+
+
+
+		[Column] public int? AgendaID_PlanillaEstimulacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConsumoPrefacturadoDocumento")]
+
+
+	[PrimaryKey("ConsumoPrefacturadoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ConsumoPrefacturadoDocumento : jlapcDB.Record<ConsumoPrefacturadoDocumento>  
+    {
+
+
+
+		[Column] public int ConsumoPrefacturadoID { get; set; }
+
+
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Formula")]
+
+
+	[PrimaryKey("ProductoPadreID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Formula : jlapcDB.Record<Formula>  
+    {
+
+
+
+		[Column] public int ProductoPadreID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoHijoID { get; set; }
+
+
+
+
+
+		[Column] public float Cantidad { get; set; }
+
+
+
+
+
+		[Column] public decimal PorcentajePrecio { get; set; }
+
+
+
+
+
+		[Column] public byte Predeterminado { get; set; }
+
+
+
+
+
+		[Column] public int RolComponenteFormulaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ActividadRetencion")]
+
+
+	[PrimaryKey("ActividadRetencionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ActividadRetencion : jlapcDB.Record<ActividadRetencion>  
+    {
+
+
+
+		[Column] public int ActividadRetencionID { get; set; }
+
+
+
+
+
+		[Column] public int? ActividadID { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAID { get; set; }
+
+
+
+
+
+		[Column] public decimal? MontoTope { get; set; }
+
+
+
+
+
+		[Column] public float? AlicuotaIVA { get; set; }
+
+
+
+
+
+		[Column] public float? AlicuotaGanancia { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SerialElemento")]
+
+
+	[PrimaryKey("SerialElementoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SerialElemento : jlapcDB.Record<SerialElemento>  
+    {
+
+
+
+		[Column] public int SerialElementoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionPrestador_Especialidad")]
+
+
+	[PrimaryKey("HomologacionPrestador_EspecialidadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HomologacionPrestador_Especialidad : jlapcDB.Record<HomologacionPrestador_Especialidad>  
+    {
+
+
+
+		[Column] public int HomologacionPrestador_EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID_Prestador { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionHomologacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoTarea")]
+
+
+	[PrimaryKey("TipoTareaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoTarea : jlapcDB.Record<TipoTarea>  
+    {
+
+
+
+		[Column] public int TipoTareaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int Orden { get; set; }
+
+
+
+
+
+		[Column] public int LeadTime { get; set; }
+
+
+
+
+
+		[Column] public int? MinutosEstimados { get; set; }
+
+
+
+
+
+		[Column] public int? UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoCalendarioID { get; set; }
+
+
+
+
+
+		[Column] public byte ACargoDelCliente { get; set; }
+
+
+
+
+
+		[Column] public byte VaAReporteVencimientos { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Evento")]
+
+
+	[PrimaryKey("EventoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Evento : jlapcDB.Record<Evento>  
+    {
+
+
+
+		[Column] public int EventoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string NombrePagina { get; set; }
+
+
+
+
+
+		[Column] public byte? RequiereTipoLoteCrio { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CategoriaMiembro")]
+
+
+	[PrimaryKey("CategoriaMiembroID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CategoriaMiembro : jlapcDB.Record<CategoriaMiembro>  
+    {
+
+
+
+		[Column] public int CategoriaMiembroID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ColumnaCuentaCorrienteDescripcion")]
+
+
+	[ExplicitColumns]
+    public partial class ColumnaCuentaCorrienteDescripcion : jlapcDB.Record<ColumnaCuentaCorrienteDescripcion>  
+    {
+
+
+
+		[Column] public int? ColumnaCuentaCorriente { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ImportacionCorrespondenciaTipo")]
+
+
+	[PrimaryKey("ImportacionCorrespondenciaTipoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ImportacionCorrespondenciaTipo : jlapcDB.Record<ImportacionCorrespondenciaTipo>  
+    {
+
+
+
+		[Column] public int ImportacionCorrespondenciaTipoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MailerDireccionMailerCampaniaLink")]
+
+
+	[PrimaryKey("MailerDireccionMailerCampaniaLinkID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MailerDireccionMailerCampaniaLink : jlapcDB.Record<MailerDireccionMailerCampaniaLink>  
+    {
+
+
+
+		[Column] public int MailerDireccionMailerCampaniaLinkID { get; set; }
+
+
+
+
+
+		[Column] public int MailerDireccionID { get; set; }
+
+
+
+
+
+		[Column] public int MailerCampaniaLinkID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("LoteProductoFlejeMetalico")]
+
+
+	[PrimaryKey("LoteProductoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class LoteProductoFlejeMetalico : jlapcDB.Record<LoteProductoFlejeMetalico>  
+    {
+
+
+
+		[Column] public int LoteProductoID { get; set; }
+
+
+
+
+
+		[Column] public decimal Ancho { get; set; }
+
+
+
+
+
+		[Column] public decimal Espesor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CirugiaDiagnostico")]
+
+
+	[PrimaryKey("CirugiaDiagnosticoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CirugiaDiagnostico : jlapcDB.Record<CirugiaDiagnostico>  
+    {
+
+
+
+		[Column] public int CirugiaDiagnosticoID { get; set; }
+
+
+
+
+
+		[Column] public int CirugiaID { get; set; }
+
+
+
+
+
+		[Column] public int? DiagnosticoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoDiagnostico { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoDatosEntrega")]
+
+
+	[PrimaryKey("DocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoDatosEntrega : jlapcDB.Record<DocumentoDatosEntrega>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public short RetiraCliente { get; set; }
+
+
+
+
+
+		[Column] public short DescargaManual { get; set; }
+
+
+
+
+
+		[Column] public short DescargaAutoElevador { get; set; }
+
+
+
+
+
+		[Column] public short DescargaPuenteGrua { get; set; }
+
+
+
+
+
+		[Column] public short AccesoParaSemiRemolque { get; set; }
+
+
+
+
+
+		[Column] public short CargarEnCulataDeCamion { get; set; }
+
+
+
+
+
+		[Column] public short RecibeParciales { get; set; }
+
+
+
+
+
+		[Column] public short EnCamaDeMadera { get; set; }
+
+
+
+
+
+		[Column] public short? SePesaYEnvia { get; set; }
+
+
+
+
+
+		[Column] public short? UsarZunchosPerimetrales { get; set; }
+
+
+
+
+
+		[Column] public int? PesoMaximoPorPaqueteRollo { get; set; }
+
+
+
+
+
+		[Column] public int? DiametroMaximoPorRollo { get; set; }
+
+
+
+
+
+		[Column] public DateTime? HorarioLunesAViernesAMDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? HorarioLunesAViernesAMHasta { get; set; }
+
+
+
+
+
+		[Column] public DateTime? HorarioLunesAViernesPMDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? HorarioLunesAViernesPMHasta { get; set; }
+
+
+
+
+
+		[Column] public DateTime? HorarioSabadoAMDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? HorarioSabadoAMHasta { get; set; }
+
+
+
+
+
+		[Column] public DateTime? HorarioSabadoPMDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? HorarioSabadoPMHasta { get; set; }
+
+
+
+
+
+		[Column] public short? DiasDeLluvia { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaContactoID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaDomicilioID { get; set; }
+
+
+
+
+
+		[Column] public short EnRollo { get; set; }
+
+
+
+
+
+		[Column] public short? UsarZunchosRadiales { get; set; }
+
+
+
+
+
+		[Column] public bool RolloAcostado { get; set; }
+
+
+
+
+
+		[Column] public bool RequiereCertificado { get; set; }
+
+
+
+	}
+
+    
+	[TableName("LiquidacionFinanciadorPractica")]
+
+
+	[PrimaryKey("LiquidacionFinanciadorPracticaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class LiquidacionFinanciadorPractica : jlapcDB.Record<LiquidacionFinanciadorPractica>  
+    {
+
+
+
+		[Column] public int LiquidacionFinanciadorPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int? LiquidacionFinanciadorID { get; set; }
+
+
+
+
+
+		[Column] public int HistoriaClinica { get; set; }
+
+
+
+
+
+		[Column] public string NombreApellido { get; set; }
+
+
+
+
+
+		[Column] public int CodigoPractica { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionPractica { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaEjecucion { get; set; }
+
+
+
+
+
+		[Column] public string NombreApellidoProfesional { get; set; }
+
+
+
+
+
+		[Column] public string NumeroFactura { get; set; }
+
+
+
+
+
+		[Column] public string Deudor { get; set; }
+
+
+
+
+
+		[Column] public string DeudorDescripcion { get; set; }
+
+
+
+
+
+		[Column] public int? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public decimal ImporteSinIVA { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaFactura { get; set; }
+
+
+
+
+
+		[Column] public string NumeroRecibo { get; set; }
+
+
+
+
+
+		[Column] public decimal ImporteFacturado { get; set; }
+
+
+
+
+
+		[Column] public int? CanonICE { get; set; }
+
+
+
+
+
+		[Column] public decimal? SinIVA { get; set; }
+
+
+
+
+
+		[Column] public decimal? CondicionIVA { get; set; }
+
+
+
+
+
+		[Column] public decimal? TotalCancelado { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoDeConciliacion { get; set; }
+
+
+
+
+
+		[Column] public int? TipoConciliacionManual { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PresupuestoCuotaPractica")]
+
+
+	[PrimaryKey("CuotaPresupuestoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class PresupuestoCuotaPractica : jlapcDB.Record<PresupuestoCuotaPractica>  
+    {
+
+
+
+		[Column] public int CuotaPresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int PresupuestoPracticaID { get; set; }
+
+
+
+
+
+		[Column] public decimal Importe { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_MovimStock_EstadoVerifarma")]
+
+
+	[PrimaryKey("IFSAP_MovimStock_EstadoVerifarmaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_MovimStock_EstadoVerifarma : jlapcDB.Record<IFSAP_MovimStock_EstadoVerifarma>  
+    {
+
+
+
+		[Column] public int IFSAP_MovimStock_EstadoVerifarmaID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HC_InformeExcelDatosPaciente")]
+
+
+	[PrimaryKey("HC_InformeExcelDatosPacienteID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HC_InformeExcelDatosPaciente : jlapcDB.Record<HC_InformeExcelDatosPaciente>  
+    {
+
+
+
+		[Column] public int HC_InformeExcelDatosPacienteID { get; set; }
+
+
+
+
+
+		[Column] public string HC_InformeDatosPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int HC_InformeID { get; set; }
+
+
+
+
+
+		[Column] public int Hoja { get; set; }
+
+
+
+
+
+		[Column] public int Fila { get; set; }
+
+
+
+
+
+		[Column] public string Columna { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoContacto")]
+
+
+	[PrimaryKey("TipoContactoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoContacto : jlapcDB.Record<TipoContacto>  
+    {
+
+
+
+		[Column] public int TipoContactoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Serial")]
+
+
+	[PrimaryKey("SerialID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Serial : jlapcDB.Record<Serial>  
+    {
+
+
+
+		[Column] public int SerialID { get; set; }
+
+
+
+
+
+		[Column] public int SerialElementoID { get; set; }
+
+
+
+
+
+		[Column] public int UltimoSerial { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("NovedadesWebFoto")]
+
+
+	[PrimaryKey("NovedadesWebFotoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class NovedadesWebFoto : jlapcDB.Record<NovedadesWebFoto>  
+    {
+
+
+
+		[Column] public int NovedadesWebFotoID { get; set; }
+
+
+
+
+
+		[Column] public int NovedadesWebID { get; set; }
+
+
+
+
+
+		[Column] public string NombreArchivo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConceptoAMapear")]
+
+
+	[PrimaryKey("ConceptoAMapearID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ConceptoAMapear : jlapcDB.Record<ConceptoAMapear>  
+    {
+
+
+
+		[Column] public int ConceptoAMapearID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int EventoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoLotecrioID { get; set; }
+
+
+
+
+
+		[Column] public byte Obligatorio { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoTipoVencimiento")]
+
+
+	[PrimaryKey("GrupoTipoVencimientoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class GrupoTipoVencimiento : jlapcDB.Record<GrupoTipoVencimiento>  
+    {
+
+
+
+		[Column] public int GrupoTipoVencimientoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Cargo")]
+
+
+	[PrimaryKey("CargoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Cargo : jlapcDB.Record<Cargo>  
+    {
+
+
+
+		[Column] public int CargoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int? SectorTrabajoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoServicio")]
+
+
+	[PrimaryKey("TipoServicioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoServicio : jlapcDB.Record<TipoServicio>  
+    {
+
+
+
+		[Column] public int TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoImpuestoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoServicioEstadoCentroCostosID { get; set; }
+
+
+
+
+
+		[Column] public byte ExcluirBaseImponibleDeRetencionDeGanancia { get; set; }
+
+
+
+
+
+		[Column] public byte ExcluirBaseImponibleDeRetencionDeIIBB { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TamanioMedicamento")]
+
+
+	[PrimaryKey("TamanioMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TamanioMedicamento : jlapcDB.Record<TamanioMedicamento>  
+    {
+
+
+
+		[Column] public int TamanioMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaListaContacto")]
+
+
+	[PrimaryKey("EmpresaListaContactoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaListaContacto : jlapcDB.Record<EmpresaListaContacto>  
+    {
+
+
+
+		[Column] public int EmpresaListaContactoID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PerfilArbol")]
+
+
+	[PrimaryKey("PerfilArbolID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PerfilArbol : jlapcDB.Record<PerfilArbol>  
+    {
+
+
+
+		[Column] public int PerfilArbolID { get; set; }
+
+
+
+
+
+		[Column] public int PerfilID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int? PadreID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string ToolTipText { get; set; }
+
+
+
+
+
+		[Column] public string ParametrosLink { get; set; }
+
+
+
+
+
+		[Column] public int? WindowsCommandID { get; set; }
+
+
+
+
+
+		[Column] public int? Orden { get; set; }
+
+
+
+
+
+		[Column] public int? ExternWebsiteID { get; set; }
+
+
+
+
+
+		[Column] public byte TipoExcepcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionFinanciadorEmpresa")]
+
+
+	[PrimaryKey("EmpresaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class HomologacionFinanciadorEmpresa : jlapcDB.Record<HomologacionFinanciadorEmpresa>  
+    {
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID_Financiador { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHomologacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoOrdenTrabajo")]
+
+
+	[PrimaryKey("TipoOrdenTrabajoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoOrdenTrabajo : jlapcDB.Record<TipoOrdenTrabajo>  
+    {
+
+
+
+		[Column] public int TipoOrdenTrabajoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoOrdenTrabajoID { get; set; }
+
+
+
+
+
+		[Column] public int? UsuarioID_Supervisor { get; set; }
+
+
+
+
+
+		[Column] public byte GenerarTareaDefault { get; set; }
+
+
+
+
+
+		[Column] public int? UsuarioID_ResponsableTareaDefault { get; set; }
+
+
+
+
+
+		[Column] public byte ACargoDelCliente { get; set; }
+
+
+
+
+
+		[Column] public byte AdmiteSuperposicion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConsumoPrefacturado")]
+
+
+	[PrimaryKey("ConsumoPrefacturadoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConsumoPrefacturado : jlapcDB.Record<ConsumoPrefacturado>  
+    {
+
+
+
+		[Column] public int ConsumoPrefacturadoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public decimal? Importe { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaServicioID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Fecha { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia { get; set; }
+
+
+
+
+
+		[Column] public int CuentaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaAjustada { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoImpuestoID { get; set; }
+
+
+
+
+
+		[Column] public byte IvaIncluido { get; set; }
+
+
+
+
+
+		[Column] public int Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? MailerDireccionID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaContactoID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaListaContactoID { get; set; }
+
+
+
+
+
+		[Column] public int? MailerCampaniaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Documento")]
+
+
+	[PrimaryKey("IFSAP_DocumentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_Documento : jlapcDB.Record<IFSAP_Documento>  
+    {
+
+
+
+		[Column] public int IFSAP_DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaEmision { get; set; }
+
+
+
+
+
+		[Column] public int TipoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int NumeroDocumento { get; set; }
+
+
+
+
+
+		[Column] public int NumeroEstablecimiento { get; set; }
+
+
+
+
+
+		[Column] public string NombrePaciente { get; set; }
+
+
+
+
+
+		[Column] public string ApellidoPaciente { get; set; }
+
+
+
+
+
+		[Column] public string DocumentoPaciente { get; set; }
+
+
+
+
+
+		[Column] public string NumeroCompensacion { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public int AProcesarSAP { get; set; }
+
+
+
+
+
+		[Column] public byte? ProcesadoOkSAP { get; set; }
+
+
+
+
+
+		[Column] public byte AReprocesar { get; set; }
+
+
+
+
+
+		[Column] public string Errores { get; set; }
+
+
+
+
+
+		[Column] public string DocumentoIDSAP { get; set; }
+
+
+
+
+
+		[Column] public int IFSAP_OrigenID { get; set; }
+
+
+
+
+
+		[Column] public byte LeidoSAP { get; set; }
+
+
+
+
+
+		[Column] public int? TipoProceso { get; set; }
+
+
+
+
+
+		[Column] public string LOGIN { get; set; }
+
+
+
+
+
+		[Column] public int? SuperAmbitoID { get; set; }
+
+
+
+
+
+		[Column] public decimal? ImporteTotal { get; set; }
+
+
+
+
+
+		[Column] public string Orden { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_ClasificacionDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public string DatoAdicional1 { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_TipoDocumentoPacienteID { get; set; }
+
+
+
+
+
+		[Column] public string LIbroCajaSAP { get; set; }
+
+
+
+
+
+		[Column] public decimal? AjustePorDiferencia { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaUltimoProceso { get; set; }
+
+
+
+
+
+		[Column] public string ObservacionesDocumento { get; set; }
+
+
+
+
+
+		[Column] public int? NumeroHistoriaClinica { get; set; }
+
+
+
+
+
+		[Column] public int? NumeroCuenta { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaVencimiento { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoDomicilio")]
+
+
+	[PrimaryKey("TipoDomicilioID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoDomicilio : jlapcDB.Record<TipoDomicilio>  
+    {
+
+
+
+		[Column] public int TipoDomicilioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaMiembro")]
+
+
+	[PrimaryKey("EmpresaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EmpresaMiembro : jlapcDB.Record<EmpresaMiembro>  
+    {
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int CategoriaMiembroID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Desde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Hasta { get; set; }
+
+
+
+
+
+		[Column] public int? CargoID { get; set; }
+
+
+
+
+
+		[Column] public string CapitalInicial { get; set; }
+
+
+
+
+
+		[Column] public string Composicion { get; set; }
+
+
+
+
+
+		[Column] public string UsoFirma { get; set; }
+
+
+
+
+
+		[Column] public byte? FirmaIndispensable { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaMiembroID { get; set; }
+
+
+
+
+
+		[Column] public int? CapitalTotal { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadAcciones { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaContratoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TurnoPracticaTurnoProfesional")]
+
+
+	[PrimaryKey("TurnoPracticaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TurnoPracticaTurnoProfesional : jlapcDB.Record<TurnoPracticaTurnoProfesional>  
+    {
+
+
+
+		[Column] public int TurnoPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public int RolID { get; set; }
+
+
+
+
+
+		[Column] public int CuotaParteDeLiquidacionAProfesionalesID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionTamanioMedicamento")]
+
+
+	[PrimaryKey("HomologacionTamanioMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HomologacionTamanioMedicamento : jlapcDB.Record<HomologacionTamanioMedicamento>  
+    {
+
+
+
+		[Column] public int HomologacionTamanioMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int EnteExternoID { get; set; }
+
+
+
+
+
+		[Column] public int TamanioMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionHomologacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionPrestador_Financiador")]
+
+
+	[PrimaryKey("HomologacionPrestador_FinanciadorID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HomologacionPrestador_Financiador : jlapcDB.Record<HomologacionPrestador_Financiador>  
+    {
+
+
+
+		[Column] public int HomologacionPrestador_FinanciadorID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID_Financiador { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID_Prestador { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionHomologacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConfiguracionRetencionIIBBCABA")]
+
+
+	[PrimaryKey("ConfiguracionRetencionIIBBCABAID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConfiguracionRetencionIIBBCABA : jlapcDB.Record<ConfiguracionRetencionIIBBCABA>  
+    {
+
+
+
+		[Column] public int ConfiguracionRetencionIIBBCABAID { get; set; }
+
+
+
+
+
+		[Column] public byte? EsAltoRiesgoFiscal { get; set; }
+
+
+
+
+
+		[Column] public float? AlicuotaRetencion { get; set; }
+
+
+
+
+
+		[Column] public float? AlicuotaPercepcion { get; set; }
+
+
+
+
+
+		[Column] public float Minimo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public byte EsRegimenSimplificado { get; set; }
+
+
+
+
+
+		[Column] public byte EsParaPAgosContadoEnEfectivo { get; set; }
+
+
+
+
+
+		[Column] public string CodigoNormaPercepcion { get; set; }
+
+
+
+
+
+		[Column] public string CodigoNormaRetencion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MapeoDeCampo")]
+
+
+	[PrimaryKey("MapeoDeCampoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MapeoDeCampo : jlapcDB.Record<MapeoDeCampo>  
+    {
+
+
+
+		[Column] public int MapeoDeCampoID { get; set; }
+
+
+
+
+
+		[Column] public int? ConceptoAMapearID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? VariableID { get; set; }
+
+
+
+
+
+		[Column] public string Abreviatura { get; set; }
+
+
+
+
+
+		[Column] public int? VariableDosis { get; set; }
+
+
+
+
+
+		[Column] public bool Validar { get; set; }
+
+
+
+
+
+		[Column] public int? OrdenDefault { get; set; }
+
+
+
+
+
+		[Column] public int? VariableDosisInicial { get; set; }
+
+
+
+
+
+		[Column] public int? VariableDosisTotal { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ClasificadorEstadistico")]
+
+
+	[PrimaryKey("ClasificadorEstadisticoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ClasificadorEstadistico : jlapcDB.Record<ClasificadorEstadistico>  
+    {
+
+
+
+		[Column] public int ClasificadorEstadisticoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaFormulaLoteProducto")]
+
+
+	[PrimaryKey("OrdenManufacturaFormulaLoteProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaFormulaLoteProducto : jlapcDB.Record<OrdenManufacturaFormulaLoteProducto>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaFormulaLoteProductoID { get; set; }
+
+
+
+
+
+		[Column] public int OrdenManufacturaFormulaID { get; set; }
+
+
+
+
+
+		[Column] public int LoteProductoID { get; set; }
+
+
+
+
+
+		[Column] public float Cantidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaFlejeMetalico")]
+
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaFlejeMetalico : jlapcDB.Record<OrdenManufacturaFlejeMetalico>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaID { get; set; }
+
+
+
+
+
+		[Column] public int DivididoEn { get; set; }
+
+
+
+
+
+		[Column] public int Corona { get; set; }
+
+
+
+
+
+		[Column] public decimal Espesor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFC_Clave")]
+
+
+	[PrimaryKey("Nombre", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFC_Clave : jlapcDB.Record<IFC_Clave>  
+    {
+
+
+
+		[Column] public int ClaveID { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Valor { get; set; }
+
+
+
+
+
+		[Column] public string TipoDato { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PresupuestoCuotaMedicamento")]
+
+
+	[PrimaryKey("CuotaPresupuestoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class PresupuestoCuotaMedicamento : jlapcDB.Record<PresupuestoCuotaMedicamento>  
+    {
+
+
+
+		[Column] public int CuotaPresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int PresupuestoMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public decimal Importe { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PresupuestoMedicamento")]
+
+
+	[PrimaryKey("PresupuestoMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PresupuestoMedicamento : jlapcDB.Record<PresupuestoMedicamento>  
+    {
+
+
+
+		[Column] public int PresupuestoMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int PresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public short? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public byte Facturable { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoRechazoPresupuestoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public int? MovimientoIDCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public string NumAfiliado { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public decimal? ValorUnitario { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public byte Libre { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VencimientoLibre { get; set; }
+
+
+
+
+
+		[Column] public int? PresupuestoModuloID { get; set; }
+
+
+
+
+
+		[Column] public string NumeroAutorizacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ModuloPracticaCondicionDatoFijo")]
+
+
+	[PrimaryKey("ModuloPracticaCondicionDatoFijoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ModuloPracticaCondicionDatoFijo : jlapcDB.Record<ModuloPracticaCondicionDatoFijo>  
+    {
+
+
+
+		[Column] public int ModuloPracticaCondicionDatoFijoID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int PracticaID { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionDatoFijoID { get; set; }
+
+
+
+
+
+		[Column] public int? OperadorID { get; set; }
+
+
+
+
+
+		[Column] public string valor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("LoteProductoHojaMetalica")]
+
+
+	[PrimaryKey("LoteProductoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class LoteProductoHojaMetalica : jlapcDB.Record<LoteProductoHojaMetalica>  
+    {
+
+
+
+		[Column] public int LoteProductoID { get; set; }
+
+
+
+
+
+		[Column] public decimal Largo { get; set; }
+
+
+
+
+
+		[Column] public decimal Ancho { get; set; }
+
+
+
+
+
+		[Column] public decimal Espesor { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadHojas { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_Modulo")]
+
+
+	[PrimaryKey("ModuloID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_Modulo : jlapcDB.Record<SYS_Modulo>  
+    {
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string ToolTipText { get; set; }
+
+
+
+
+
+		[Column] public string Link { get; set; }
+
+
+
+
+
+		[Column] public string ArchivoAyuda { get; set; }
+
+
+
+
+
+		[Column] public string ExplicacionParametrosPerfilArbol { get; set; }
+
+
+
+
+
+		[Column] public int TipoModuloID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioPrestadorPractica")]
+
+
+	[PrimaryKey("ConvenioPrestadorPracticaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioPrestadorPractica : jlapcDB.Record<ConvenioPrestadorPractica>  
+    {
+
+
+
+		[Column] public int ConvenioPrestadorPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int? PrestadorID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public int? NomencladorID { get; set; }
+
+
+
+
+
+		[Column] public int? CapituloID { get; set; }
+
+
+
+
+
+		[Column] public int? PracticaID { get; set; }
+
+
+
+
+
+		[Column] public string HomologacionCod { get; set; }
+
+
+
+
+
+		[Column] public string HomologacionDesc { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaVigencia { get; set; }
+
+
+
+
+
+		[Column] public byte Fijo { get; set; }
+
+
+
+
+
+		[Column] public decimal HonEspecialista { get; set; }
+
+
+
+
+
+		[Column] public decimal HonAyudante { get; set; }
+
+
+
+
+
+		[Column] public decimal HonAnestesista { get; set; }
+
+
+
+
+
+		[Column] public decimal Gastos { get; set; }
+
+
+
+
+
+		[Column] public byte FijoCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal? HonorariosCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal? GastosCopago { get; set; }
+
+
+
+
+
+		[Column] public byte AnulaGaleno { get; set; }
+
+
+
+
+
+		[Column] public int? FinanciadorEmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public byte CopagoIncluido { get; set; }
+
+
+
+
+
+		[Column] public byte RequiereAutorizacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SMGLife_Clientes")]
+
+
+	[PrimaryKey("SMGLife_ClientesID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SMGLife_Cliente : jlapcDB.Record<SMGLife_Cliente>  
+    {
+
+
+
+		[Column] public int SMGLife_ClientesID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string ApellidoYNombre { get; set; }
+
+
+
+
+
+		[Column] public int DiaCumple { get; set; }
+
+
+
+
+
+		[Column] public int MesCumple { get; set; }
+
+
+
+
+
+		[Column] public string Email { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoConsentimiento")]
+
+
+	[PrimaryKey("TipoConsentimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoConsentimiento : jlapcDB.Record<TipoConsentimiento>  
+    {
+
+
+
+		[Column] public int TipoConsentimientoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ImportacionExtracto_FormatoImportes")]
+
+
+	[PrimaryKey("ImportacionExtracto_FormatoImportesID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ImportacionExtracto_FormatoImporte : jlapcDB.Record<ImportacionExtracto_FormatoImporte>  
+    {
+
+
+
+		[Column] public int ImportacionExtracto_FormatoImportesID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TServicioTSubCuenta")]
+
+
+	[ExplicitColumns]
+    public partial class TServicioTSubCuentum : jlapcDB.Record<TServicioTSubCuentum>  
+    {
+
+
+
+		[Column] public int TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public int TipoSubCuentaContableID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoRequerimientoABMUsuario")]
+
+
+	[PrimaryKey("EstadoRequerimientoABMUsuarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EstadoRequerimientoABMUsuario : jlapcDB.Record<EstadoRequerimientoABMUsuario>  
+    {
+
+
+
+		[Column] public int EstadoRequerimientoABMUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoOrdenTrabajoTipoTarea")]
+
+
+	[PrimaryKey("TipoOrdenTrabajoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoOrdenTrabajoTipoTarea : jlapcDB.Record<TipoOrdenTrabajoTipoTarea>  
+    {
+
+
+
+		[Column] public int TipoOrdenTrabajoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoTareaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ColorRequerimientoVisitaMedico")]
+
+
+	[PrimaryKey("ColorRequerimientoVisitaMedicoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ColorRequerimientoVisitaMedico : jlapcDB.Record<ColorRequerimientoVisitaMedico>  
+    {
+
+
+
+		[Column] public int ColorRequerimientoVisitaMedicoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Movimiento")]
+
+
+	[PrimaryKey("IFSAP_MovimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_Movimiento : jlapcDB.Record<IFSAP_Movimiento>  
+    {
+
+
+
+		[Column] public int IFSAP_MovimientoID { get; set; }
+
+
+
+
+
+		[Column] public int IFSAP_DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int NumeroRenglon { get; set; }
+
+
+
+
+
+		[Column] public int? TipoMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public string Concepto { get; set; }
+
+
+
+
+
+		[Column] public decimal Importe { get; set; }
+
+
+
+
+
+		[Column] public decimal? BaseImponible { get; set; }
+
+
+
+
+
+		[Column] public int? TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public decimal? Alicuota { get; set; }
+
+
+
+
+
+		[Column] public string CuentaContable { get; set; }
+
+
+
+
+
+		[Column] public int? TipoImpuestoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFC_Broker")]
+
+
+	[PrimaryKey("BrokerID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFC_Broker : jlapcDB.Record<IFC_Broker>  
+    {
+
+
+
+		[Column] public int BrokerID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoContacto")]
+
+
+	[PrimaryKey("EstadoContactoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EstadoContacto : jlapcDB.Record<EstadoContacto>  
+    {
+
+
+
+		[Column] public int EstadoContactoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoEstadistica")]
+
+
+	[PrimaryKey("DocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoEstadistica : jlapcDB.Record<DocumentoEstadistica>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int? SuperAmbitoID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoEtarioID { get; set; }
+
+
+
+
+
+		[Column] public int? ClasificadorEstadisticoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SMGLife_Promotores")]
+
+
+	[PrimaryKey("SMGLife_PromotoresID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SMGLife_Promotore : jlapcDB.Record<SMGLife_Promotore>  
+    {
+
+
+
+		[Column] public int SMGLife_PromotoresID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string ApellidoYNombre { get; set; }
+
+
+
+
+
+		[Column] public int DiaCumple { get; set; }
+
+
+
+
+
+		[Column] public int MesCumple { get; set; }
+
+
+
+
+
+		[Column] public string Email { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoBloqueoHabitacion")]
+
+
+	[PrimaryKey("TipoBloqueoHabitacionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoBloqueoHabitacion : jlapcDB.Record<TipoBloqueoHabitacion>  
+    {
+
+
+
+		[Column] public int TipoBloqueoHabitacionID { get; set; }
+
+
 
 
 
@@ -471,18 +24417,136 @@ namespace ClarityDB.T4
 	}
 
     
-	[TableName("Perfil")]
+	[TableName("TurnoModuloTurnoProfesional")]
 
 
-	[PrimaryKey("DemoPerfilID", autoIncrement=false)]
+	[PrimaryKey("TurnoModuloID", autoIncrement=false)]
 
 	[ExplicitColumns]
-    public partial class Perfil : ClarityDBSimpleConnDB.Record<Perfil>  
+    public partial class TurnoModuloTurnoProfesional : jlapcDB.Record<TurnoModuloTurnoProfesional>  
     {
 
 
 
-		[Column] public int DemoPerfilID { get; set; }
+		[Column] public int TurnoModuloID { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public int RolID { get; set; }
+
+
+
+
+
+		[Column] public int CuotaParteDeLiquidacionAProfesionalesID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionMonodroga")]
+
+
+	[PrimaryKey("HomologacionMonodrogaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HomologacionMonodroga : jlapcDB.Record<HomologacionMonodroga>  
+    {
+
+
+
+		[Column] public int HomologacionMonodrogaID { get; set; }
+
+
+
+
+
+		[Column] public int EnteExternoID { get; set; }
+
+
+
+
+
+		[Column] public int MonodrogaID { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionHomologacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("AsientoModelo")]
+
+
+	[PrimaryKey("AsientoModeloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class AsientoModelo : jlapcDB.Record<AsientoModelo>  
+    {
+
+
+
+		[Column] public int AsientoModeloID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
 
 
 
@@ -494,7 +24558,8059 @@ namespace ClarityDB.T4
 
 
 
-		[Column] public int DemoGrupoID { get; set; }
+		[Column] public int PlanContableID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ModalidadRemuneracionPersonal")]
+
+
+	[PrimaryKey("ModalidadRemuneracionPersonalID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ModalidadRemuneracionPersonal : jlapcDB.Record<ModalidadRemuneracionPersonal>  
+    {
+
+
+
+		[Column] public int ModalidadRemuneracionPersonalID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Chequera")]
+
+
+	[PrimaryKey("ChequeraID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Chequera : jlapcDB.Record<Chequera>  
+    {
+
+
+
+		[Column] public int ChequeraID { get; set; }
+
+
+
+
+
+		[Column] public int CuentaID { get; set; }
+
+
+
+
+
+		[Column] public int Desde { get; set; }
+
+
+
+
+
+		[Column] public int Hasta { get; set; }
+
+
+
+
+
+		[Column] public int? Ultimo { get; set; }
+
+
+
+
+
+		[Column] public byte EnUso { get; set; }
+
+
+
+
+
+		[Column] public int? UltimoChequeImpreso { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PreguntaRequerimientoVisitaMedico")]
+
+
+	[PrimaryKey("PreguntaRequerimientoVisitaMedicoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PreguntaRequerimientoVisitaMedico : jlapcDB.Record<PreguntaRequerimientoVisitaMedico>  
+    {
+
+
+
+		[Column] public int PreguntaRequerimientoVisitaMedicoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int Orden { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloPartidoJugador")]
+
+
+	[PrimaryKey("PoloPartidoJugadorID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloPartidoJugador : jlapcDB.Record<PoloPartidoJugador>  
+    {
+
+
+
+		[Column] public int PoloPartidoJugadorID { get; set; }
+
+
+
+
+
+		[Column] public int PoloPartidoID { get; set; }
+
+
+
+
+
+		[Column] public int PoloEquipoID { get; set; }
+
+
+
+
+
+		[Column] public int PoloJugadorID { get; set; }
+
+
+
+
+
+		[Column] public int PoloPosicionID { get; set; }
+
+
+
+
+
+		[Column] public int Handicap { get; set; }
+
+
+
+
+
+		[Column] public int? PoloGPSID { get; set; }
+
+
+
+
+
+		[Column] public byte EnJuego { get; set; }
+
+
+
+
+
+		[Column] public bool EsSuplente { get; set; }
+
+
+
+
+
+		[Column] public int? JugadorAsociadoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PresupuestoCuotaModulo")]
+
+
+	[PrimaryKey("CuotaPresupuestoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class PresupuestoCuotaModulo : jlapcDB.Record<PresupuestoCuotaModulo>  
+    {
+
+
+
+		[Column] public int CuotaPresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int PresupuestoModuloID { get; set; }
+
+
+
+
+
+		[Column] public decimal Importe { get; set; }
+
+
+
+
+
+		[Column] public byte EsAResultado { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionPrestador_Plan")]
+
+
+	[PrimaryKey("HomologacionPrestador_PlanID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HomologacionPrestador_Plan : jlapcDB.Record<HomologacionPrestador_Plan>  
+    {
+
+
+
+		[Column] public int HomologacionPrestador_PlanID { get; set; }
+
+
+
+
+
+		[Column] public int HomologacionPrestador_FinanciadorID { get; set; }
+
+
+
+
+
+		[Column] public int PlanID { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionHomologacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCResultado")]
+
+
+	[PrimaryKey("HCResultadoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCResultado : jlapcDB.Record<HCResultado>  
+    {
+
+
+
+		[Column] public int HCResultadoID { get; set; }
+
+
+
+
+
+		[Column] public int? PracticaID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Fecha { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int? PrescriptorID { get; set; }
+
+
+
+
+
+		[Column] public byte Estado { get; set; }
+
+
+
+
+
+		[Column] public byte? Verificado { get; set; }
+
+
+
+
+
+		[Column] public int? Variable_NroProtocolo { get; set; }
+
+
+
+
+
+		[Column] public int? NroProtocolo { get; set; }
+
+
+
+
+
+		[Column] public byte MostrarEnPantallaInicioMedico { get; set; }
+
+
+
+
+
+		[Column] public int? SucursalID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Quirofano")]
+
+
+	[PrimaryKey("QuirofanoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Quirofano : jlapcDB.Record<Quirofano>  
+    {
+
+
+
+		[Column] public int QuirofanoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID_Prestador { get; set; }
+
+
+
+
+
+		[Column] public int? DepositoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SectorInternacion")]
+
+
+	[PrimaryKey("SectorInternacionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SectorInternacion : jlapcDB.Record<SectorInternacion>  
+    {
+
+
+
+		[Column] public int SectorInternacionID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID_Prestador { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? DepositoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoPracticaEspecialidad")]
+
+
+	[PrimaryKey("GrupoPracticaEspecialidadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoPracticaEspecialidad : jlapcDB.Record<GrupoPracticaEspecialidad>  
+    {
+
+
+
+		[Column] public int GrupoPracticaEspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public int? CentroCostosID { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoInstrumento")]
+
+
+	[PrimaryKey("TipoInstrumentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoInstrumento : jlapcDB.Record<TipoInstrumento>  
+    {
+
+
+
+		[Column] public int TipoInstrumentoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoConsumo")]
+
+
+	[PrimaryKey("GrupoConsumoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoConsumo : jlapcDB.Record<GrupoConsumo>  
+    {
+
+
+
+		[Column] public int GrupoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoRequerimientoVisitaMedico")]
+
+
+	[PrimaryKey("EstadoRequerimientoVisitaMedicoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EstadoRequerimientoVisitaMedico : jlapcDB.Record<EstadoRequerimientoVisitaMedico>  
+    {
+
+
+
+		[Column] public int EstadoRequerimientoVisitaMedicoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaLoteProduccionFlejeMetalico")]
+
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaLoteProduccionFlejeMetalico : jlapcDB.Record<OrdenManufacturaLoteProduccionFlejeMetalico>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaLoteProduccionID { get; set; }
+
+
+
+
+
+		[Column] public decimal Ancho { get; set; }
+
+
+
+
+
+		[Column] public decimal? ToleranciaPositiva { get; set; }
+
+
+
+
+
+		[Column] public decimal? ToleranciaNegativa { get; set; }
+
+
+
+
+
+		[Column] public decimal Kilos { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CierreCajaFisicaCuentaCheque")]
+
+
+	[PrimaryKey("CierreCajaFisicaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CierreCajaFisicaCuentaCheque : jlapcDB.Record<CierreCajaFisicaCuentaCheque>  
+    {
+
+
+
+		[Column] public int CierreCajaFisicaID { get; set; }
+
+
+
+
+
+		[Column] public int CuentaID { get; set; }
+
+
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Habitacion")]
+
+
+	[PrimaryKey("HabitacionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Habitacion : jlapcDB.Record<Habitacion>  
+    {
+
+
+
+		[Column] public int HabitacionID { get; set; }
+
+
+
+
+
+		[Column] public int SectorInternacionID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoBloqueoHabitacionID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TimesheetTemporalBKP")]
+
+
+	[PrimaryKey("TimesheetTemporalBKPID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TimesheetTemporalBKP : jlapcDB.Record<TimesheetTemporalBKP>  
+    {
+
+
+
+		[Column] public int TimesheetTemporalBKPID { get; set; }
+
+
+
+
+
+		[Column] public string LogIn { get; set; }
+
+
+
+
+
+		[Column] public int? TimesheetLocacionID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public int NumeroDispositivo { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CuotaParteDeLiquidacionAProfesionales")]
+
+
+	[PrimaryKey("CuotaParteDeLiquidacionAProfesionalesID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CuotaParteDeLiquidacionAProfesionale : jlapcDB.Record<CuotaParteDeLiquidacionAProfesionale>  
+    {
+
+
+
+		[Column] public int CuotaParteDeLiquidacionAProfesionalesID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("AsientoModeloRenglon")]
+
+
+	[PrimaryKey("AsientoModeloRenglonID")]
+
+
+
+	[ExplicitColumns]
+    public partial class AsientoModeloRenglon : jlapcDB.Record<AsientoModeloRenglon>  
+    {
+
+
+
+		[Column] public int AsientoModeloRenglonID { get; set; }
+
+
+
+
+
+		[Column] public int AsientoModeloID { get; set; }
+
+
+
+
+
+		[Column] public int CuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public int? SubcuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public int? CentroCostosID { get; set; }
+
+
+
+
+
+		[Column] public byte Columna { get; set; }
+
+
+
+
+
+		[Column] public decimal? Importe { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoElementoUsuario")]
+
+
+	[PrimaryKey("TipoElementoUsuarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoElementoUsuario : jlapcDB.Record<TipoElementoUsuario>  
+    {
+
+
+
+		[Column] public int TipoElementoUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public byte AltaAutomatica { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PlanHomologacion")]
+
+
+	[PrimaryKey("PlanHomologacionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PlanHomologacion : jlapcDB.Record<PlanHomologacion>  
+    {
+
+
+
+		[Column] public int PlanHomologacionID { get; set; }
+
+
+
+
+
+		[Column] public int PlanID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioPractica")]
+
+
+	[PrimaryKey("ConvenioPracticaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioPractica : jlapcDB.Record<ConvenioPractica>  
+    {
+
+
+
+		[Column] public int ConvenioPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public int? NomencladorID { get; set; }
+
+
+
+
+
+		[Column] public int? CapituloID { get; set; }
+
+
+
+
+
+		[Column] public int? PracticaID { get; set; }
+
+
+
+
+
+		[Column] public string HomologacionCod { get; set; }
+
+
+
+
+
+		[Column] public string HomologacionDesc { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaVigencia { get; set; }
+
+
+
+
+
+		[Column] public byte Fijo { get; set; }
+
+
+
+
+
+		[Column] public decimal HonEspecialista { get; set; }
+
+
+
+
+
+		[Column] public decimal HonAyudante { get; set; }
+
+
+
+
+
+		[Column] public decimal HonAnestesista { get; set; }
+
+
+
+
+
+		[Column] public decimal Gastos { get; set; }
+
+
+
+
+
+		[Column] public byte FijoCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal? HonorariosCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal? GastosCopago { get; set; }
+
+
+
+
+
+		[Column] public byte AnulaGaleno { get; set; }
+
+
+
+
+
+		[Column] public int? FinanciadorEmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public byte CopagoIncluido { get; set; }
+
+
+
+
+
+		[Column] public byte RequiereAutorizacion { get; set; }
+
+
+
+
+
+		[Column] public float BaseRedondeo { get; set; }
+
+
+
+
+
+		[Column] public int TipoImpuestoID { get; set; }
+
+
+
+
+
+		[Column] public int RequierePresupuesto { get; set; }
+
+
+
+
+
+		[Column] public byte Convenida { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoHCDiagnostico")]
+
+
+	[PrimaryKey("EstadoHCDiagnosticoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EstadoHCDiagnostico : jlapcDB.Record<EstadoHCDiagnostico>  
+    {
+
+
+
+		[Column] public int EstadoHCDiagnosticoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PacienteConsentimiento")]
+
+
+	[PrimaryKey("PacienteConsentimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PacienteConsentimiento : jlapcDB.Record<PacienteConsentimiento>  
+    {
+
+
+
+		[Column] public int PacienteConsentimientoID { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int ConsentimientoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Fecha { get; set; }
+
+
+
+
+
+		[Column] public int? UsuarioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MovimientoImpuesto")]
+
+
+	[PrimaryKey("MovimientoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class MovimientoImpuesto : jlapcDB.Record<MovimientoImpuesto>  
+    {
+
+
+
+		[Column] public int MovimientoID { get; set; }
+
+
+
+
+
+		[Column] public int? ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public decimal? BaseImponible { get; set; }
+
+
+
+
+
+		[Column] public float? Alicuota { get; set; }
+
+
+
+	}
+
+    
+	[TableName("FormaFarmaceuticaMedicamento")]
+
+
+	[PrimaryKey("FormaFarmaceuticaMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class FormaFarmaceuticaMedicamento : jlapcDB.Record<FormaFarmaceuticaMedicamento>  
+    {
+
+
+
+		[Column] public int FormaFarmaceuticaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioProfesionalHora")]
+
+
+	[PrimaryKey("ConvenioProfesionalHoraID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioProfesionalHora : jlapcDB.Record<ConvenioProfesionalHora>  
+    {
+
+
+
+		[Column] public int ConvenioProfesionalHoraID { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Vigencia { get; set; }
+
+
+
+
+
+		[Column] public float Valor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PresupuestoDocumento")]
+
+
+	[PrimaryKey("PresupuestoDocumentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PresupuestoDocumento : jlapcDB.Record<PresupuestoDocumento>  
+    {
+
+
+
+		[Column] public int PresupuestoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int PresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("FinanciadorLineaPlan")]
+
+
+	[PrimaryKey("FinanciadorLineaPlanID")]
+
+
+
+	[ExplicitColumns]
+    public partial class FinanciadorLineaPlan : jlapcDB.Record<FinanciadorLineaPlan>  
+    {
+
+
+
+		[Column] public int FinanciadorLineaPlanID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID_Financiador { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoImportacionPrestador")]
+
+
+	[PrimaryKey("EstadoImportacionPrestadorID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EstadoImportacionPrestador : jlapcDB.Record<EstadoImportacionPrestador>  
+    {
+
+
+
+		[Column] public int EstadoImportacionPrestadorID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProfesionalEmpresaFinanciador")]
+
+
+	[PrimaryKey("ProfesionalEmpresaFinanciadorID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ProfesionalEmpresaFinanciador : jlapcDB.Record<ProfesionalEmpresaFinanciador>  
+    {
+
+
+
+		[Column] public int ProfesionalEmpresaFinanciadorID { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_Financiador { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_PermisoTurnos")]
+
+
+	[PrimaryKey("PermisoTurnosID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SYS_PermisoTurno : jlapcDB.Record<SYS_PermisoTurno>  
+    {
+
+
+
+		[Column] public int PermisoTurnosID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int? PerfilID { get; set; }
+
+
+
+
+
+		[Column] public int? UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int Permiso { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Proyecto")]
+
+
+	[PrimaryKey("ProyectoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Proyecto : jlapcDB.Record<Proyecto>  
+    {
+
+
+
+		[Column] public int ProyectoID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? ProductoID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public byte Continuo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Cama")]
+
+
+	[PrimaryKey("CamaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Cama : jlapcDB.Record<Cama>  
+    {
+
+
+
+		[Column] public int CamaID { get; set; }
+
+
+
+
+
+		[Column] public int SectorInternacionID { get; set; }
+
+
+
+
+
+		[Column] public string Numero { get; set; }
+
+
+
+
+
+		[Column] public string Orden { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoCamaID { get; set; }
+
+
+
+
+
+		[Column] public byte? Baja { get; set; }
+
+
+
+
+
+		[Column] public int? HabitacionID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoTratamiento")]
+
+
+	[PrimaryKey("TipoTratamientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoTratamiento : jlapcDB.Record<TipoTratamiento>  
+    {
+
+
+
+		[Column] public int TipoTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_ConfiguracionContable")]
+
+
+	[PrimaryKey("IFSAP_ConfiguracionContableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_ConfiguracionContable : jlapcDB.Record<IFSAP_ConfiguracionContable>  
+    {
+
+
+
+		[Column] public int IFSAP_ConfiguracionContableID { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_OrigenID { get; set; }
+
+
+
+
+
+		[Column] public int? SuperAmbitoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int? NumeroEstablecimiento { get; set; }
+
+
+
+
+
+		[Column] public string CuentaContable { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Cartelera")]
+
+
+	[PrimaryKey("CarteleraID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Cartelera : jlapcDB.Record<Cartelera>  
+    {
+
+
+
+		[Column] public int CarteleraID { get; set; }
+
+
+
+
+
+		[Column] public int? PerfilID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Link { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Vigencia_Desde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Vigencia_Hasta { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionFormaFarmaceuticaMedicamento")]
+
+
+	[PrimaryKey("HomologacionFormaFarmaceuticaMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HomologacionFormaFarmaceuticaMedicamento : jlapcDB.Record<HomologacionFormaFarmaceuticaMedicamento>  
+    {
+
+
+
+		[Column] public int HomologacionFormaFarmaceuticaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int EnteExternoID { get; set; }
+
+
+
+
+
+		[Column] public int FormaFarmaceuticaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionHomologacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConfiguracionImportacionExtracto")]
+
+
+	[PrimaryKey("ConfiguracionImportacionExtractoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConfiguracionImportacionExtracto : jlapcDB.Record<ConfiguracionImportacionExtracto>  
+    {
+
+
+
+		[Column] public int ConfiguracionImportacionExtractoID { get; set; }
+
+
+
+
+
+		[Column] public int LineasAIgnorarCabecera { get; set; }
+
+
+
+
+
+		[Column] public int LineasAIgnorarPie { get; set; }
+
+
+
+
+
+		[Column] public int ImportacionExtracto_FormatoImportesID { get; set; }
+
+
+
+
+
+		[Column] public int PosicionCampo_ImporteDebe { get; set; }
+
+
+
+
+
+		[Column] public int? PosicionCampo_ImporteHaber { get; set; }
+
+
+
+
+
+		[Column] public int? PosicionCampo_ColumnaDebeHaber { get; set; }
+
+
+
+
+
+		[Column] public int PosicionCampo_Fecha { get; set; }
+
+
+
+
+
+		[Column] public int PosicionCampo_NroComprobante { get; set; }
+
+
+
+
+
+		[Column] public int PosicionCampo_Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public string descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoVariable")]
+
+
+	[PrimaryKey("TipoVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoVariable : jlapcDB.Record<TipoVariable>  
+    {
+
+
+
+		[Column] public int TipoVariableID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Dependencia")]
+
+
+	[PrimaryKey("DependenciaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Dependencium : jlapcDB.Record<Dependencium>  
+    {
+
+
+
+		[Column] public int DependenciaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProductoHojaMetalica")]
+
+
+	[PrimaryKey("ProductoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ProductoHojaMetalica : jlapcDB.Record<ProductoHojaMetalica>  
+    {
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public decimal Espesor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoCuentaCorriente")]
+
+
+	[PrimaryKey("TipoCuentaCorrienteID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoCuentaCorriente : jlapcDB.Record<TipoCuentaCorriente>  
+    {
+
+
+
+		[Column] public int TipoCuentaCorrienteID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ModuloCierre")]
+
+
+	[PrimaryKey("ModuloCierreID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ModuloCierre : jlapcDB.Record<ModuloCierre>  
+    {
+
+
+
+		[Column] public int ModuloCierreID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Nomenclador")]
+
+
+	[PrimaryKey("NomencladorID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Nomenclador : jlapcDB.Record<Nomenclador>  
+    {
+
+
+
+		[Column] public int NomencladorID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoCalendario")]
+
+
+	[PrimaryKey("TipoCalendarioID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoCalendario : jlapcDB.Record<TipoCalendario>  
+    {
+
+
+
+		[Column] public int TipoCalendarioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ImportacionPrestadorDocumento")]
+
+
+	[PrimaryKey("ImportacionPrestadorDocumentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ImportacionPrestadorDocumento : jlapcDB.Record<ImportacionPrestadorDocumento>  
+    {
+
+
+
+		[Column] public int ImportacionPrestadorDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID_Prestador { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaUltimaImportacion { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaEmisionDocumento { get; set; }
+
+
+
+
+
+		[Column] public string NumeroDocumento { get; set; }
+
+
+
+
+
+		[Column] public int EstadoImportacionPrestadorID { get; set; }
+
+
+
+
+
+		[Column] public int? DocumentoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoUnidadMedida")]
+
+
+	[PrimaryKey("TipoUnidadMedidaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoUnidadMedida : jlapcDB.Record<TipoUnidadMedida>  
+    {
+
+
+
+		[Column] public int TipoUnidadMedidaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoAislamiento")]
+
+
+	[PrimaryKey("TipoAislamientoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoAislamiento : jlapcDB.Record<TipoAislamiento>  
+    {
+
+
+
+		[Column] public int TipoAislamientoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PresupuestoModulo")]
+
+
+	[PrimaryKey("PresupuestoModuloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PresupuestoModulo : jlapcDB.Record<PresupuestoModulo>  
+    {
+
+
+
+		[Column] public int PresupuestoModuloID { get; set; }
+
+
+
+
+
+		[Column] public int PresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public short? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public byte Facturable { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoRechazoPresupuestoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public int? MovimientoIDCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public string NumAfiliado { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public decimal? ValorUnitario { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos_LiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public byte Libre { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VencimientoLibre { get; set; }
+
+
+
+
+
+		[Column] public string NumeroAutorizacion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoEtarioID { get; set; }
+
+
+
+
+
+		[Column] public string MotivoCambioValor { get; set; }
+
+
+
+
+
+		[Column] public string UsuarioID_CambioValor { get; set; }
+
+
+
+
+
+		[Column] public int? PresupuestoModuloID_Padre { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Exposicion")]
+
+
+	[PrimaryKey("ExposicionID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Exposicion : jlapcDB.Record<Exposicion>  
+    {
+
+
+
+		[Column] public int ExposicionID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public string LinkMapa { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Actividad")]
+
+
+	[PrimaryKey("ActividadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Actividad : jlapcDB.Record<Actividad>  
+    {
+
+
+
+		[Column] public int ActividadID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoDocumentoSubcuentaContable")]
+
+
+	[PrimaryKey("TipoDocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoDocumentoSubcuentaContable : jlapcDB.Record<TipoDocumentoSubcuentaContable>  
+    {
+
+
+
+		[Column] public int TipoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoSubcuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public int SubcuentaContableID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Variable")]
+
+
+	[PrimaryKey("VariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Variable : jlapcDB.Record<Variable>  
+    {
+
+
+
+		[Column] public int VariableID { get; set; }
+
+
+
+
+
+		[Column] public int TipoVariableID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Unidad { get; set; }
+
+
+
+
+
+		[Column] public string ValorMinimo { get; set; }
+
+
+
+
+
+		[Column] public string ValorMaximo { get; set; }
+
+
+
+
+
+		[Column] public byte Visible { get; set; }
+
+
+
+
+
+		[Column] public byte Renglon { get; set; }
+
+
+
+
+
+		[Column] public byte? Bloqueado { get; set; }
+
+
+
+
+
+		[Column] public byte? ValorSugerido { get; set; }
+
+
+
+
+
+		[Column] public byte? EsGlobal { get; set; }
+
+
+
+
+
+		[Column] public byte ExceptuarValorSugerido { get; set; }
+
+
+
+
+
+		[Column] public byte NoImprimir { get; set; }
+
+
+
+
+
+		[Column] public byte Requerida { get; set; }
+
+
+
+
+
+		[Column] public byte? EsDeResumenDeTratamiento { get; set; }
+
+
+
+
+
+		[Column] public byte? VerTratamientoPacienteReceptora { get; set; }
+
+
+
+
+
+		[Column] public string Rol_DescripcionLarga { get; set; }
+
+
+
+
+
+		[Column] public string Rol_DescripcionCorta { get; set; }
+
+
+
+
+
+		[Column] public int? VariableRelacionada_GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? VariableRelacionada_GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? VariableRelacionada_VariableID { get; set; }
+
+
+
+
+
+		[Column] public byte? ValorSugeridoSoloPositivo { get; set; }
+
+
+
+
+
+		[Column] public int? DiasValidezOpcionRecordarValor { get; set; }
+
+
+
+
+
+		[Column] public int? MostrarHistorial { get; set; }
+
+
+
+
+
+		[Column] public byte? SoloVenceCuandoValorEsNegativo { get; set; }
+
+
+
+
+
+		[Column] public string HomologacionLaboratorio { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaDomicilioTipoDomicilio")]
+
+
+	[PrimaryKey("EmpresaDomicilioTipoDomicilioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaDomicilioTipoDomicilio : jlapcDB.Record<EmpresaDomicilioTipoDomicilio>  
+    {
+
+
+
+		[Column] public int EmpresaDomicilioTipoDomicilioID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaDomicilioID { get; set; }
+
+
+
+
+
+		[Column] public int TipoDomicilioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProductoFleje")]
+
+
+	[PrimaryKey("ProductoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ProductoFleje : jlapcDB.Record<ProductoFleje>  
+    {
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public decimal Espesor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("sysdiagrams")]
+
+
+	[PrimaryKey("diagram_id")]
+
+
+
+	[ExplicitColumns]
+    public partial class sysdiagram : jlapcDB.Record<sysdiagram>  
+    {
+
+
+
+		[Column] public string name { get; set; }
+
+
+
+
+
+		[Column] public int principal_id { get; set; }
+
+
+
+
+
+		[Column] public int diagram_id { get; set; }
+
+
+
+
+
+		[Column] public int? version { get; set; }
+
+
+
+
+
+		[Column] public byte[] definition { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioGrupoConsumo")]
+
+
+	[PrimaryKey("ConvenioGrupoConsumoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioGrupoConsumo : jlapcDB.Record<ConvenioGrupoConsumo>  
+    {
+
+
+
+		[Column] public int ConvenioGrupoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int? FinanciadorEmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaVigencia { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int TipoImpuestoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("InternacionCama")]
+
+
+	[PrimaryKey("InternacionCamaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class InternacionCama : jlapcDB.Record<InternacionCama>  
+    {
+
+
+
+		[Column] public int InternacionCamaID { get; set; }
+
+
+
+
+
+		[Column] public int InternacionID { get; set; }
+
+
+
+
+
+		[Column] public int CamaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Ingreso { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Egreso { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CierreContable")]
+
+
+	[PrimaryKey("CierreContableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CierreContable : jlapcDB.Record<CierreContable>  
+    {
+
+
+
+		[Column] public int CierreContableID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloCierreID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaHasta { get; set; }
+
+
+
+	}
+
+    
+	[TableName("RequerimientoABMUsuarioHabilitacionesDefault")]
+
+
+	[PrimaryKey("RequerimientoABMUsuarioHabilitacionesDefaultID")]
+
+
+
+	[ExplicitColumns]
+    public partial class RequerimientoABMUsuarioHabilitacionesDefault : jlapcDB.Record<RequerimientoABMUsuarioHabilitacionesDefault>  
+    {
+
+
+
+		[Column] public int RequerimientoABMUsuarioHabilitacionesDefaultID { get; set; }
+
+
+
+
+
+		[Column] public int? SectorID { get; set; }
+
+
+
+
+
+		[Column] public int? CargoID { get; set; }
+
+
+
+
+
+		[Column] public int HabilitacionesID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OperacionCuentaCorriente")]
+
+
+	[PrimaryKey("OperacionID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class OperacionCuentaCorriente : jlapcDB.Record<OperacionCuentaCorriente>  
+    {
+
+
+
+		[Column] public int OperacionID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion2 { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SectorTrabajo")]
+
+
+	[PrimaryKey("SectorTrabajoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SectorTrabajo : jlapcDB.Record<SectorTrabajo>  
+    {
+
+
+
+		[Column] public int SectorTrabajoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoExtensionProducto")]
+
+
+	[PrimaryKey("TipoExtensionProductoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoExtensionProducto : jlapcDB.Record<TipoExtensionProducto>  
+    {
+
+
+
+		[Column] public int TipoExtensionProductoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public byte AdministraLote { get; set; }
+
+
+
+	}
+
+    
+	[TableName("UnidadPotenciaMedicamento")]
+
+
+	[PrimaryKey("UnidadPotenciaMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class UnidadPotenciaMedicamento : jlapcDB.Record<UnidadPotenciaMedicamento>  
+    {
+
+
+
+		[Column] public int UnidadPotenciaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Parentesco")]
+
+
+	[PrimaryKey("ParentescoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Parentesco : jlapcDB.Record<Parentesco>  
+    {
+
+
+
+		[Column] public int ParentescoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? ParentescoReciprocoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoCirugia")]
+
+
+	[PrimaryKey("EstadoCirugiaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EstadoCirugium : jlapcDB.Record<EstadoCirugium>  
+    {
+
+
+
+		[Column] public int EstadoCirugiaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public byte Confirmado { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ListaPrecios")]
+
+
+	[PrimaryKey("ListaPreciosID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ListaPrecio : jlapcDB.Record<ListaPrecio>  
+    {
+
+
+
+		[Column] public int ListaPreciosID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+
+
+		[Column] public decimal? Descuento { get; set; }
+
+
+
+
+
+		[Column] public int TipoLista { get; set; }
+
+
+
+	}
+
+    
+	[TableName("LogMenu")]
+
+
+	[ExplicitColumns]
+    public partial class LogMenu : jlapcDB.Record<LogMenu>  
+    {
+
+
+
+		[Column] public int LogMenuID { get; set; }
+
+
+
+
+
+		[Column] public int TipoMenuID { get; set; }
+
+
+
+
+
+		[Column] public int? MenuID { get; set; }
+
+
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Alta { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Pepe")]
+
+
+	[ExplicitColumns]
+    public partial class Pepe : jlapcDB.Record<Pepe>  
+    {
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public decimal? importe { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenTrabajo")]
+
+
+	[PrimaryKey("OrdenTrabajoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrdenTrabajo : jlapcDB.Record<OrdenTrabajo>  
+    {
+
+
+
+		[Column] public int OrdenTrabajoID { get; set; }
+
+
+
+
+
+		[Column] public int ProyectoID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? TipoOrdenTrabajoID { get; set; }
+
+
+
+
+
+		[Column] public int? UsuarioID_Supervisor { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaAgenda { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaAgendaOriginal { get; set; }
+
+
+
+
+
+		[Column] public int? ProyectoTipoOTPeriodicoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaAlta { get; set; }
+
+
+
+
+
+		[Column] public byte Continuo { get; set; }
+
+
+
+
+
+		[Column] public int? Codigo { get; set; }
+
+
+
+
+
+		[Column] public byte ACargoDelCliente { get; set; }
+
+
+
+
+
+		[Column] public int? AgendaVencimientosVencimientoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Practica")]
+
+
+	[PrimaryKey("PracticaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Practica : jlapcDB.Record<Practica>  
+    {
+
+
+
+		[Column] public int PracticaID { get; set; }
+
+
+
+
+
+		[Column] public int CapituloID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public short? Duracion { get; set; }
+
+
+
+
+
+		[Column] public decimal Especialista { get; set; }
+
+
+
+
+
+		[Column] public decimal Ayudante { get; set; }
+
+
+
+
+
+		[Column] public byte CantidadAyudantes { get; set; }
+
+
+
+
+
+		[Column] public decimal Anestesista { get; set; }
+
+
+
+
+
+		[Column] public decimal Gastos { get; set; }
+
+
+
+
+
+		[Column] public int? GalenoID { get; set; }
+
+
+
+
+
+		[Column] public string Preparacion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoPracticaID { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadEtiquetasPorDefecto { get; set; }
+
+
+
+
+
+		[Column] public string HomologacionLaboratorio { get; set; }
+
+
+
+
+
+		[Column] public byte? PerteneceAWorkList { get; set; }
+
+
+
+	}
+
+    
+	[TableName("RequerimientoABMUsuarioAccesosDefault")]
+
+
+	[PrimaryKey("RequerimientoABMUsuarioAccesosDefaultID")]
+
+
+
+	[ExplicitColumns]
+    public partial class RequerimientoABMUsuarioAccesosDefault : jlapcDB.Record<RequerimientoABMUsuarioAccesosDefault>  
+    {
+
+
+
+		[Column] public int RequerimientoABMUsuarioAccesosDefaultID { get; set; }
+
+
+
+
+
+		[Column] public int? SectorID { get; set; }
+
+
+
+
+
+		[Column] public int? CargoID { get; set; }
+
+
+
+
+
+		[Column] public int AccesoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaProvinciaPercepcionIIBB")]
+
+
+	[PrimaryKey("EmpresaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EmpresaProvinciaPercepcionIIBB : jlapcDB.Record<EmpresaProvinciaPercepcionIIBB>  
+    {
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public int ModalidadPercepcionIIBBID { get; set; }
+
+
+
+
+
+		[Column] public byte? OmitePercibirMismaJurisdiccion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ReporteVariable")]
+
+
+	[PrimaryKey("ReporteVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ReporteVariable : jlapcDB.Record<ReporteVariable>  
+    {
+
+
+
+		[Column] public int ReporteVariableID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int VariableID { get; set; }
+
+
+
+
+
+		[Column] public string VariableValor { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ImportacionPrestadorConsumo")]
+
+
+	[PrimaryKey("ImportacionPrestadorConsumoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ImportacionPrestadorConsumo : jlapcDB.Record<ImportacionPrestadorConsumo>  
+    {
+
+
+
+		[Column] public int ImportacionPrestadorConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int ImportacionPrestadorDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoImportacionPrestadorID { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public string ProfesionalEfector_CUIT { get; set; }
+
+
+
+
+
+		[Column] public string ProfesionalEfector_Nombre { get; set; }
+
+
+
+
+
+		[Column] public string ProfesionalEfector_Apellido { get; set; }
+
+
+
+
+
+		[Column] public string Especialidad_CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string ProfesionalPrescriptor_CUIT { get; set; }
+
+
+
+
+
+		[Column] public string ProfesionalPrescriptor_Nombre { get; set; }
+
+
+
+
+
+		[Column] public string ProfesionalPrescriptor_Apellido { get; set; }
+
+
+
+
+
+		[Column] public string Fecha { get; set; }
+
+
+
+
+
+		[Column] public string Hora { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoDocumentoPersonaID_Paciente { get; set; }
+
+
+
+
+
+		[Column] public string Paciente_Documento { get; set; }
+
+
+
+
+
+		[Column] public string Paciente_Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Paciente_Apellido { get; set; }
+
+
+
+
+
+		[Column] public string Financiador_CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string Plan_CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string Practica_Codigo { get; set; }
+
+
+
+
+
+		[Column] public int? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos { get; set; }
+
+
+
+
+
+		[Column] public int? PrestadorConsumoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VariableValor")]
+
+
+	[PrimaryKey("VariableValorID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VariableValor : jlapcDB.Record<VariableValor>  
+    {
+
+
+
+		[Column] public int VariableValorID { get; set; }
+
+
+
+
+
+		[Column] public int VariableID { get; set; }
+
+
+
+
+
+		[Column] public string Valor { get; set; }
+
+
+
+
+
+		[Column] public byte? ValorDefault { get; set; }
+
+
+
+
+
+		[Column] public byte? ValorDeNegatividad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_PermisoOperacionCuentaCorriente")]
+
+
+	[PrimaryKey("TipoCuentaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_PermisoOperacionCuentaCorriente : jlapcDB.Record<SYS_PermisoOperacionCuentaCorriente>  
+    {
+
+
+
+		[Column] public int TipoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public int PerfilID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int OperacionID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Menu")]
+
+
+	[ExplicitColumns]
+    public partial class Menu : jlapcDB.Record<Menu>  
+    {
+
+
+
+		[Column] public int MenuID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Link { get; set; }
+
+
+
+
+
+		[Column] public int Height { get; set; }
+
+
+
+
+
+		[Column] public int TipoMenuID { get; set; }
+
+
+
+
+
+		[Column] public bool? Default { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionMenu { get; set; }
+
+
+
+
+
+		[Column] public int? Orden { get; set; }
+
+
+
+
+
+		[Column] public bool? MenuDerecho { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_TipoProceso")]
+
+
+	[PrimaryKey("IFSAP_TipoProcesoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_TipoProceso : jlapcDB.Record<IFSAP_TipoProceso>  
+    {
+
+
+
+		[Column] public int IFSAP_TipoProcesoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionUnidadPotenciaMedicamento")]
+
+
+	[PrimaryKey("HomologacionUnidadPotenciaMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HomologacionUnidadPotenciaMedicamento : jlapcDB.Record<HomologacionUnidadPotenciaMedicamento>  
+    {
+
+
+
+		[Column] public int HomologacionUnidadPotenciaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int EnteExternoID { get; set; }
+
+
+
+
+
+		[Column] public int UnidadPotenciaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionHomologacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Cirugia")]
+
+
+	[PrimaryKey("CirugiaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Cirugium : jlapcDB.Record<Cirugium>  
+    {
+
+
+
+		[Column] public int CirugiaID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_Prestador { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public int EstadoCirugiaID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public int? ICD_DiagnosticoID_Previo { get; set; }
+
+
+
+
+
+		[Column] public int? ICD_DiagnosticoID_Posoperatorio { get; set; }
+
+
+
+
+
+		[Column] public string Parte_Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? TipoAnestesiaID { get; set; }
+
+
+
+
+
+		[Column] public int Duracion { get; set; }
+
+
+
+
+
+		[Column] public string Habitacion { get; set; }
+
+
+
+
+
+		[Column] public string Quirofano { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Inicio { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Fin { get; set; }
+
+
+
+
+
+		[Column] public byte Autorizado { get; set; }
+
+
+
+
+
+		[Column] public int? CirugiaPropuestaID { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public bool? Reservado { get; set; }
+
+
+
+
+
+		[Column] public int? QuirofanoID { get; set; }
+
+
+
+
+
+		[Column] public int? DocumentoID_Stock { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Entrada { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Salida { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioPrestadorModulo")]
+
+
+	[PrimaryKey("ConvenioPrestadorModuloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioPrestadorModulo : jlapcDB.Record<ConvenioPrestadorModulo>  
+    {
+
+
+
+		[Column] public int ConvenioPrestadorModuloID { get; set; }
+
+
+
+
+
+		[Column] public int? PrestadorID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public int? ModuloID { get; set; }
+
+
+
+
+
+		[Column] public string HomologacionCod { get; set; }
+
+
+
+
+
+		[Column] public string HomologacionDesc { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaVigencia { get; set; }
+
+
+
+
+
+		[Column] public byte Fijo { get; set; }
+
+
+
+
+
+		[Column] public decimal Honorarios { get; set; }
+
+
+
+
+
+		[Column] public decimal Gastos { get; set; }
+
+
+
+
+
+		[Column] public byte FijoCopago { get; set; }
+
+
+
+
+
+		[Column] public int? FinanciadorEmpresaID { get; set; }
+
+
+
+
+
+		[Column] public decimal HonorariosCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal GastosCopago { get; set; }
+
+
+
+
+
+		[Column] public byte RequiereAutorizacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HabilitacionSistema")]
+
+
+	[PrimaryKey("HabilitacionSistemaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HabilitacionSistema : jlapcDB.Record<HabilitacionSistema>  
+    {
+
+
+
+		[Column] public int HabilitacionSistemaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCTratamientoConsentimiento")]
+
+
+	[PrimaryKey("HCTratamientoConsentimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCTratamientoConsentimiento : jlapcDB.Record<HCTratamientoConsentimiento>  
+    {
+
+
+
+		[Column] public int HCTratamientoConsentimientoID { get; set; }
+
+
+
+
+
+		[Column] public int HCTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public int ConsentimientoID { get; set; }
+
+
+
+
+
+		[Column] public string Login { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaHora { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MenuDefault")]
+
+
+	[ExplicitColumns]
+    public partial class MenuDefault : jlapcDB.Record<MenuDefault>  
+    {
+
+
+
+		[Column] public int MenuDefaultID { get; set; }
+
+
+
+
+
+		[Column] public int MenuID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Stand")]
+
+
+	[PrimaryKey("StandID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Stand : jlapcDB.Record<Stand>  
+    {
+
+
+
+		[Column] public int StandID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+
+
+		[Column] public string Titulo { get; set; }
+
+
+
+
+
+		[Column] public string Beneficio { get; set; }
+
+
+
+
+
+		[Column] public int? RubroID { get; set; }
+
+
+
+
+
+		[Column] public byte? TomaFotosEmpresa { get; set; }
+
+
+
+
+
+		[Column] public int ExposicionID { get; set; }
+
+
+
+
+
+		[Column] public short? NumeroPlano { get; set; }
+
+
+
+
+
+		[Column] public int? TipoStandID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MovimientoMovimiento")]
+
+
+	[PrimaryKey("MovimientoMovimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MovimientoMovimiento : jlapcDB.Record<MovimientoMovimiento>  
+    {
+
+
+
+		[Column] public int MovimientoMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public int MovimientoID_Rector { get; set; }
+
+
+
+
+
+		[Column] public int MovimientoID_Regido { get; set; }
+
+
+
+
+
+		[Column] public float Cantidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ListaPreciosProducto")]
+
+
+	[PrimaryKey("ListaPreciosProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ListaPreciosProducto : jlapcDB.Record<ListaPreciosProducto>  
+    {
+
+
+
+		[Column] public int ListaPreciosProductoID { get; set; }
+
+
+
+
+
+		[Column] public int ListaPreciosID { get; set; }
+
+
+
+
+
+		[Column] public float? PrecioUnitario { get; set; }
+
+
+
+
+
+		[Column] public int? ProductoID { get; set; }
+
+
+
+
+
+		[Column] public decimal? Descuento { get; set; }
+
+
+
+
+
+		[Column] public byte IVAIncluido { get; set; }
+
+
+
+	}
+
+    
+	[TableName("UnidadMedida")]
+
+
+	[PrimaryKey("UnidadMedidaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class UnidadMedida : jlapcDB.Record<UnidadMedida>  
+    {
+
+
+
+		[Column] public int UnidadMedidaID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoUnidadMedidaID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaRubro")]
+
+
+	[PrimaryKey("EmpresaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EmpresaRubro : jlapcDB.Record<EmpresaRubro>  
+    {
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int RubroID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioProducto")]
+
+
+	[PrimaryKey("ConvenioProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioProducto : jlapcDB.Record<ConvenioProducto>  
+    {
+
+
+
+		[Column] public int ConvenioProductoID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public int TipoProductoID { get; set; }
+
+
+
+
+
+		[Column] public int? ProductoID { get; set; }
+
+
+
+
+
+		[Column] public string HomologacionCod { get; set; }
+
+
+
+
+
+		[Column] public string HomologacionDesc { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaVigencia { get; set; }
+
+
+
+
+
+		[Column] public byte Fijo { get; set; }
+
+
+
+
+
+		[Column] public decimal Precio { get; set; }
+
+
+
+
+
+		[Column] public byte FijoCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal PrecioCopago { get; set; }
+
+
+
+
+
+		[Column] public int? FinanciadorEmpresaID { get; set; }
+
+
+
+
+
+		[Column] public byte RequiereAutorizacion { get; set; }
+
+
+
+
+
+		[Column] public int TipoImpuestoID { get; set; }
+
+
+
+
+
+		[Column] public int RequierePresupuesto { get; set; }
+
+
+
+
+
+		[Column] public byte Convenida { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Control")]
+
+
+	[PrimaryKey("IFSAP_ControlID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_Control : jlapcDB.Record<IFSAP_Control>  
+    {
+
+
+
+		[Column] public int IFSAP_ControlID { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_OrigenID { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_TipoProcesoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaUltimoProceso { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CategoriaGananciaSICORE")]
+
+
+	[PrimaryKey("CategoriaGananciaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class CategoriaGananciaSICORE : jlapcDB.Record<CategoriaGananciaSICORE>  
+    {
+
+
+
+		[Column] public int CategoriaGananciaID { get; set; }
+
+
+
+
+
+		[Column] public int? CodigoRegimenRetencion { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionRegimenRetencion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaLoteProduccionMovimiento")]
+
+
+	[PrimaryKey("OrdenManufacturaLoteProduccionMovimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaLoteProduccionMovimiento : jlapcDB.Record<OrdenManufacturaLoteProduccionMovimiento>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaLoteProduccionMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public int OrdenManufacturaLoteProduccionID { get; set; }
+
+
+
+
+
+		[Column] public int MovimientoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaListaContactoContacto")]
+
+
+	[PrimaryKey("EmpresaListaContactoContactoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaListaContactoContacto : jlapcDB.Record<EmpresaListaContactoContacto>  
+    {
+
+
+
+		[Column] public int EmpresaListaContactoContactoID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaContactoID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaListaContactoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Aviso")]
+
+
+	[PrimaryKey("AvisoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Aviso : jlapcDB.Record<Aviso>  
+    {
+
+
+
+		[Column] public int AvisoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? UnidadTiempoID { get; set; }
+
+
+
+
+
+		[Column] public int? Cantidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoGrupoVariable")]
+
+
+	[PrimaryKey("TipoGrupoVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoGrupoVariable : jlapcDB.Record<TipoGrupoVariable>  
+    {
+
+
+
+		[Column] public int TipoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoTipoAdjunto")]
+
+
+	[PrimaryKey("DocumentoTipoAdjuntoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoTipoAdjunto : jlapcDB.Record<DocumentoTipoAdjunto>  
+    {
+
+
+
+		[Column] public int DocumentoTipoAdjuntoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IC_Lote")]
+
+
+	[PrimaryKey("IC_LoteID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IC_Lote : jlapcDB.Record<IC_Lote>  
+    {
+
+
+
+		[Column] public int IC_LoteID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public short VecesProcesado { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFC_EstadoConsumo")]
+
+
+	[PrimaryKey("EstadoConsumoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFC_EstadoConsumo : jlapcDB.Record<IFC_EstadoConsumo>  
+    {
+
+
+
+		[Column] public int EstadoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConfiguracionPercepcionIIBB")]
+
+
+	[PrimaryKey("ConfiguracionPercepcionIIBBID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConfiguracionPercepcionIIBB : jlapcDB.Record<ConfiguracionPercepcionIIBB>  
+    {
+
+
+
+		[Column] public int ConfiguracionPercepcionIIBBID { get; set; }
+
+
+
+
+
+		[Column] public int ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime VigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaHasta { get; set; }
+
+
+
+
+
+		[Column] public int? ActividadID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoProductoID { get; set; }
+
+
+
+
+
+		[Column] public int? RegimenIIBBID { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIvaID { get; set; }
+
+
+
+
+
+		[Column] public float? Alicuota { get; set; }
+
+
+
+
+
+		[Column] public byte? SegunGrupoRetencionIIBB { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_SeleccionReciente")]
+
+
+	[PrimaryKey("UsuarioID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_SeleccionReciente : jlapcDB.Record<SYS_SeleccionReciente>  
+    {
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Valor { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Fecha { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoDeRequerimientoABMUsuario")]
+
+
+	[PrimaryKey("TipoDeRequerimientoABMUsuarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoDeRequerimientoABMUsuario : jlapcDB.Record<TipoDeRequerimientoABMUsuario>  
+    {
+
+
+
+		[Column] public int TipoDeRequerimientoABMUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioGrupoConsumoEscala")]
+
+
+	[PrimaryKey("ConvenioGrupoConsumoEscalaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioGrupoConsumoEscala : jlapcDB.Record<ConvenioGrupoConsumoEscala>  
+    {
+
+
+
+		[Column] public int ConvenioGrupoConsumoEscalaID { get; set; }
+
+
+
+
+
+		[Column] public int ConvenioGrupoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int? Hasta { get; set; }
+
+
+
+
+
+		[Column] public double? Valor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Sexo")]
+
+
+	[PrimaryKey("SexoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Sexo : jlapcDB.Record<Sexo>  
+    {
+
+
+
+		[Column] public int SexoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoUnidadMedicamento")]
+
+
+	[PrimaryKey("TipoUnidadMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoUnidadMedicamento : jlapcDB.Record<TipoUnidadMedicamento>  
+    {
+
+
+
+		[Column] public int TipoUnidadMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoVariable")]
+
+
+	[PrimaryKey("GrupoVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoVariable : jlapcDB.Record<GrupoVariable>  
+    {
+
+
+
+		[Column] public int GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int TipoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? SexoID { get; set; }
+
+
+
+
+
+		[Column] public byte NoImprimirEnAntecedentes { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ColumnasFijas")]
+
+
+	[PrimaryKey("ColumnasFijasID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ColumnasFija : jlapcDB.Record<ColumnasFija>  
+    {
+
+
+
+		[Column] public int ColumnasFijasID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Columna { get; set; }
+
+
+
+
+
+		[Column] public string Alias { get; set; }
+
+
+
+
+
+		[Column] public int? TipoVariableID { get; set; }
+
+
+
+
+
+		[Column] public short? TipoReporte { get; set; }
+
+
+
+
+
+		[Column] public short? EsFuncion { get; set; }
+
+
+
+
+
+		[Column] public short TipoBoton { get; set; }
+
+
+
+
+
+		[Column] public bool esFEcha { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaExclusion")]
+
+
+	[PrimaryKey("EmpresaExclusionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaExclusion : jlapcDB.Record<EmpresaExclusion>  
+    {
+
+
+
+		[Column] public int EmpresaExclusionID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaBoletin { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaVencimiento { get; set; }
+
+
+
+
+
+		[Column] public int PorcentajeExclusion { get; set; }
+
+
+
+
+
+		[Column] public string NroCertificado { get; set; }
+
+
+
+
+
+		[Column] public int? TipoRetencion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Parte")]
+
+
+	[PrimaryKey("ParteID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Parte : jlapcDB.Record<Parte>  
+    {
+
+
+
+		[Column] public int ParteID { get; set; }
+
+
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int ProyectoID { get; set; }
+
+
+
+
+
+		[Column] public int OrdenTrabajoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Desde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Hasta { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoNumeroTerminacion")]
+
+
+	[PrimaryKey("TipoNumeroTerminacionID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoNumeroTerminacion : jlapcDB.Record<TipoNumeroTerminacion>  
+    {
+
+
+
+		[Column] public int TipoNumeroTerminacionID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VariableTriggerPresupuesto")]
+
+
+	[PrimaryKey("VariableTriggerPresupuestoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VariableTriggerPresupuesto : jlapcDB.Record<VariableTriggerPresupuesto>  
+    {
+
+
+
+		[Column] public int VariableTriggerPresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? VariableID { get; set; }
+
+
+
+
+
+		[Column] public string Valor { get; set; }
+
+
+
+
+
+		[Column] public int? PracticaID { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public int? Modo { get; set; }
+
+
+
+
+
+		[Column] public int? FrecuenciaID { get; set; }
+
+
+
+
+
+		[Column] public int? Intervalo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IC_TipoLoteDetalle")]
+
+
+	[PrimaryKey("IC_TipoLoteDetalleID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IC_TipoLoteDetalle : jlapcDB.Record<IC_TipoLoteDetalle>  
+    {
+
+
+
+		[Column] public int IC_TipoLoteDetalleID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFC_SubEstadoConsumo")]
+
+
+	[PrimaryKey("EstadoConsumoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFC_SubEstadoConsumo : jlapcDB.Record<IFC_SubEstadoConsumo>  
+    {
+
+
+
+		[Column] public int EstadoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int SubEstadoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaEspecialidad")]
+
+
+	[PrimaryKey("EmpresaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EmpresaEspecialidad : jlapcDB.Record<EmpresaEspecialidad>  
+    {
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("RequerimientoABMUsuario")]
+
+
+	[PrimaryKey("RequerimientoABMUsuarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class RequerimientoABMUsuario : jlapcDB.Record<RequerimientoABMUsuario>  
+    {
+
+
+
+		[Column] public int RequerimientoABMUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int TipoDeRequerimientoABMUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Apellido { get; set; }
+
+
+
+
+
+		[Column] public int TipoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public string Documento { get; set; }
+
+
+
+
+
+		[Column] public int? SectorTrabajoID { get; set; }
+
+
+
+
+
+		[Column] public int? CargoID { get; set; }
+
+
+
+
+
+		[Column] public string CUIL { get; set; }
+
+
+
+
+
+		[Column] public int? MP { get; set; }
+
+
+
+
+
+		[Column] public int? MN { get; set; }
+
+
+
+
+
+		[Column] public int? TarjetaAcceso { get; set; }
+
+
+
+
+
+		[Column] public string Telefono { get; set; }
+
+
+
+
+
+		[Column] public string Direccion { get; set; }
+
+
+
+
+
+		[Column] public int? LocalidadID { get; set; }
+
+
+
+
+
+		[Column] public int? DependenciaID { get; set; }
+
+
+
+
+
+		[Column] public int? ModalidadPagoID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public string PerfilSimilar { get; set; }
+
+
+
+
+
+		[Column] public int EstadoRequerimientoABMUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public string Usuario { get; set; }
+
+
+
+
+
+		[Column] public string ClavePrincipal { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoMatricula")]
+
+
+	[PrimaryKey("TipoMatriculaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoMatricula : jlapcDB.Record<TipoMatricula>  
+    {
+
+
+
+		[Column] public int TipoMatriculaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_TipoDocumentoEstablecimientoPermiso")]
+
+
+	[PrimaryKey("TipoDocumentoEstablecimientoPermisoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SYS_TipoDocumentoEstablecimientoPermiso : jlapcDB.Record<SYS_TipoDocumentoEstablecimientoPermiso>  
+    {
+
+
+
+		[Column] public int TipoDocumentoEstablecimientoPermisoID { get; set; }
+
+
+
+
+
+		[Column] public int? PerfilID { get; set; }
+
+
+
+
+
+		[Column] public int? UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int? EstablecimientoID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_Factura { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Vehiculo")]
+
+
+	[PrimaryKey("VehiculoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Vehiculo : jlapcDB.Record<Vehiculo>  
+    {
+
+
+
+		[Column] public int VehiculoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public string Patente { get; set; }
+
+
+
+
+
+		[Column] public string Marca { get; set; }
+
+
+
+
+
+		[Column] public string Modelo { get; set; }
+
+
+
+
+
+		[Column] public int? Anio { get; set; }
+
+
+
+
+
+		[Column] public int Activo { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public int Propio { get; set; }
+
+
+
+
+
+		[Column] public int? ProveedorID { get; set; }
+
+
+
+
+
+		[Column] public string TaraMaxima { get; set; }
+
+
+
+
+
+		[Column] public int? TipoVehiculoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProfesionalSoporte")]
+
+
+	[PrimaryKey("ProfesionalSoporteID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ProfesionalSoporte : jlapcDB.Record<ProfesionalSoporte>  
+    {
+
+
+
+		[Column] public int ProfesionalSoporteID { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID_Soporte { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionTipoUnidadMedicamento")]
+
+
+	[PrimaryKey("HomologacionTipoUnidadMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HomologacionTipoUnidadMedicamento : jlapcDB.Record<HomologacionTipoUnidadMedicamento>  
+    {
+
+
+
+		[Column] public int HomologacionTipoUnidadMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int EnteExternoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoUnidadMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionHomologacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CirugiaProfesional")]
+
+
+	[PrimaryKey("CirugiaProfesionalID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CirugiaProfesional : jlapcDB.Record<CirugiaProfesional>  
+    {
+
+
+
+		[Column] public int CirugiaID { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? RolID { get; set; }
+
+
+
+
+
+		[Column] public int CirugiaProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public byte Confirmado { get; set; }
+
+
+
+
+
+		[Column] public int? RolFacturacionID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MovimientoHojaMetalica")]
+
+
+	[PrimaryKey("MovimientoHojaMetalicaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MovimientoHojaMetalica : jlapcDB.Record<MovimientoHojaMetalica>  
+    {
+
+
+
+		[Column] public int MovimientoHojaMetalicaID { get; set; }
+
+
+
+
+
+		[Column] public int? MovimientoID { get; set; }
+
+
+
+
+
+		[Column] public decimal? Largo { get; set; }
+
+
+
+
+
+		[Column] public decimal? Ancho { get; set; }
+
+
+
+
+
+		[Column] public decimal? Espesor { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadHojas { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_CodificacionBanco")]
+
+
+	[PrimaryKey("IFSAP_CodificacionBancoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_CodificacionBanco : jlapcDB.Record<IFSAP_CodificacionBanco>  
+    {
+
+
+
+		[Column] public int IFSAP_CodificacionBancoID { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHIS { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionHIS { get; set; }
+
+
+
+
+
+		[Column] public string CodigoSAP { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CondicionVentaCuota")]
+
+
+	[PrimaryKey("CondicionVentaCuotaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CondicionVentaCuotum : jlapcDB.Record<CondicionVentaCuotum>  
+    {
+
+
+
+		[Column] public int CondicionVentaCuotaID { get; set; }
+
+
+
+
+
+		[Column] public int CondicionVentaID { get; set; }
+
+
+
+
+
+		[Column] public short Dias { get; set; }
+
+
+
+
+
+		[Column] public float Porcentaje { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TurnoMedicamento")]
+
+
+	[PrimaryKey("TurnoMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TurnoMedicamento : jlapcDB.Record<TurnoMedicamento>  
+    {
+
+
+
+		[Column] public int TurnoMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int AgendaID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public short? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public byte? Facturable { get; set; }
+
+
+
+
+
+		[Column] public int? MovimientoIDCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal? Precio { get; set; }
+
+
+
+
+
+		[Column] public int PlanID { get; set; }
+
+
+
+
+
+		[Column] public string NumAfiliado { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoRechazoTurnoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaID { get; set; }
+
+
+
+
+
+		[Column] public int? PresupuestoMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string NumeroAutorizacion { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoConsumoID_Interno { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoConsumoID_Externo { get; set; }
+
+
+
+
+
+		[Column] public int? OrigenPacienteID { get; set; }
+
+
+
+
+
+		[Column] public byte FaltaBono { get; set; }
+
+
+
+
+
+		[Column] public string MotivoCambioValorUnitario { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaAjustada { get; set; }
+
+
+
+
+
+		[Column] public byte? Externo { get; set; }
+
+
+
+
+
+		[Column] public int? ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoEtarioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IC_LoteDetalle")]
+
+
+	[PrimaryKey("IC_LoteDetalleID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IC_LoteDetalle : jlapcDB.Record<IC_LoteDetalle>  
+    {
+
+
+
+		[Column] public int IC_LoteDetalleID { get; set; }
+
+
+
+
+
+		[Column] public int IC_LoteID { get; set; }
+
+
+
+
+
+		[Column] public int IC_TipoLoteDetalleID { get; set; }
+
+
+
+
+
+		[Column] public int CodeID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_ImpuestosSAP")]
+
+
+	[PrimaryKey("IFSAP_ImpuestosSAPID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_ImpuestosSAP : jlapcDB.Record<IFSAP_ImpuestosSAP>  
+    {
+
+
+
+		[Column] public int IFSAP_ImpuestosSAPID { get; set; }
+
+
+
+
+
+		[Column] public string COND_KEY { get; set; }
+
+
+
+
+
+		[Column] public string ACCT_KEY { get; set; }
+
+
+
+
+
+		[Column] public string TAX_CODE { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public decimal AlicuotaIVA { get; set; }
+
+
+
+
+
+		[Column] public decimal? AlicuotaPercepIIBB { get; set; }
+
+
+
+
+
+		[Column] public int? TipoMovimientoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CuotaPresupuesto")]
+
+
+	[PrimaryKey("CuotaPresupuestoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CuotaPresupuesto : jlapcDB.Record<CuotaPresupuesto>  
+    {
+
+
+
+		[Column] public int CuotaPresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int PresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public decimal Importe { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Fecha { get; set; }
+
+
+
+
+
+		[Column] public byte Bonificado { get; set; }
+
+
+
+
+
+		[Column] public byte AResultado { get; set; }
+
+
+
+
+
+		[Column] public int CuentaID { get; set; }
+
+
+
+
+
+		[Column] public byte EstadoFacturacion { get; set; }
+
+
+
+
+
+		[Column] public int? DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoImpuestoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Modulo")]
+
+
+	[PrimaryKey("ModuloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Modulo : jlapcDB.Record<Modulo>  
+    {
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public byte Desagregar { get; set; }
+
+
+
+
+
+		[Column] public byte SoloEnPresupuesto { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCAntecedente")]
+
+
+	[PrimaryKey("HCAntecedenteID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCAntecedente : jlapcDB.Record<HCAntecedente>  
+    {
+
+
+
+		[Column] public int HCAntecedenteID { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public string UsuarioAlta { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaAlta { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoAgenda")]
+
+
+	[PrimaryKey("EstadoAgendaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EstadoAgenda : jlapcDB.Record<EstadoAgenda>  
+    {
+
+
+
+		[Column] public int EstadoAgendaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string ColorRGB { get; set; }
+
+
+
+
+
+		[Column] public int? Prioridad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("LoteProducto")]
+
+
+	[PrimaryKey("LoteProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class LoteProducto : jlapcDB.Record<LoteProducto>  
+    {
+
+
+
+		[Column] public int LoteProductoID { get; set; }
+
+
+
+
+
+		[Column] public string Identificacion { get; set; }
+
+
+
+
+
+		[Column] public string CodigoExterno { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaElaboracion { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaVencimiento { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFC_ConsumoEstado")]
+
+
+	[PrimaryKey("TipoConsumoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFC_ConsumoEstado : jlapcDB.Record<IFC_ConsumoEstado>  
+    {
+
+
+
+		[Column] public int TipoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int ConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int SubEstadoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaModificacion { get; set; }
+
+
+
+
+
+		[Column] public string NumeroTransaccion { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VarianteComparativoHC")]
+
+
+	[PrimaryKey("VarianteComparativoHCID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VarianteComparativoHC : jlapcDB.Record<VarianteComparativoHC>  
+    {
+
+
+
+		[Column] public int VarianteComparativoHCID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public byte MostrarIndicacionesMedicamentos { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaLoteProduccionMovimientoLoteProducto")]
+
+
+	[PrimaryKey("OrdenManufacturaLoteProduccionMovimientoLoteProductoid")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaLoteProduccionMovimientoLoteProducto : jlapcDB.Record<OrdenManufacturaLoteProduccionMovimientoLoteProducto>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaLoteProduccionMovimientoLoteProductoid { get; set; }
+
+
+
+
+
+		[Column] public int OrdenManufacturaLoteProduccionID { get; set; }
+
+
+
+
+
+		[Column] public int MovimientoLoteProductoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SituacionReceta")]
+
+
+	[PrimaryKey("SituacionRecetaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SituacionRecetum : jlapcDB.Record<SituacionRecetum>  
+    {
+
+
+
+		[Column] public int SituacionRecetaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoServicioTipoCuenta")]
+
+
+	[PrimaryKey("TipoServicioID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoServicioTipoCuentum : jlapcDB.Record<TipoServicioTipoCuentum>  
+    {
+
+
+
+		[Column] public int TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public int TipoCuentaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Archivo")]
+
+
+	[PrimaryKey("ArchivoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Archivo : jlapcDB.Record<Archivo>  
+    {
+
+
+
+		[Column] public int ArchivoID { get; set; }
+
+
+
+
+
+		[Column] public int Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column("Archivo")] public string _Archivo { get; set; }
+
+
+
+
+
+		[Column] public string Path { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ModuloPractica")]
+
+
+	[PrimaryKey("ModuloID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ModuloPractica : jlapcDB.Record<ModuloPractica>  
+    {
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int PracticaID { get; set; }
+
+
+
+
+
+		[Column] public int Cantidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("RequerimientoVisitaMedico")]
+
+
+	[PrimaryKey("RequerimientoVisitaMedicoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class RequerimientoVisitaMedico : jlapcDB.Record<RequerimientoVisitaMedico>  
+    {
+
+
+
+		[Column] public int RequerimientoVisitaMedicoID { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? PrestadorID { get; set; }
+
+
+
+
+
+		[Column] public int? DiagnosticoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaLimite { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaDiagnostico { get; set; }
+
+
+
+
+
+		[Column] public string Respuestas { get; set; }
+
+
+
+
+
+		[Column] public int ColorRequerimientoVisitaMedicoID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoRequerimientoVisitaMedicoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoMenu")]
+
+
+	[ExplicitColumns]
+    public partial class TipoMenu : jlapcDB.Record<TipoMenu>  
+    {
+
+
+
+		[Column] public int TipoMenuID { get; set; }
+
+
+
+
+
+		[Column] public int? PrepagaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Link { get; set; }
+
+
+
+
+
+		[Column] public short? Orden { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionMenu { get; set; }
+
+
+
+
+
+		[Column] public bool? MenuDerecho { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCEvolucionAttachment")]
+
+
+	[PrimaryKey("HCEvolucionAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCEvolucionAttachment : jlapcDB.Record<HCEvolucionAttachment>  
+    {
+
+
+
+		[Column] public int HCEvolucionAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int HCEvolucionID { get; set; }
+
+
+
+
+
+		[Column] public string NombreArchivo { get; set; }
+
+
+
+
+
+		[Column] public int? TipoAdjuntoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Tarea")]
+
+
+	[PrimaryKey("TareaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Tarea : jlapcDB.Record<Tarea>  
+    {
+
+
+
+		[Column] public int TareaID { get; set; }
+
+
+
+
+
+		[Column] public int ProyectoID { get; set; }
+
+
+
+
+
+		[Column] public int? OrdenTrabajoID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoID { get; set; }
+
+
+
+
+
+		[Column] public int? UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public int? TipoTareaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Alta { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Vencimiento { get; set; }
+
+
+
+
+
+		[Column] public int? Orden { get; set; }
+
+
+
+
+
+		[Column] public int LeadTime { get; set; }
+
+
+
+
+
+		[Column] public int MinutosEstimados { get; set; }
+
+
+
+
+
+		[Column] public float? PorcentajeAvance { get; set; }
+
+
+
+
+
+		[Column] public int? PrioridadID { get; set; }
+
+
+
+
+
+		[Column] public float? HorasReales { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaFinalizacion { get; set; }
+
+
+
+
+
+		[Column] public int? UsuarioID_Requirente { get; set; }
+
+
+
+
+
+		[Column] public byte ACargoDelCliente { get; set; }
+
+
+
+
+
+		[Column] public byte VaAReporteVencimientos { get; set; }
+
+
+
+
+
+		[Column] public int? Secuencia { get; set; }
+
+
+
+
+
+		[Column] public int? SubEstadoID { get; set; }
+
+
+
+
+
+		[Column] public int? DependeDeTareaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaHoraInicio { get; set; }
+
+
+
+
+
+		[Column] public bool? OmitirValidaciones { get; set; }
+
+
+
+	}
+
+    
+	[TableName("AgendaSala")]
+
+
+	[PrimaryKey("AgendaSalaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class AgendaSala : jlapcDB.Record<AgendaSala>  
+    {
+
+
+
+		[Column] public int AgendaSalaID { get; set; }
+
+
+
+
+
+		[Column] public int SalaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime HoraDesde { get; set; }
+
+
+
+
+
+		[Column] public int Duracion { get; set; }
+
+
+
+
+
+		[Column] public int? ActividadSalaID { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadParticipanteDesde { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadParticipanteHasta { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadDisertanteDesde { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadDisertanteHasta { get; set; }
+
+
+
+
+
+		[Column] public int EmpleadoID { get; set; }
+
+
+
+
+
+		[Column] public byte? TipoBloqueoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCVariablePresupuesto")]
+
+
+	[PrimaryKey("HCVariablePresupuestoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCVariablePresupuesto : jlapcDB.Record<HCVariablePresupuesto>  
+    {
+
+
+
+		[Column] public int HCVariablePresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int? HCVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? PresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int? HCEvolucionID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Auxiliar")]
+
+
+	[PrimaryKey("IFSAP_AuxiliarID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_Auxiliar : jlapcDB.Record<IFSAP_Auxiliar>  
+    {
+
+
+
+		[Column] public int IFSAP_AuxiliarID { get; set; }
+
+
+
+
+
+		[Column] public string Xml { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoProyecto")]
+
+
+	[PrimaryKey("EstadoProyectoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EstadoProyecto : jlapcDB.Record<EstadoProyecto>  
+    {
+
+
+
+		[Column] public int EstadoProyectoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConfiguracionMinimosPercepcionIIBB")]
+
+
+	[PrimaryKey("ConfiguracionMinimosPercepcionIIBBID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConfiguracionMinimosPercepcionIIBB : jlapcDB.Record<ConfiguracionMinimosPercepcionIIBB>  
+    {
+
+
+
+		[Column] public int ConfiguracionMinimosPercepcionIIBBID { get; set; }
+
+
+
+
+
+		[Column] public int ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime VigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaHasta { get; set; }
+
+
+
+
+
+		[Column] public decimal? PercepcionMinima { get; set; }
+
+
+
+
+
+		[Column] public int ModalidadPercepcionIIBBID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ViaAdministracionMedicamento")]
+
+
+	[PrimaryKey("ViaAdministracionMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ViaAdministracionMedicamento : jlapcDB.Record<ViaAdministracionMedicamento>  
+    {
+
+
+
+		[Column] public int ViaAdministracionMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CirugiaPractica")]
+
+
+	[PrimaryKey("CirugiaPracticaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CirugiaPractica : jlapcDB.Record<CirugiaPractica>  
+    {
+
+
+
+		[Column] public int CirugiaPracticaID { get; set; }
+
+
+
+
+
+		[Column] public int CirugiaID { get; set; }
+
+
+
+
+
+		[Column] public int PracticaID { get; set; }
+
+
+
+
+
+		[Column] public short? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public byte Facturable { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoRechazoCirugiaConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public int? MovimientoIDCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public string NumAfiliado { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public decimal? ValorUnitario { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaID { get; set; }
+
+
+
+
+
+		[Column] public byte? Externo { get; set; }
+
+
+
+
+
+		[Column] public string NumeroAutorizacion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoEtarioID { get; set; }
+
+
+
+
+
+		[Column] public int? PresupuestoPracticaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CierreMesABMProyectos")]
+
+
+	[PrimaryKey("CierreMesABMProyectosID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CierreMesABMProyecto : jlapcDB.Record<CierreMesABMProyecto>  
+    {
+
+
+
+		[Column] public int CierreMesABMProyectosID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Desde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Hasta { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloPartidoEvento")]
+
+
+	[PrimaryKey("PoloPartidoEventoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloPartidoEvento : jlapcDB.Record<PoloPartidoEvento>  
+    {
+
+
+
+		[Column] public int PoloPartidoEventoID { get; set; }
+
+
+
+
+
+		[Column] public int PoloTipoEventoID { get; set; }
+
+
+
+
+
+		[Column] public int PoloPartidoID { get; set; }
+
+
+
+
+
+		[Column] public int? PoloJugadorID { get; set; }
+
+
+
+
+
+		[Column] public int? PoloJugadorIDCambio { get; set; }
+
+
+
+
+
+		[Column] public int? PoloCaballoID { get; set; }
+
+
+
+
+
+		[Column] public int? PoloCaballoIDCambio { get; set; }
+
+
+
+
+
+		[Column] public int? PoloGPSID { get; set; }
+
+
+
+
+
+		[Column] public int? PoloGPSIDCambio { get; set; }
+
+
+
+
+
+		[Column] public int? PoloPosicionID { get; set; }
+
+
+
+
+
+		[Column] public int? PoloPosicionIDCambio { get; set; }
+
+
+
+
+
+		[Column] public int? Chukker { get; set; }
+
+
+
+
+
+		[Column] public int Enviado { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaHora { get; set; }
+
+
+
+
+
+		[Column] public string MAC { get; set; }
+
+
+
+
+
+		[Column] public string ExternID { get; set; }
+
+
+
+
+
+		[Column] public string PoloCaballoSuplenteID { get; set; }
+
+
+
+
+
+		[Column] public string PoloCaballoSuplenteIDCambio { get; set; }
+
+
+
+
+
+		[Column] public int? Corregido { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TemplateEtiqueta")]
+
+
+	[PrimaryKey("TemplateEtiquetaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TemplateEtiquetum : jlapcDB.Record<TemplateEtiquetum>  
+    {
+
+
+
+		[Column] public int TemplateEtiquetaID { get; set; }
+
+
+
+
+
+		[Column] public string Formato { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Archivo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaImagen")]
+
+
+	[PrimaryKey("EmpresaImagenID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaImagen : jlapcDB.Record<EmpresaImagen>  
+    {
+
+
+
+		[Column] public int EmpresaImagenID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string NombreArchivo { get; set; }
+
+
+
+
+
+		[Column] public int? Orden { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MovimientoLoteProducto")]
+
+
+	[PrimaryKey("MovimientoLoteProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MovimientoLoteProducto : jlapcDB.Record<MovimientoLoteProducto>  
+    {
+
+
+
+		[Column] public int MovimientoLoteProductoID { get; set; }
+
+
+
+
+
+		[Column] public int LoteProductoID { get; set; }
+
+
+
+
+
+		[Column] public int MovimientoID { get; set; }
+
+
+
+
+
+		[Column] public float? Cantidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VarianteComparativoHCVariable")]
+
+
+	[PrimaryKey("VarianteComparativoHCvariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VarianteComparativoHCVariable : jlapcDB.Record<VarianteComparativoHCVariable>  
+    {
+
+
+
+		[Column] public int VarianteComparativoHCvariableID { get; set; }
+
+
+
+
+
+		[Column] public int VarianteComparativoHCID { get; set; }
+
+
+
+
+
+		[Column] public int VariableID { get; set; }
+
+
+
+
+
+		[Column] public int Orden { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCVariable")]
+
+
+	[PrimaryKey("HCVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCVariable : jlapcDB.Record<HCVariable>  
+    {
+
+
+
+		[Column] public int HCVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? HCEvolucionID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int VariableID { get; set; }
+
+
+
+
+
+		[Column] public int? HCResultadoID { get; set; }
+
+
+
+
+
+		[Column] public int? HCAntecedenteID { get; set; }
+
+
+
+
+
+		[Column] public string Valor { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? Repeticion { get; set; }
+
+
+
+
+
+		[Column] public string VariableDescripcion { get; set; }
+
+
+
+
+
+		[Column] public string GrupoVariableDescripcion { get; set; }
+
+
+
+
+
+		[Column] public string GrupoGrupoVariableDescripcion { get; set; }
+
+
+
+
+
+		[Column] public int? HCTipoIndividuoID { get; set; }
+
+
+
+
+
+		[Column] public int? NroIndividuo { get; set; }
+
+
+
+
+
+		[Column] public int? EsDeDiagnostico { get; set; }
+
+
+
+
+
+		[Column] public byte? EsDePrimeraVez { get; set; }
 
 
 
@@ -509,7 +32625,7 @@ namespace ClarityDB.T4
 
 
 	[ExplicitColumns]
-    public partial class Tema : ClarityDBSimpleConnDB.Record<Tema>  
+    public partial class Tema : jlapcDB.Record<Tema>  
     {
 
 
@@ -533,6 +32649,6286 @@ namespace ClarityDB.T4
 
 
 		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoSituacionReceta")]
+
+
+	[PrimaryKey("DocumentoSituacionRecetaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class DocumentoSituacionRecetum : jlapcDB.Record<DocumentoSituacionRecetum>  
+    {
+
+
+
+		[Column] public int DocumentoSituacionRecetaID { get; set; }
+
+
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int SituacionRecetaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_ClasificacionDocumento")]
+
+
+	[PrimaryKey("IFSAP_ClasificacionDocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_ClasificacionDocumento : jlapcDB.Record<IFSAP_ClasificacionDocumento>  
+    {
+
+
+
+		[Column] public int IFSAP_ClasificacionDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFC_LogConsumoEstado")]
+
+
+	[PrimaryKey("LogConsumoEstadoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFC_LogConsumoEstado : jlapcDB.Record<IFC_LogConsumoEstado>  
+    {
+
+
+
+		[Column] public int LogConsumoEstadoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int ConsumoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaGrabacion { get; set; }
+
+
+
+
+
+		[Column] public string Login_Alta { get; set; }
+
+
+
+
+
+		[Column] public string Enviado { get; set; }
+
+
+
+
+
+		[Column] public string CodigoAut { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaEnvio { get; set; }
+
+
+
+
+
+		[Column] public string Finalizado { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaFinalizado { get; set; }
+
+
+
+
+
+		[Column] public string NumeroTransaccion { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public int? SubEstadoConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Terminal { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConfiguracionImpresionDocumento")]
+
+
+	[PrimaryKey("ConfiguracionImpresionDocumentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConfiguracionImpresionDocumento : jlapcDB.Record<ConfiguracionImpresionDocumento>  
+    {
+
+
+
+		[Column] public int ConfiguracionImpresionDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? EstablecimientoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public string NombreReporte { get; set; }
+
+
+
+
+
+		[Column] public int? TipoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public int? TransaccionID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Texto")]
+
+
+	[PrimaryKey("TextoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Texto : jlapcDB.Record<Texto>  
+    {
+
+
+
+		[Column] public int TextoID { get; set; }
+
+
+
+
+
+		[Column] public int CartillaID { get; set; }
+
+
+
+
+
+		[Column] public int SolapaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column("Texto")] public string _Texto { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionViaAdministracionMedicamento")]
+
+
+	[PrimaryKey("HomologacionViaAdministracionMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HomologacionViaAdministracionMedicamento : jlapcDB.Record<HomologacionViaAdministracionMedicamento>  
+    {
+
+
+
+		[Column] public int HomologacionViaAdministracionMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int EnteExternoID { get; set; }
+
+
+
+
+
+		[Column] public int ViaAdministracionMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionHomologacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioPrestadorProducto")]
+
+
+	[PrimaryKey("ConvenioPrestadorProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioPrestadorProducto : jlapcDB.Record<ConvenioPrestadorProducto>  
+    {
+
+
+
+		[Column] public int ConvenioPrestadorProductoID { get; set; }
+
+
+
+
+
+		[Column] public int? PrestadorID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public int TipoProductoID { get; set; }
+
+
+
+
+
+		[Column] public int? ProductoID { get; set; }
+
+
+
+
+
+		[Column] public string HomologacionCod { get; set; }
+
+
+
+
+
+		[Column] public string HomologacionDesc { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaVigencia { get; set; }
+
+
+
+
+
+		[Column] public byte Fijo { get; set; }
+
+
+
+
+
+		[Column] public decimal Precio { get; set; }
+
+
+
+
+
+		[Column] public byte FijoCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal PrecioCopago { get; set; }
+
+
+
+
+
+		[Column] public int? FinanciadorEmpresaID { get; set; }
+
+
+
+
+
+		[Column] public byte RequiereAutorizacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ParentescoPaciente")]
+
+
+	[PrimaryKey("PacienteID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ParentescoPaciente : jlapcDB.Record<ParentescoPaciente>  
+    {
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int PacienteParienteID { get; set; }
+
+
+
+
+
+		[Column] public int? ParentescoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VehiculoTipoVencimiento")]
+
+
+	[PrimaryKey("VehiculoTipoVencimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VehiculoTipoVencimiento : jlapcDB.Record<VehiculoTipoVencimiento>  
+    {
+
+
+
+		[Column] public int VehiculoTipoVencimientoID { get; set; }
+
+
+
+
+
+		[Column] public int VehiculoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoVencimientoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaVencimiento { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCControlImportacion")]
+
+
+	[PrimaryKey("HCControlImportacionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCControlImportacion : jlapcDB.Record<HCControlImportacion>  
+    {
+
+
+
+		[Column] public int HCControlImportacionID { get; set; }
+
+
+
+
+
+		[Column] public string NroProtocolo { get; set; }
+
+
+
+
+
+		[Column] public string Variable { get; set; }
+
+
+
+
+
+		[Column] public string Dato { get; set; }
+
+
+
+
+
+		[Column] public string Valor { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Fecha { get; set; }
+
+
+
+
+
+		[Column] public int? HCVariableID { get; set; }
+
+
+
+
+
+		[Column] public string Dato1 { get; set; }
+
+
+
+
+
+		[Column] public short? TipoImportacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ModuloProducto")]
+
+
+	[PrimaryKey("ModuloID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ModuloProducto : jlapcDB.Record<ModuloProducto>  
+    {
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public int Cantidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Divisa")]
+
+
+	[PrimaryKey("DivisaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Divisa : jlapcDB.Record<Divisa>  
+    {
+
+
+
+		[Column] public int DivisaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Simbolo { get; set; }
+
+
+
+
+
+		[Column] public byte EsDeCursoLegal { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Feriado")]
+
+
+	[PrimaryKey("FechaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Feriado : jlapcDB.Record<Feriado>  
+    {
+
+
+
+		[Column] public DateTime FechaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ContactoAttachment")]
+
+
+	[PrimaryKey("ContactoAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ContactoAttachment : jlapcDB.Record<ContactoAttachment>  
+    {
+
+
+
+		[Column] public int ContactoAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int ContactoID { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_nombre { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_asBase64 { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaAlta { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaDocumento")]
+
+
+	[PrimaryKey("OrdenManufacturaDocumentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaDocumento : jlapcDB.Record<OrdenManufacturaDocumento>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int OrdenManufacturaID { get; set; }
+
+
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoMovimiento { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaFormulaMovimiento")]
+
+
+	[PrimaryKey("OrdenManufacturaFormulaMovimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaFormulaMovimiento : jlapcDB.Record<OrdenManufacturaFormulaMovimiento>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaFormulaMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public int OrdenManufacturaFormulaID { get; set; }
+
+
+
+
+
+		[Column] public int MovimientoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloPartidoRegistroGPS")]
+
+
+	[PrimaryKey("PoloPartidoRegistroGPSID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloPartidoRegistroGP : jlapcDB.Record<PoloPartidoRegistroGP>  
+    {
+
+
+
+		[Column] public int PoloPartidoRegistroGPSID { get; set; }
+
+
+
+
+
+		[Column] public string UTCTime { get; set; }
+
+
+
+
+
+		[Column] public string Latitude { get; set; }
+
+
+
+
+
+		[Column] public string NSIndicator { get; set; }
+
+
+
+
+
+		[Column] public string Longitude { get; set; }
+
+
+
+
+
+		[Column] public string EWIndicator { get; set; }
+
+
+
+
+
+		[Column] public int? PositionFixIndicator { get; set; }
+
+
+
+
+
+		[Column] public int? SatellitesUsed { get; set; }
+
+
+
+
+
+		[Column] public string HDOP { get; set; }
+
+
+
+
+
+		[Column] public string MSLAltitude { get; set; }
+
+
+
+
+
+		[Column] public string UnitsAltitude { get; set; }
+
+
+
+
+
+		[Column] public string GeoidSeparation { get; set; }
+
+
+
+
+
+		[Column] public string UnitsGeoidSeparation { get; set; }
+
+
+
+
+
+		[Column] public string AgeOfDiffCorr { get; set; }
+
+
+
+
+
+		[Column] public string DiffRefStationID { get; set; }
+
+
+
+
+
+		[Column] public string Checksum { get; set; }
+
+
+
+
+
+		[Column] public int PoloPartidoID { get; set; }
+
+
+
+
+
+		[Column] public int PoloJugadorID { get; set; }
+
+
+
+
+
+		[Column] public int? PoloCaballoID { get; set; }
+
+
+
+
+
+		[Column] public int PoloGPSID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaHora { get; set; }
+
+
+
+
+
+		[Column] public int Enviado { get; set; }
+
+
+
+
+
+		[Column] public string MAC { get; set; }
+
+
+
+
+
+		[Column] public int ExternID { get; set; }
+
+
+
+
+
+		[Column] public string PoloPartidoCaballoSuplenteID { get; set; }
+
+
+
+
+
+		[Column] public float? Distancia { get; set; }
+
+
+
+
+
+		[Column] public float? Velocidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HabitacionAuditoriaBloqueo")]
+
+
+	[PrimaryKey("HabitacionAuditoriaBloqueoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HabitacionAuditoriaBloqueo : jlapcDB.Record<HabitacionAuditoriaBloqueo>  
+    {
+
+
+
+		[Column] public int HabitacionAuditoriaBloqueoID { get; set; }
+
+
+
+
+
+		[Column] public int HabitacionID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoBloqueoHabitacionID { get; set; }
+
+
+
+
+
+		[Column] public int? AccionBloqueo { get; set; }
+
+
+
+
+
+		[Column] public string Login { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaHora { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ReporteTratamientoTratamiento")]
+
+
+	[PrimaryKey("ReporteTratamientoTratamientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ReporteTratamientoTratamiento : jlapcDB.Record<ReporteTratamientoTratamiento>  
+    {
+
+
+
+		[Column] public int ReporteTratamientoTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public int ReporteTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public int? TratamientoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SucursalIP")]
+
+
+	[PrimaryKey("SucursalIPID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SucursalIP : jlapcDB.Record<SucursalIP>  
+    {
+
+
+
+		[Column] public int SucursalID { get; set; }
+
+
+
+
+
+		[Column] public string IP { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int SucursalIPID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Zona")]
+
+
+	[PrimaryKey("ZonaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Zona : jlapcDB.Record<Zona>  
+    {
+
+
+
+		[Column] public int ZonaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ExtractoBancario")]
+
+
+	[PrimaryKey("ExtractoBancarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ExtractoBancario : jlapcDB.Record<ExtractoBancario>  
+    {
+
+
+
+		[Column] public int ExtractoBancarioID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaHasta { get; set; }
+
+
+
+
+
+		[Column] public int CuentaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Ticket_Copias")]
+
+
+	[PrimaryKey("TicketCopiaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Ticket_Copia : jlapcDB.Record<Ticket_Copia>  
+    {
+
+
+
+		[Column] public int TicketCopiaID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int Cantidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DocumentoRetencionSUSS")]
+
+
+	[PrimaryKey("DocumentoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class DocumentoRetencionSUss : jlapcDB.Record<DocumentoRetencionSUss>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public decimal? Importe { get; set; }
+
+
+
+
+
+		[Column] public float? Alicuota { get; set; }
+
+
+
+
+
+		[Column] public decimal BaseImponible { get; set; }
+
+
+
+
+
+		[Column] public decimal? PagosAcumuladosIncluyendoElPresente { get; set; }
+
+
+
+
+
+		[Column] public decimal? RetencionAcumuladaPagosAnteriores { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionRegimenRetencion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaFamiliar")]
+
+
+	[PrimaryKey("EmpresaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EmpresaFamiliar : jlapcDB.Record<EmpresaFamiliar>  
+    {
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID_Familiar { get; set; }
+
+
+
+	}
+
+    
+	[TableName("NuevaDrogaMedicamento")]
+
+
+	[PrimaryKey("NuevaDrogaMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class NuevaDrogaMedicamento : jlapcDB.Record<NuevaDrogaMedicamento>  
+    {
+
+
+
+		[Column] public int NuevaDrogaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_ArbolPerfil")]
+
+
+	[PrimaryKey("ArbolItemID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_ArbolPerfil : jlapcDB.Record<SYS_ArbolPerfil>  
+    {
+
+
+
+		[Column] public int ArbolItemID { get; set; }
+
+
+
+
+
+		[Column] public int PerfilID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ContactoGrupoUsuario")]
+
+
+	[PrimaryKey("ContactoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ContactoGrupoUsuario : jlapcDB.Record<ContactoGrupoUsuario>  
+    {
+
+
+
+		[Column] public int ContactoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoUsuarioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("RequerimientoABMUsuario_HabilitacionSistema")]
+
+
+	[PrimaryKey("RequerimientoABMUsuario_HabilitacionSistemaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class RequerimientoABMUsuario_HabilitacionSistema : jlapcDB.Record<RequerimientoABMUsuario_HabilitacionSistema>  
+    {
+
+
+
+		[Column] public int RequerimientoABMUsuario_HabilitacionSistemaID { get; set; }
+
+
+
+
+
+		[Column] public int RequerimientoABMUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int HabilitacionSistemaID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloPartidoJugadorCaballo")]
+
+
+	[PrimaryKey("PoloPartidoJugadorCaballoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloPartidoJugadorCaballo : jlapcDB.Record<PoloPartidoJugadorCaballo>  
+    {
+
+
+
+		[Column] public int PoloPartidoJugadorCaballoID { get; set; }
+
+
+
+
+
+		[Column] public int PoloPartidoJugadorID { get; set; }
+
+
+
+
+
+		[Column] public int PoloCaballoID { get; set; }
+
+
+
+
+
+		[Column] public int? PoloGPSID { get; set; }
+
+
+
+
+
+		[Column] public byte Asignado { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TopeRepeticionProducto")]
+
+
+	[PrimaryKey("TopeRepeticionID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TopeRepeticionProducto : jlapcDB.Record<TopeRepeticionProducto>  
+    {
+
+
+
+		[Column] public int TopeRepeticionID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SalaDistribucion")]
+
+
+	[PrimaryKey("SalaDistribucionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SalaDistribucion : jlapcDB.Record<SalaDistribucion>  
+    {
+
+
+
+		[Column] public int SalaDistribucionID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EspecialidadGrupo")]
+
+
+	[PrimaryKey("EspecialidadGrupoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EspecialidadGrupo : jlapcDB.Record<EspecialidadGrupo>  
+    {
+
+
+
+		[Column] public int EspecialidadGrupoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoVencimiento")]
+
+
+	[PrimaryKey("EstadoVencimientoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class EstadoVencimiento : jlapcDB.Record<EstadoVencimiento>  
+    {
+
+
+
+		[Column] public int EstadoVencimientoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CondicionVenta")]
+
+
+	[PrimaryKey("CondicionVentaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CondicionVentum : jlapcDB.Record<CondicionVentum>  
+    {
+
+
+
+		[Column] public int CondicionVentaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int DiasContadosDesde { get; set; }
+
+
+
+
+
+		[Column] public bool FijarPrecioNotaPedido { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoGrupoVariable")]
+
+
+	[PrimaryKey("GrupoGrupoVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoGrupoVariable : jlapcDB.Record<GrupoGrupoVariable>  
+    {
+
+
+
+		[Column] public int GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public byte? SoloFormulario { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoConsultaID { get; set; }
+
+
+
+
+
+		[Column] public int? ConRepeticion { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public short TratamientoRequiereDonanteAsignada { get; set; }
+
+
+
+
+
+		[Column] public int? EsDeDiagnostico { get; set; }
+
+
+
+
+
+		[Column] public byte? EsDePrimeraVez { get; set; }
+
+
+
+
+
+		[Column] public byte? AsociarAUltimoTratamiento { get; set; }
+
+
+
+
+
+		[Column] public int? EventoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoLoteCrioID { get; set; }
+
+
+
+
+
+		[Column] public byte MarcarVerificadoAlImprimir { get; set; }
+
+
+
+
+
+		[Column] public bool EsEstudio { get; set; }
+
+
+
+
+
+		[Column] public byte HabilitarImpExcelDeTratamiento { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Ambito")]
+
+
+	[PrimaryKey("AmbitoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Ambito : jlapcDB.Record<Ambito>  
+    {
+
+
+
+		[Column] public int AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int SuperAmbitoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ActividadSICOL")]
+
+
+	[PrimaryKey("ActividadID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ActividadSICOL : jlapcDB.Record<ActividadSICOL>  
+    {
+
+
+
+		[Column] public int ActividadID { get; set; }
+
+
+
+
+
+		[Column] public int? CodigoRegimenRetencion { get; set; }
+
+
+
+
+
+		[Column] public int? CodigoRegimenPercepcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionNuevaDrogaMedicamento")]
+
+
+	[PrimaryKey("HomologacionNuevaDrogaMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HomologacionNuevaDrogaMedicamento : jlapcDB.Record<HomologacionNuevaDrogaMedicamento>  
+    {
+
+
+
+		[Column] public int HomologacionNuevaDrogaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int EnteExternoID { get; set; }
+
+
+
+
+
+		[Column] public int NuevaDrogaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string CodigoHomologacion { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionHomologacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoVariableVariable")]
+
+
+	[PrimaryKey("GrupoVariableVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoVariableVariable : jlapcDB.Record<GrupoVariableVariable>  
+    {
+
+
+
+		[Column] public int GrupoVariableVariableID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int VariableID { get; set; }
+
+
+
+
+
+		[Column] public short Orden { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("MotivoEgreso")]
+
+
+	[PrimaryKey("MotivoEgresoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class MotivoEgreso : jlapcDB.Record<MotivoEgreso>  
+    {
+
+
+
+		[Column] public int MotivoEgresoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Documento")]
+
+
+	[PrimaryKey("DocumentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Documento : jlapcDB.Record<Documento>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int CuentaID { get; set; }
+
+
+
+
+
+		[Column] public string Numero { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaEmision { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaVencimiento { get; set; }
+
+
+
+
+
+		[Column] public decimal Importe { get; set; }
+
+
+
+
+
+		[Column] public int CondicionVentaID { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public string Login_Alta { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaRecepcion { get; set; }
+
+
+
+
+
+		[Column] public short? Referencia { get; set; }
+
+
+
+
+
+		[Column] public int? EstablecimientoID { get; set; }
+
+
+
+
+
+		[Column] public decimal? ImporteDivisa { get; set; }
+
+
+
+
+
+		[Column] public float? TipoCambioDivisa { get; set; }
+
+
+
+
+
+		[Column] public int? SucursalID { get; set; }
+
+
+
+
+
+		[Column] public string Modelo { get; set; }
+
+
+
+
+
+		[Column] public string Chasis { get; set; }
+
+
+
+
+
+		[Column] public int? TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaContable { get; set; }
+
+
+
+
+
+		[Column] public byte Bloqueado { get; set; }
+
+
+
+
+
+		[Column] public int? DepositoID_origen { get; set; }
+
+
+
+
+
+		[Column] public int? DepositoID_destino { get; set; }
+
+
+
+
+
+		[Column] public int? CentroCostosID { get; set; }
+
+
+
+
+
+		[Column] public int? SubCuentaContableID { get; set; }
+
+
+
+
+
+		[Column] public decimal? Descuento { get; set; }
+
+
+
+
+
+		[Column] public int? MovimientoID_Origen { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaID_PagoPreferido { get; set; }
+
+
+
+
+
+		[Column] public float? TipoCambioDivisa_Referencia { get; set; }
+
+
+
+
+
+		[Column] public int? DivisaID_Referencia { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoDeConciliacion { get; set; }
+
+
+
+
+
+		[Column] public string ExternDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int? TransaccionID { get; set; }
+
+
+
+
+
+		[Column] public bool Autorizado { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SuperAmbito")]
+
+
+	[PrimaryKey("SuperAmbitoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SuperAmbito : jlapcDB.Record<SuperAmbito>  
+    {
+
+
+
+		[Column] public int SuperAmbitoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoServicioTipoImpuesto")]
+
+
+	[PrimaryKey("TipoImpuestoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoServicioTipoImpuesto : jlapcDB.Record<TipoServicioTipoImpuesto>  
+    {
+
+
+
+		[Column] public int TipoImpuestoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoServicioID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Vencimiento")]
+
+
+	[PrimaryKey("VencimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Vencimiento : jlapcDB.Record<Vencimiento>  
+    {
+
+
+
+		[Column] public int VencimientoID { get; set; }
+
+
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public string Asunto { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaAlta { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaComienzo { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaFinalizacion { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaVigencia { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaUltimoAviso { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaRenovacion { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadReavisos { get; set; }
+
+
+
+
+
+		[Column] public int? UnidadTiempoID_Aviso { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadUnidadTiempo_Aviso { get; set; }
+
+
+
+
+
+		[Column] public int? UnidadTiempoID_Reaviso { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadUnidadTiempo_Reaviso { get; set; }
+
+
+
+
+
+		[Column] public int? Renovacion_VencimientoRenovacionID { get; set; }
+
+
+
+
+
+		[Column] public int? Renovacion_Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? Renovacion_DiaSemanaEnDecimal { get; set; }
+
+
+
+
+
+		[Column] public int? Renovacion_Dia { get; set; }
+
+
+
+
+
+		[Column] public int? Renovacion_NumeroSemanaMensual { get; set; }
+
+
+
+
+
+		[Column] public int? Renovacion_MesID { get; set; }
+
+
+
+
+
+		[Column] public int? Renovacion_HorarioEnMinutos { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Renovacion_FechaBase { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TurnoFormularioResultados")]
+
+
+	[PrimaryKey("TurnoFormularioResultadosID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TurnoFormularioResultado : jlapcDB.Record<TurnoFormularioResultado>  
+    {
+
+
+
+		[Column] public int TurnoFormularioResultadosID { get; set; }
+
+
+
+
+
+		[Column] public int AgendaID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? HCResultadoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Sucursal")]
+
+
+	[PrimaryKey("SucursalID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Sucursal : jlapcDB.Record<Sucursal>  
+    {
+
+
+
+		[Column] public int SucursalID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+
+
+		[Column] public string Direccion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoLetra")]
+
+
+	[PrimaryKey("TipoLetraID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TipoLetra : jlapcDB.Record<TipoLetra>  
+    {
+
+
+
+		[Column] public int TipoLetraID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Catalogo_Movimiento")]
+
+
+	[PrimaryKey("IFSAP_Catalogo_MovimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_Catalogo_Movimiento : jlapcDB.Record<IFSAP_Catalogo_Movimiento>  
+    {
+
+
+
+		[Column] public int IFSAP_Catalogo_MovimientoID { get; set; }
+
+
+
+
+
+		[Column] public string TipoUnidadCodigo { get; set; }
+
+
+
+
+
+		[Column] public string ProductoCodigo { get; set; }
+
+
+
+
+
+		[Column] public string ProductoDescripcion { get; set; }
+
+
+
+
+
+		[Column] public string FechaIngreso { get; set; }
+
+
+
+
+
+		[Column] public string ProductoPrestCodigo { get; set; }
+
+
+
+
+
+		[Column] public string Vigente { get; set; }
+
+
+
+
+
+		[Column] public string BodegaCodigo { get; set; }
+
+
+
+
+
+		[Column] public string Errores { get; set; }
+
+
+
+
+
+		[Column] public byte? LeidoHIS { get; set; }
+
+
+
+
+
+		[Column] public byte? ProcesadoOkHIS { get; set; }
+
+
+
+
+
+		[Column] public byte AProcesarHIS { get; set; }
+
+
+
+
+
+		[Column] public byte AReprocesar { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaUltimoProceso { get; set; }
+
+
+
+
+
+		[Column] public string GenericoIDSap { get; set; }
+
+
+
+
+
+		[Column] public string MarcaNPF { get; set; }
+
+
+
+
+
+		[Column] public string GrupoDeArticulo { get; set; }
+
+
+
+
+
+		[Column] public string BodegaCodigo_Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string ProductoPrestCodigo_Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string IFSAP_ClasificacionDocumentoID { get; set; }
+
+
+
+
+
+		[Column] public string TipoUnidadCodigo_CodigoConvertido { get; set; }
+
+
+
+
+
+		[Column] public bool DescripcionesActualizadasOK { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFC_TipoMensaje")]
+
+
+	[PrimaryKey("TipoMensajeID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFC_TipoMensaje : jlapcDB.Record<IFC_TipoMensaje>  
+    {
+
+
+
+		[Column] public int TipoMensajeID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoTipoAdjunto")]
+
+
+	[ExplicitColumns]
+    public partial class GrupoTipoAdjunto : jlapcDB.Record<GrupoTipoAdjunto>  
+    {
+
+
+
+		[Column] public int GrupoTipoAdjuntoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ARC_Estado")]
+
+
+	[PrimaryKey("EstadoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ARC_Estado : jlapcDB.Record<ARC_Estado>  
+    {
+
+
+
+		[Column] public int EstadoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConsumoDefault")]
+
+
+	[PrimaryKey("ConsumoDefaultID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConsumoDefault : jlapcDB.Record<ConsumoDefault>  
+    {
+
+
+
+		[Column] public int ConsumoDefaultID { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoConsultaID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TareaAttachment")]
+
+
+	[PrimaryKey("TareaAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class TareaAttachment : jlapcDB.Record<TareaAttachment>  
+    {
+
+
+
+		[Column] public int TareaAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int TareaID { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_nombre { get; set; }
+
+
+
+
+
+		[Column] public string Archivo_asBase64 { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoGrupoVariable_GrupoVariable")]
+
+
+	[PrimaryKey("GrupoGrupoVariableID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class GrupoGrupoVariable_GrupoVariable : jlapcDB.Record<GrupoGrupoVariable_GrupoVariable>  
+    {
+
+
+
+		[Column] public int GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public short Orden { get; set; }
+
+
+
+
+
+		[Column] public byte Bloqueado { get; set; }
+
+
+
+
+
+		[Column] public byte Ocultar { get; set; }
+
+
+
+
+
+		[Column] public int? Condicion_GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? Condicion_GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? Condicion_VariableID { get; set; }
+
+
+
+
+
+		[Column] public int? Condicion_OperadorID { get; set; }
+
+
+
+
+
+		[Column] public string Condicion_Valor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoGrupoVariable_GrupoGrupoVariable")]
+
+
+	[PrimaryKey("GrupoGrupoVariable_GrupoGrupoVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class GrupoGrupoVariable_GrupoGrupoVariable : jlapcDB.Record<GrupoGrupoVariable_GrupoGrupoVariable>  
+    {
+
+
+
+		[Column] public int GrupoGrupoVariable_GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoGrupoVariablePredecesorID { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionConsiguiente_GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionConsiguiente_GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionConsiguiente_VariableID { get; set; }
+
+
+
+
+
+		[Column] public string CondicionConsiguiente_Valor { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionConsiguiente_OperadorID { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionConsiguiente2_GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionConsiguiente2_GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionConsiguiente2_VariableID { get; set; }
+
+
+
+
+
+		[Column] public string CondicionConsiguiente2_Valor { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionConsiguiente2_OperadorID { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadRepeticionConsiguiente_GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadRepeticionConsiguiente_GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadRepeticionConsiguiente_VariableID { get; set; }
+
+
+
+
+
+		[Column] public int Opcional { get; set; }
+
+
+
+
+
+		[Column] public int? HCTipoIndividuoID { get; set; }
+
+
+
+
+
+		[Column] public int TomarUltimoValor { get; set; }
+
+
+
+
+
+		[Column] public int TomarUltimoValor2 { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaContratoActividadAfip")]
+
+
+	[PrimaryKey("EmpresaContratoActividadAfipID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaContratoActividadAfip : jlapcDB.Record<EmpresaContratoActividadAfip>  
+    {
+
+
+
+		[Column] public int EmpresaContratoActividadAfipID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaContratoID { get; set; }
+
+
+
+
+
+		[Column] public int ActividadAfipID { get; set; }
+
+
+
+
+
+		[Column] public byte EsPrincipal { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaInicio { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaBaja { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CirugiaModulo")]
+
+
+	[PrimaryKey("CirugiaModuloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CirugiaModulo : jlapcDB.Record<CirugiaModulo>  
+    {
+
+
+
+		[Column] public int CirugiaModuloID { get; set; }
+
+
+
+
+
+		[Column] public int CirugiaID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public short? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public byte Facturable { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoRechazoCirugiaConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public int? MovimientoIDCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public string NumAfiliado { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public decimal? ValorUnitario { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaID { get; set; }
+
+
+
+
+
+		[Column] public byte? Externo { get; set; }
+
+
+
+
+
+		[Column] public string NumeroAutorizacion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoEtarioID { get; set; }
+
+
+
+
+
+		[Column] public int? PresupuestoModuloID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("RequerimientoABMUsuario_TipoElementoUsuario")]
+
+
+	[PrimaryKey("RequerimientoABMUsuario_TipoElementoUsuarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class RequerimientoABMUsuario_TipoElementoUsuario : jlapcDB.Record<RequerimientoABMUsuario_TipoElementoUsuario>  
+    {
+
+
+
+		[Column] public int RequerimientoABMUsuario_TipoElementoUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int RequerimientoABMUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int TipoElementoUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+
+
+		[Column] public string Valor { get; set; }
+
+
+
+	}
+
+    
+	[TableName("dtproperties")]
+
+
+	[PrimaryKey("id")]
+
+
+
+	[ExplicitColumns]
+    public partial class dtproperty : jlapcDB.Record<dtproperty>  
+    {
+
+
+
+		[Column] public int id { get; set; }
+
+
+
+
+
+		[Column] public int? objectid { get; set; }
+
+
+
+
+
+		[Column] public string property { get; set; }
+
+
+
+
+
+		[Column] public string value { get; set; }
+
+
+
+
+
+		[Column] public string uvalue { get; set; }
+
+
+
+
+
+		[Column] public byte[] lvalue { get; set; }
+
+
+
+
+
+		[Column] public int version { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFC_LogConsumoEstadoArchivo")]
+
+
+	[PrimaryKey("LogConsumoEstadoArchivoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFC_LogConsumoEstadoArchivo : jlapcDB.Record<IFC_LogConsumoEstadoArchivo>  
+    {
+
+
+
+		[Column] public int LogConsumoEstadoArchivoID { get; set; }
+
+
+
+
+
+		[Column] public int LogConsumoEstadoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoMensajeID { get; set; }
+
+
+
+
+
+		[Column] public string Archivo { get; set; }
+
+
+
+
+
+		[Column] public string Contenido { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Capitulo")]
+
+
+	[PrimaryKey("CapituloID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Capitulo : jlapcDB.Record<Capitulo>  
+    {
+
+
+
+		[Column] public int CapituloID { get; set; }
+
+
+
+
+
+		[Column] public int NomencladorID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ARC_Lugar")]
+
+
+	[PrimaryKey("LugarID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ARC_Lugar : jlapcDB.Record<ARC_Lugar>  
+    {
+
+
+
+		[Column] public int LugarID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioProfesional")]
+
+
+	[PrimaryKey("ConvenioProfesionalID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioProfesional : jlapcDB.Record<ConvenioProfesional>  
+    {
+
+
+
+		[Column] public int ConvenioProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public int? AmbitoID { get; set; }
+
+
+
+
+
+		[Column] public int NomencladorID { get; set; }
+
+
+
+
+
+		[Column] public int? CapituloID { get; set; }
+
+
+
+
+
+		[Column] public int? PracticaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaVigencia { get; set; }
+
+
+
+
+
+		[Column] public byte Clinica { get; set; }
+
+
+
+
+
+		[Column] public byte Fijo { get; set; }
+
+
+
+
+
+		[Column] public decimal Honorarios { get; set; }
+
+
+
+
+
+		[Column] public decimal Gastos { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_Prestador { get; set; }
+
+
+
+
+
+		[Column] public int RolID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProductoMedicamento")]
+
+
+	[PrimaryKey("ProductoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ProductoMedicamento : jlapcDB.Record<ProductoMedicamento>  
+    {
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public int? TamanioMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int? AccionFarmacologicaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int? FormaFarmaceuticaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int? UnidadPotenciaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoUnidadMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int? ViaAdministracionMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public string Potencia { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EspecialidadGrupoVariable")]
+
+
+	[PrimaryKey("EspecialidadGrupoVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EspecialidadGrupoVariable : jlapcDB.Record<EspecialidadGrupoVariable>  
+    {
+
+
+
+		[Column] public int EspecialidadGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoVariableID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HCEvolucionIndicaciones")]
+
+
+	[PrimaryKey("HCEvolucionIndicacionesID")]
+
+
+
+	[ExplicitColumns]
+    public partial class HCEvolucionIndicacione : jlapcDB.Record<HCEvolucionIndicacione>  
+    {
+
+
+
+		[Column] public int HCEvolucionIndicacionesID { get; set; }
+
+
+
+
+
+		[Column] public int HCEvolucionID { get; set; }
+
+
+
+
+
+		[Column] public string Dieta { get; set; }
+
+
+
+
+
+		[Column] public string Tratamiento { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EntregaMedicamento")]
+
+
+	[PrimaryKey("EntregaMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EntregaMedicamento : jlapcDB.Record<EntregaMedicamento>  
+    {
+
+
+
+		[Column] public int EntregaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? PacienteID { get; set; }
+
+
+
+
+
+		[Column] public short? Orden { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Receta { get; set; }
+
+
+
+
+
+		[Column] public int? PatologiaID { get; set; }
+
+
+
+
+
+		[Column] public byte? IntervaloEntregas { get; set; }
+
+
+
+
+
+		[Column] public byte? CantidadEntregas { get; set; }
+
+
+
+
+
+		[Column] public string Concepto { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ExtractoBancarioMovimiento")]
+
+
+	[PrimaryKey("ExtractoBancarioMovimientoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ExtractoBancarioMovimiento : jlapcDB.Record<ExtractoBancarioMovimiento>  
+    {
+
+
+
+		[Column] public int ExtractoBancarioMovimientoID { get; set; }
+
+
+
+
+
+		[Column] public int ExtractoBancarioID { get; set; }
+
+
+
+
+
+		[Column] public decimal Importe { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string NroComprobante { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoDeConciliacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloCaballo")]
+
+
+	[PrimaryKey("PoloCaballoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloCaballo : jlapcDB.Record<PoloCaballo>  
+    {
+
+
+
+		[Column] public int PoloCaballoID { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Pelo { get; set; }
+
+
+
+
+
+		[Column] public int? Anio { get; set; }
+
+
+
+
+
+		[Column] public string SBA { get; set; }
+
+
+
+
+
+		[Column] public string Padre { get; set; }
+
+
+
+
+
+		[Column] public string AbueloPaterno { get; set; }
+
+
+
+
+
+		[Column] public string Madre { get; set; }
+
+
+
+
+
+		[Column] public string AbueloMaterno { get; set; }
+
+
+
+
+
+		[Column] public string Criador { get; set; }
+
+
+
+
+
+		[Column] public string Propietario { get; set; }
+
+
+
+
+
+		[Column] public string Tipo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoServicioEmpresa")]
+
+
+	[PrimaryKey("TipoServicioID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoServicioEmpresa : jlapcDB.Record<TipoServicioEmpresa>  
+    {
+
+
+
+		[Column] public int TipoServicioID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionPractica")]
+
+
+	[PrimaryKey("EmpresaID_Financiador", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class HomologacionPractica : jlapcDB.Record<HomologacionPractica>  
+    {
+
+
+
+		[Column] public int EmpresaID_Financiador { get; set; }
+
+
+
+
+
+		[Column] public int PracticaID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("FormasPagoPresupuesto")]
+
+
+	[PrimaryKey("FormasPagoPresupuestoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class FormasPagoPresupuesto : jlapcDB.Record<FormasPagoPresupuesto>  
+    {
+
+
+
+		[Column] public int FormasPagoPresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ARC_Documento")]
+
+
+	[PrimaryKey("DocumentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ARC_Documento : jlapcDB.Record<ARC_Documento>  
+    {
+
+
+
+		[Column] public int DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Ocupacion")]
+
+
+	[PrimaryKey("OcupacionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Ocupacion : jlapcDB.Record<Ocupacion>  
+    {
+
+
+
+		[Column] public int OcupacionID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("UsuarioSucursal")]
+
+
+	[PrimaryKey("UsuarioID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class UsuarioSucursal : jlapcDB.Record<UsuarioSucursal>  
+    {
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int SucursalID { get; set; }
+
+
+
+
+
+		[Column] public byte? VerSoloRegistrosDeLaSucursalActual { get; set; }
+
+
+
+	}
+
+    
+	[TableName("FormularioVista")]
+
+
+	[PrimaryKey("FormularioVistaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class FormularioVistum : jlapcDB.Record<FormularioVistum>  
+    {
+
+
+
+		[Column] public int FormularioVistaID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoGrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int DatosConyuge { get; set; }
+
+
+
+
+
+		[Column] public int FirmaProfesional { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoDocumentoPersona")]
+
+
+	[PrimaryKey("TipoDocumentoPersonaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoDocumentoPersona : jlapcDB.Record<TipoDocumentoPersona>  
+    {
+
+
+
+		[Column] public int TipoDocumentoPersonaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("VencimientoUsuario")]
+
+
+	[PrimaryKey("VencimientoUsuarioID")]
+
+
+
+	[ExplicitColumns]
+    public partial class VencimientoUsuario : jlapcDB.Record<VencimientoUsuario>  
+    {
+
+
+
+		[Column] public int VencimientoUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int VencimientoID { get; set; }
+
+
+
+
+
+		[Column] public int UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoVencimientoID { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaUltimoCambioEstado { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProyectoTipoOTPeriodico")]
+
+
+	[PrimaryKey("ProyectoTipoOTPeriodicoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ProyectoTipoOTPeriodico : jlapcDB.Record<ProyectoTipoOTPeriodico>  
+    {
+
+
+
+		[Column] public int ProyectoTipoOTPeriodicoID { get; set; }
+
+
+
+
+
+		[Column] public int ProyectoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoOrdenTrabajoID { get; set; }
+
+
+
+
+
+		[Column] public int Modo { get; set; }
+
+
+
+
+
+		[Column] public int? FrecuenciaID { get; set; }
+
+
+
+
+
+		[Column] public int? Intervalo { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaPrimeraVez { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime? VigenciaHasta { get; set; }
+
+
+
+
+
+		[Column] public int? AgendaVencimientosID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoCalendarioID { get; set; }
+
+
+
+
+
+		[Column] public byte? CriterioDiasNoHabiles { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PresupuestoPaciente")]
+
+
+	[PrimaryKey("PresupuestoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class PresupuestoPaciente : jlapcDB.Record<PresupuestoPaciente>  
+    {
+
+
+
+		[Column] public int PresupuestoID { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Galeno")]
+
+
+	[PrimaryKey("GalenoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Galeno : jlapcDB.Record<Galeno>  
+    {
+
+
+
+		[Column] public int GalenoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public DateTime Fecha { get; set; }
+
+
+
+
+
+		[Column] public decimal Honorarios { get; set; }
+
+
+
+
+
+		[Column] public decimal Gastos { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Aux_Valores")]
+
+
+	[PrimaryKey("Codigo", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Aux_Valore : jlapcDB.Record<Aux_Valore>  
+    {
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public decimal? ValorFinal { get; set; }
+
+
+
+
+
+		[Column] public decimal? Redondeado { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConsumoDefaultPractica")]
+
+
+	[PrimaryKey("ConsumoDefaultID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ConsumoDefaultPractica : jlapcDB.Record<ConsumoDefaultPractica>  
+    {
+
+
+
+		[Column] public int ConsumoDefaultID { get; set; }
+
+
+
+
+
+		[Column] public int PracticaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("NovedadPrioridad")]
+
+
+	[PrimaryKey("NovedadPrioridadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class NovedadPrioridad : jlapcDB.Record<NovedadPrioridad>  
+    {
+
+
+
+		[Column] public int NovedadPrioridadID { get; set; }
+
+
+
+
+
+		[Column] public int TipoCuentaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Consumo_Origen")]
+
+
+	[PrimaryKey("IFSAP_Consumo_OrigenID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class IFSAP_Consumo_Origen : jlapcDB.Record<IFSAP_Consumo_Origen>  
+    {
+
+
+
+		[Column] public int IFSAP_Consumo_OrigenID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TipoImpuesto")]
+
+
+	[PrimaryKey("TipoImpuestoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class TipoImpuesto : jlapcDB.Record<TipoImpuesto>  
+    {
+
+
+
+		[Column] public int TipoImpuestoID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoImpuestoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public float? Multiplicador { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ARC_Caja")]
+
+
+	[PrimaryKey("CajaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ARC_Caja : jlapcDB.Record<ARC_Caja>  
+    {
+
+
+
+		[Column] public int CajaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? LugarID { get; set; }
+
+
+
+
+
+		[Column] public string Precinto1 { get; set; }
+
+
+
+
+
+		[Column] public string Precinto2 { get; set; }
+
+
+
+
+
+		[Column] public string Estanteria { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EspecialidadGrupoEspecialidad")]
+
+
+	[PrimaryKey("EspecialidadGrupoEspecialidadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EspecialidadGrupoEspecialidad : jlapcDB.Record<EspecialidadGrupoEspecialidad>  
+    {
+
+
+
+		[Column] public int EspecialidadGrupoEspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadGrupoID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EstadoCivil")]
+
+
+	[PrimaryKey("EstadoCivilID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EstadoCivil : jlapcDB.Record<EstadoCivil>  
+    {
+
+
+
+		[Column] public int EstadoCivilID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionProducto")]
+
+
+	[PrimaryKey("EmpresaID_Financiador", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class HomologacionProducto : jlapcDB.Record<HomologacionProducto>  
+    {
+
+
+
+		[Column] public int EmpresaID_Financiador { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PacienteEspecialidad")]
+
+
+	[PrimaryKey("PacienteEspecialidadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PacienteEspecialidad : jlapcDB.Record<PacienteEspecialidad>  
+    {
+
+
+
+		[Column] public int PacienteEspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int PacienteID { get; set; }
+
+
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int? CantidadRecepciones { get; set; }
+
+
+
+
+
+		[Column] public byte? Redundante { get; set; }
+
+
+
+
+
+		[Column] public int? AgendaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("FormularioVistaVariable")]
+
+
+	[PrimaryKey("FormularioVistaVariableID")]
+
+
+
+	[ExplicitColumns]
+    public partial class FormularioVistaVariable : jlapcDB.Record<FormularioVistaVariable>  
+    {
+
+
+
+		[Column] public int FormularioVistaVariableID { get; set; }
+
+
+
+
+
+		[Column] public int FormularioVistaID { get; set; }
+
+
+
+
+
+		[Column] public int? VariableID { get; set; }
+
+
+
+
+
+		[Column] public int? AtributosHTMLID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoVariableID { get; set; }
+
+
+
+
+
+		[Column] public int PosX { get; set; }
+
+
+
+
+
+		[Column] public int PosY { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_TipoControl")]
+
+
+	[PrimaryKey("TipoControlID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_TipoControl : jlapcDB.Record<SYS_TipoControl>  
+    {
+
+
+
+		[Column] public int TipoControlID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("IFSAP_Consumo_TraduccionCentroDeCostos")]
+
+
+	[PrimaryKey("IFSAP_Consumo_TraduccionCentroDeCostosID")]
+
+
+
+	[ExplicitColumns]
+    public partial class IFSAP_Consumo_TraduccionCentroDeCosto : jlapcDB.Record<IFSAP_Consumo_TraduccionCentroDeCosto>  
+    {
+
+
+
+		[Column] public int IFSAP_Consumo_TraduccionCentroDeCostosID { get; set; }
+
+
+
+
+
+		[Column] public string SER_SER_Codigo { get; set; }
+
+
+
+
+
+		[Column] public string SER_ESP_Codigo { get; set; }
+
+
+
+
+
+		[Column] public int? IFSAP_Consumo_CentroCostoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Producto")]
+
+
+	[PrimaryKey("ProductoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Producto : jlapcDB.Record<Producto>  
+    {
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public int TipoImpuestoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public float? StockMaximo { get; set; }
+
+
+
+
+
+		[Column] public float? StockMinimo { get; set; }
+
+
+
+
+
+		[Column] public int Cantidad { get; set; }
+
+
+
+
+
+		[Column] public string Barras { get; set; }
+
+
+
+
+
+		[Column] public int? TipoProductoID { get; set; }
+
+
+
+
+
+		[Column] public decimal PrecioCompra { get; set; }
+
+
+
+
+
+		[Column] public decimal PrecioVenta { get; set; }
+
+
+
+
+
+		[Column] public float StockInicial { get; set; }
+
+
+
+
+
+		[Column] public float Descuento { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public DateTime? UltimaActualizacion { get; set; }
+
+
+
+
+
+		[Column] public byte NoActualiza { get; set; }
+
+
+
+
+
+		[Column] public byte Bloqueado { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+
+
+		[Column] public int? LaboratorioID { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionEnFactura { get; set; }
+
+
+
+
+
+		[Column] public int? MonodrogaID { get; set; }
+
+
+
+
+
+		[Column] public float? MinimoCompra { get; set; }
+
+
+
+
+
+		[Column] public float? ModuloCompra { get; set; }
+
+
+
+
+
+		[Column] public int? ProductoFamiliaID { get; set; }
+
+
+
+
+
+		[Column] public int? ProductoLineaID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public string DescripcionAmpliada { get; set; }
+
+
+
+
+
+		[Column] public byte MostrarEnLaWeb { get; set; }
+
+
+
+
+
+		[Column] public float? CantidadDeCosteo { get; set; }
+
+
+
+
+
+		[Column] public int? UnidadMedidaID { get; set; }
+
+
+
+
+
+		[Column] public string NumeroDespacho { get; set; }
+
+
+
+
+
+		[Column] public int? UnidadMedidaID_Empaque { get; set; }
+
+
+
+
+
+		[Column] public bool TrazableAnmat { get; set; }
+
+
+
+
+
+		[Column] public byte? AdministraLote { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ReporteTratamientoCondicion")]
+
+
+	[PrimaryKey("ReporteTratamientoCondicionID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ReporteTratamientoCondicion : jlapcDB.Record<ReporteTratamientoCondicion>  
+    {
+
+
+
+		[Column] public int ReporteTratamientoCondicionID { get; set; }
+
+
+
+
+
+		[Column] public int ReporteTratamientoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ARC_Archivo")]
+
+
+	[PrimaryKey("ArchivoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ARC_Archivo : jlapcDB.Record<ARC_Archivo>  
+    {
+
+
+
+		[Column] public int ArchivoID { get; set; }
+
+
+
+
+
+		[Column] public int? DocumentoID { get; set; }
+
+
+
+
+
+		[Column] public int? CajaID { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaDocumento { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaRetiro { get; set; }
+
+
+
+
+
+		[Column] public string QuienRetira { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public string UsuarioAlta { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaAlta { get; set; }
+
+
+
+
+
+		[Column] public string UsuarioModi { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaModi { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Contacto")]
+
+
+	[PrimaryKey("ContactoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Contacto : jlapcDB.Record<Contacto>  
+    {
+
+
+
+		[Column] public int ContactoID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string Asunto { get; set; }
+
+
+
+
+
+		[Column] public int? TemaID { get; set; }
+
+
+
+
+
+		[Column] public DateTime Comienzo { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Finalizacion { get; set; }
+
+
+
+
+
+		[Column] public int TipoContactoID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoContactoID { get; set; }
+
+
+
+
+
+		[Column] public int? AvisoID { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaAlta { get; set; }
+
+
+
+
+
+		[Column] public string UsuarioAlta { get; set; }
+
+
+
+
+
+		[Column] public DateTime FechaModi { get; set; }
+
+
+
+
+
+		[Column] public string UsuarioModi { get; set; }
+
+
+
+
+
+		[Column] public byte AltaAutomatica { get; set; }
+
+
+
+
+
+		[Column] public int? TipoModuloOrigenID { get; set; }
+
+
+
+
+
+		[Column] public int? ModuloOrigenID { get; set; }
+
+
+
+
+
+		[Column] public int? TriggerCRMID { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int? ContactoID_Padre { get; set; }
+
+
+
+
+
+		[Column] public int? SucursalID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID_Vendedor { get; set; }
+
+
+
+
+
+		[Column] public int? SubEstadoContactoID { get; set; }
+
+
+
+
+
+		[Column] public string ProximaAccion { get; set; }
+
+
+
+
+
+		[Column] public int? NovedadPrioridadID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConsumoDefaultModulo")]
+
+
+	[PrimaryKey("ConsumoDefaultID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ConsumoDefaultModulo : jlapcDB.Record<ConsumoDefaultModulo>  
+    {
+
+
+
+		[Column] public int ConsumoDefaultID { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ConvenioProfesionalTipoGastos")]
+
+
+	[PrimaryKey("ConvenioProfesionalTipoGastosID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ConvenioProfesionalTipoGasto : jlapcDB.Record<ConvenioProfesionalTipoGasto>  
+    {
+
+
+
+		[Column] public int ConvenioProfesionalTipoGastosID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Provincia")]
+
+
+	[PrimaryKey("ProvinciaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Provincium : jlapcDB.Record<Provincium>  
+    {
+
+
+
+		[Column] public int ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public int PaisID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Jurisdiccion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SYS_Pantalla")]
+
+
+	[PrimaryKey("PantallaID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class SYS_Pantalla : jlapcDB.Record<SYS_Pantalla>  
+    {
+
+
+
+		[Column] public int PantallaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public string Alias { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProductoImagen")]
+
+
+	[PrimaryKey("ProductoImagenID")]
+
+
+
+	[ExplicitColumns]
+    public partial class ProductoImagen : jlapcDB.Record<ProductoImagen>  
+    {
+
+
+
+		[Column] public int ProductoImagenID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public string NombreArchivo { get; set; }
+
+
+
+
+
+		[Column] public int? Orden { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaAttachment")]
+
+
+	[PrimaryKey("OrdenManufacturaAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaAttachment : jlapcDB.Record<OrdenManufacturaAttachment>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int OrdenManufacturaID { get; set; }
+
+
+
+
+
+		[Column] public string NombreArchivo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SalaParticipante")]
+
+
+	[PrimaryKey("SalaParticipanteID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SalaParticipante : jlapcDB.Record<SalaParticipante>  
+    {
+
+
+
+		[Column] public int SalaParticipanteID { get; set; }
+
+
+
+
+
+		[Column] public int AgendaSalaID { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Apellido { get; set; }
+
+
+
+
+
+		[Column] public string Mail { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Empleado")]
+
+
+	[PrimaryKey("EmpleadoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Empleado : jlapcDB.Record<Empleado>  
+    {
+
+
+
+		[Column] public int EmpleadoID { get; set; }
+
+
+
+
+
+		[Column] public string Nombre { get; set; }
+
+
+
+
+
+		[Column] public string Apellido { get; set; }
+
+
+
+
+
+		[Column] public int? UsuarioID { get; set; }
+
+
+
+
+
+		[Column] public string Mail { get; set; }
+
+
+
+
+
+		[Column] public string Mail2 { get; set; }
+
+
+
+
+
+		[Column] public string Mail3 { get; set; }
+
+
+
+
+
+		[Column] public string DNI { get; set; }
+
+
+
+
+
+		[Column] public string Foto { get; set; }
+
+
+
+
+
+		[Column] public int? Legajo { get; set; }
+
+
+
+
+
+		[Column] public string Direccion { get; set; }
+
+
+
+
+
+		[Column] public string CodigoPostal { get; set; }
+
+
+
+
+
+		[Column] public string Barrio { get; set; }
+
+
+
+
+
+		[Column] public string Departamento { get; set; }
+
+
+
+
+
+		[Column] public string Piso { get; set; }
+
+
+
+
+
+		[Column] public string CUIL { get; set; }
+
+
+
+
+
+		[Column] public string Telefono { get; set; }
+
+
+
+
+
+		[Column] public string Celular { get; set; }
+
+
+
+
+
+		[Column] public string SucursalDestino { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaIngreso { get; set; }
+
+
+
+
+
+		[Column] public DateTime? FechaNacimiento { get; set; }
+
+
+
+
+
+		[Column] public string Documento { get; set; }
+
+
+
+
+
+		[Column] public int? EstadoCivilID { get; set; }
+
+
+
+
+
+		[Column] public int? LocalidadID { get; set; }
+
+
+
+
+
+		[Column] public int? TipoDocumentoPersonaID { get; set; }
+
+
+
+
+
+		[Column] public int? TimeSheetUsuarioID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public int GrupoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PoloEquipoJugador")]
+
+
+	[PrimaryKey("PoloEquipoJugadorID")]
+
+
+
+	[ExplicitColumns]
+    public partial class PoloEquipoJugador : jlapcDB.Record<PoloEquipoJugador>  
+    {
+
+
+
+		[Column] public int PoloEquipoJugadorID { get; set; }
+
+
+
+
+
+		[Column] public int PoloJugadorID { get; set; }
+
+
+
+
+
+		[Column] public int PoloEquipoID { get; set; }
+
+
+
+
+
+		[Column] public int? Posicion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("AgendaEstado")]
+
+
+	[PrimaryKey("AgendaEstadoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class AgendaEstado : jlapcDB.Record<AgendaEstado>  
+    {
+
+
+
+		[Column] public int AgendaEstadoID { get; set; }
+
+
+
+
+
+		[Column] public int AgendaID { get; set; }
+
+
+
+
+
+		[Column] public int EstadoAgendaID { get; set; }
+
+
+
+
+
+		[Column] public string Login { get; set; }
+
+
+
+
+
+		[Column] public DateTime Modificacion { get; set; }
+
+
+
+
+
+		[Column] public byte Checkeado { get; set; }
+
+
+
+	}
+
+    
+	[TableName("GrupoImpuesto")]
+
+
+	[PrimaryKey("GrupoImpuestoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class GrupoImpuesto : jlapcDB.Record<GrupoImpuesto>  
+    {
+
+
+
+		[Column] public int GrupoImpuestoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ProductoNuevaDrogaMedicamento")]
+
+
+	[PrimaryKey("ProductoID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class ProductoNuevaDrogaMedicamento : jlapcDB.Record<ProductoNuevaDrogaMedicamento>  
+    {
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public int NuevaDrogaMedicamentoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HomologacionModulo")]
+
+
+	[PrimaryKey("EmpresaID_Financiador", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class HomologacionModulo : jlapcDB.Record<HomologacionModulo>  
+    {
+
+
+
+		[Column] public int EmpresaID_Financiador { get; set; }
+
+
+
+
+
+		[Column] public int ModuloID { get; set; }
+
+
+
+
+
+		[Column] public string Codigo { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("HC_Informe")]
+
+
+	[PrimaryKey("HC_InformeID", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class HC_Informe : jlapcDB.Record<HC_Informe>  
+    {
+
+
+
+		[Column] public int HC_InformeID { get; set; }
+
+
+
+
+
+		[Column] public string NombreArchivo { get; set; }
+
+
+
+
+
+		[Column] public string URL { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public short TipoInforme { get; set; }
+
+
+
+
+
+		[Column] public int? TratamientoID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrdenManufacturaMovimientoNotaPedido")]
+
+
+	[PrimaryKey("OrdenManufacturaMovimientoNotaPedidoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrdenManufacturaMovimientoNotaPedido : jlapcDB.Record<OrdenManufacturaMovimientoNotaPedido>  
+    {
+
+
+
+		[Column] public int OrdenManufacturaMovimientoNotaPedidoID { get; set; }
+
+
+
+
+
+		[Column] public int MovimientoID { get; set; }
+
+
+
+
+
+		[Column] public int OrdenManufacturaID { get; set; }
+
+
+
+
+
+		[Column] public float Cantidad { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Especialidad")]
+
+
+	[PrimaryKey("EspecialidadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Especialidad : jlapcDB.Record<Especialidad>  
+    {
+
+
+
+		[Column] public int EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public int? PracticaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public byte ExcluirLiqProfesional { get; set; }
+
+
+
+
+
+		[Column] public int? CENTROCOSTOID { get; set; }
+
+
+
+
+
+		[Column] public byte SeleccionExplicita { get; set; }
+
+
+
+
+
+		[Column] public byte ExcluirEnCierreAutomaticoHC { get; set; }
+
+
+
+
+
+		[Column] public int? DuracionID_DemandaEspontanea_Default { get; set; }
+
+
+
+
+
+		[Column] public int Terciarizada { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoID { get; set; }
+
+
+
+
+
+		[Column] public byte MandarRecordatorioTurno { get; set; }
+
+
+
+
+
+		[Column] public bool AdmisionaEvolucionandoEnfermeria { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoGrupoVariableID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("SitioTipoAcceso")]
+
+
+	[PrimaryKey("SitioTipoAccesoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class SitioTipoAcceso : jlapcDB.Record<SitioTipoAcceso>  
+    {
+
+
+
+		[Column] public int SitioTipoAccesoID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("CirugiaMedicamento")]
+
+
+	[PrimaryKey("CirugiaMedicamentoID")]
+
+
+
+	[ExplicitColumns]
+    public partial class CirugiaMedicamento : jlapcDB.Record<CirugiaMedicamento>  
+    {
+
+
+
+		[Column] public int CirugiaMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int CirugiaID { get; set; }
+
+
+
+
+
+		[Column] public int ProductoID { get; set; }
+
+
+
+
+
+		[Column] public short? Cantidad { get; set; }
+
+
+
+
+
+		[Column] public int? ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public byte Facturable { get; set; }
+
+
+
+
+
+		[Column] public byte? Estado { get; set; }
+
+
+
+
+
+		[Column] public byte? Instancia { get; set; }
+
+
+
+
+
+		[Column] public int? MotivoRechazoCirugiaConsumoID { get; set; }
+
+
+
+
+
+		[Column] public string Observaciones { get; set; }
+
+
+
+
+
+		[Column] public int? MovimientoIDCopago { get; set; }
+
+
+
+
+
+		[Column] public decimal? Precio { get; set; }
+
+
+
+
+
+		[Column] public int? PlanID { get; set; }
+
+
+
+
+
+		[Column] public string NumAfiliado { get; set; }
+
+
+
+
+
+		[Column] public int? CondicionIVAPacienteID { get; set; }
+
+
+
+
+
+		[Column] public int? EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public decimal? Honorarios { get; set; }
+
+
+
+
+
+		[Column] public decimal? Gastos { get; set; }
+
+
+
+
+
+		[Column] public int? CuentaID { get; set; }
+
+
+
+
+
+		[Column] public string NumeroAutorizacion { get; set; }
+
+
+
+
+
+		[Column] public int? GrupoEtarioID { get; set; }
+
+
+
+
+
+		[Column] public int? PresupuestoMedicamentoID { get; set; }
+
+
+
+
+
+		[Column] public int? MovimientoID_Stock { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Localidad")]
+
+
+	[PrimaryKey("LocalidadID")]
+
+
+
+	[ExplicitColumns]
+    public partial class Localidad : jlapcDB.Record<Localidad>  
+    {
+
+
+
+		[Column] public int LocalidadID { get; set; }
+
+
+
+
+
+		[Column] public int ProvinciaID { get; set; }
+
+
+
+
+
+		[Column] public string Descripcion { get; set; }
+
+
+
+
+
+		[Column] public int? ZonaID { get; set; }
+
+
+
+	}
+
+    
+	[TableName("EmpresaAttachment")]
+
+
+	[PrimaryKey("EmpresaAttachmentID")]
+
+
+
+	[ExplicitColumns]
+    public partial class EmpresaAttachment : jlapcDB.Record<EmpresaAttachment>  
+    {
+
+
+
+		[Column] public int EmpresaAttachmentID { get; set; }
+
+
+
+
+
+		[Column] public int EmpresaID { get; set; }
+
+
+
+
+
+		[Column] public string NombreArchivo { get; set; }
+
+
+
+	}
+
+    
+	[TableName("DefinicionAgenda")]
+
+
+	[PrimaryKey("DefinicionAgendaID")]
+
+
+
+	[ExplicitColumns]
+    public partial class DefinicionAgenda : jlapcDB.Record<DefinicionAgenda>  
+    {
+
+
+
+		[Column] public int DefinicionAgendaID { get; set; }
+
+
+
+
+
+		[Column] public int ProfesionalID { get; set; }
+
+
+
+
+
+		[Column] public int? EspecialidadID { get; set; }
+
+
+
+
+
+		[Column] public DateTime HoraDesde { get; set; }
+
+
+
+
+
+		[Column] public DateTime HoraHasta { get; set; }
+
+
+
+
+
+		[Column] public int? Sobreturnos { get; set; }
+
+
+
+
+
+		[Column] public byte SobreturnosLibres { get; set; }
+
+
+
+
+
+		[Column] public byte? TipoBloqueoID { get; set; }
+
+
+
+
+
+		[Column] public byte Bloqueado { get; set; }
+
+
+
+
+
+		[Column] public short Duracion { get; set; }
+
+
+
+
+
+		[Column] public int? ConsultorioID { get; set; }
+
+
+
+
+
+		[Column] public byte Dinamica { get; set; }
+
+
+
+
+
+		[Column] public int? WeekDays { get; set; }
+
+
+
+
+
+		[Column] public byte Estado { get; set; }
+
+
+
+
+
+		[Column] public int CantidadTurnosPorHorarioTurno { get; set; }
+
+
+
+
+
+		[Column] public string Observacion { get; set; }
+
+
+
+
+
+		[Column] public string ReservadoPara { get; set; }
 
 
 

@@ -12,7 +12,8 @@ namespace ClarityWebApi
         protected void Application_Start()
         {
 
-            
+            //register cors handler
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new CorsHandler());
 
             AreaRegistration.RegisterAllAreas();
            // RegisterGlobalFilters(GlobalFilters.Filters);
