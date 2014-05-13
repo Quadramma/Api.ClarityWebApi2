@@ -11,17 +11,37 @@ namespace WebApiClarity.Controllers
     public class ContactoController : ApiController
     {
 
+   
+
+ 
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.AcceptVerbs("GET")]
+        public object TipoContacto(int GrupoID, int UsuarioID, int EmpresaID, int param1, string param2, string param3) {      
+            var db = new PetaPoco.Database("jlapc");
+            var sql = PetaPoco.Sql.Builder
+                .Append("SELECT *")
+                .Append("FROM TipoContacto");
+            var items = db.Query<dynamic>(sql);
+            return items;
+        }
+
+         
+
+        //EstadoContacto
+        //TipoContacto
         private object getAll(PetaPoco.Database db) {
             var sql = PetaPoco.Sql.Builder
-                .Append("SELECT")
-                .Append("Emp.RazonSocial") //,T.Descripcion as TemaDescripcion
-                //.Append(",GU.Descripcion as GrupoUsuarioDescripcion, GU.GrupoID, G.Descripcion as GrupoDescripcion")
+                .Append("SELECT top 50 ")
+                .Append("C.Asunto, C.FechaAlta, C.TipoContactoID")
+                .Append("Emp.RazonSocial,T.Descripcion as TemaDescripcion,")
+                .Append("GU.Descripcion as GrupoUsuarioDescripcion, GU.GrupoID, G.Descripcion as GrupoDescripcion")
                 .Append("FROM Contacto C")
                 .Append("LEFT JOIN Tema T on T.TemaID = C.TemaID")
                 .Append("LEFT JOIN GrupoUsuario GU on GU.GrupoUsuarioID = C.GrupoUsuarioID")
                 .Append("LEFT JOIN Grupo G on G.GrupoID = GU.GrupoID")
                 .Append("LEFT JOIN Empresa Emp on Emp.EmpresaID = C.EmpresaID");
-            var items = db.Query<Contacto>(sql);
+            var items = db.Query<dynamic>(sql);
             return items;
         }
 
@@ -42,10 +62,9 @@ namespace WebApiClarity.Controllers
         public object GET(int id) {
             var db = new PetaPoco.Database("jlapc");
             var sql = PetaPoco.Sql.Builder
-                .Append("SELECT T.*,G.Descripcion as GrupoDescripcion")
-                .Append("FROM Tema T")
-                .Append("INNER JOIN Grupo G on G.GrupoID = T.GrupoID")
-                .Append("WHERE T.TemaID=@0", id);
+                .Append("SELECT T.*")
+                .Append("FROM Contacto C")
+                .Append("WHERE C.ContactoID=@0", id);
             var items = db.Query<Tema>(sql);
             return (new JsonResult() { Data = items, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
         }
