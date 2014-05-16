@@ -15,12 +15,12 @@ namespace WebApiClarity.Controllers
         // GET: 
         [System.Web.Http.HttpGet]
         [System.Web.Http.AcceptVerbs("GET")]
-        public object getAll() {
+        public object GET(int pageNumber, int itemsPerPage) {
             var db = new PetaPoco.Database("jlapc");
             var sql = PetaPoco.Sql.Builder
                 .Append("SELECT EC.*")
                 .Append("FROM EstadoContacto EC");
-            var items = db.Query<EstadoContacto>(sql);
+            var items = db.Page<dynamic>(pageNumber, itemsPerPage, sql);
             JsonResult rta = new JsonResult() { Data = items, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             return rta.Data;
         }
@@ -49,10 +49,10 @@ namespace WebApiClarity.Controllers
                     .Append(" SET Descripcion= @0", item.Descripcion)
                     .Append("WHERE EstadoContactoID = @0", item.EstadoContactoID);
                 db.Execute(sql);
-                return (new JsonResult() { Data = new { ok = true, items = getAll(), sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = true, sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
 
             } catch (Exception e) {
-                return (new JsonResult() { Data = new { ok = false, items = new EstadoContacto[] { }, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = false, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
             }
         }
 
@@ -66,10 +66,10 @@ namespace WebApiClarity.Controllers
                     .Append(" INSERT INTO EstadoContacto (Descripcion)")
                     .Append(" VALUES(@0,@1,@2)", item.Descripcion);
                 db.Execute(sql);
-                return (new JsonResult() { Data = new { ok = true, items = getAll(), error = "", sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = true, error = "", sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
 
             } catch (Exception e) {
-                return (new JsonResult() { Data = new { ok = false, items = new EstadoContacto[] { }, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = false, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
             }
         }
 
@@ -83,10 +83,10 @@ namespace WebApiClarity.Controllers
                     .Append("DELETE FROM EstadoContacto")
                     .Append("WHERE EstadoContactoID= @0", id);
                 db.Execute(sql);
-                return (new JsonResult() { Data = new { ok = true, items = getAll(), error = "", sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = true, error = "", sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
 
             } catch (Exception e) {
-                return (new JsonResult() { Data = new { ok = false, items = new EstadoContacto[] { }, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = false, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
             }
         }
 

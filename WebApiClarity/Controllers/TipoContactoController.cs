@@ -8,7 +8,7 @@ using ClarityDB.T4;
 
 namespace WebApiClarity.Controllers
 {
-    public class TipoContactoController : Controller
+    public class TipoContactoController : ApiController
     {
 
 
@@ -52,7 +52,7 @@ namespace WebApiClarity.Controllers
                 return (new JsonResult() { Data = new { ok = true, items = getAll(), sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
 
             } catch (Exception e) {
-                return (new JsonResult() { Data = new { ok = false, items = new EstadoContacto[] { }, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = false, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
             }
         }
 
@@ -69,7 +69,7 @@ namespace WebApiClarity.Controllers
                 return (new JsonResult() { Data = new { ok = true, items = getAll(), error = "", sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
 
             } catch (Exception e) {
-                return (new JsonResult() { Data = new { ok = false, items = new EstadoContacto[] { }, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = false, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
             }
         }
 
@@ -86,7 +86,7 @@ namespace WebApiClarity.Controllers
                 return (new JsonResult() { Data = new { ok = true, items = getAll(), error = "", sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
 
             } catch (Exception e) {
-                return (new JsonResult() { Data = new { ok = false, items = new TipoContacto[] { }, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = false, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
             }
         }
     }

@@ -51,10 +51,10 @@ namespace WebApiClarity.Controllers
                     .Append(" SET GrupoID= @0", item.GrupoID)
                     .Append("WHERE SubEstadoContactoID = @0", item.EstadoContactoID);
                 db.Execute(sql);
-                return (new JsonResult() { Data = new { ok = true, items = getAll(), sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = true, sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
 
             } catch (Exception e) {
-                return (new JsonResult() { Data = new { ok = false, items = new SubEstadoContacto[] { }, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = false, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
             }
         }
 
@@ -68,10 +68,10 @@ namespace WebApiClarity.Controllers
                     .Append(" INSERT INTO SubEstadoContacto (EstadoContactoID,Descripcion,TipoCuentaID,GrupoID)")
                     .Append(" VALUES(@0,@1,@2)",item.EstadoContactoID, item.Descripcion, item.TipoCuentaID, item.GrupoID);
                 db.Execute(sql);
-                return (new JsonResult() { Data = new { ok = true, items = getAll(), error = "", sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = true, error = "", sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
 
             } catch (Exception e) {
-                return (new JsonResult() { Data = new { ok = false, items = new EstadoContacto[] { }, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = false, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
             }
         }
 
@@ -85,10 +85,10 @@ namespace WebApiClarity.Controllers
                     .Append("DELETE FROM EstadoContacto")
                     .Append("WHERE EstadoContactoID= @0", id);
                 db.Execute(sql);
-                return (new JsonResult() { Data = new { ok = true, items = getAll(), error = "", sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = true, error = "", sql = sql }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
 
             } catch (Exception e) {
-                return (new JsonResult() { Data = new { ok = false, items = new EstadoContacto[] { }, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+                return (new JsonResult() { Data = new { ok = false, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
             }
         }
     }

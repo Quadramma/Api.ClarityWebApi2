@@ -92,6 +92,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ContactoController.cs" />
+    <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\EstadoContactoController.cs" />
     <Compile Include="Controllers\ModuloController.cs" />
     <Compile Include="Controllers\SubEstadoContactoController.cs" />
