@@ -14,44 +14,60 @@ namespace WebApiClarity.Controllers {
         [System.Web.Http.HttpGet]
         [System.Web.Http.AcceptVerbs("GET")]
         public object GET(int pageNumber, int itemsPerPage
-            , int empresaID
-            , string Codigo
-            , string RazonSocial
+               , int EstadoContactoID
+              , int EmpresaID
+              , string ComienzoDesde
+              , string ComienzoHasta
+            //   , string Codigo
+            //   , string RazonSocial
             ) {
-            var db = new PetaPoco.Database("jlapc");
-         
-            var sql = PetaPoco.Sql.Builder
-                .Append("SELECT ")
-                .Append("C.*")
-                //.Append("C.Asunto, C.FechaAlta, C.TipoContactoID")
-                .Append(",Emp.RazonSocial,T.Descripcion as TemaDescripcion, Emp.Codigo as EmpresaCodigo")
-                .Append(",GU.Descripcion as GrupoUsuarioDescripcion, GU.GrupoID, G.Descripcion as GrupoDescripcion")
-                .Append(",EC.Descripcion as EstadoContactoDescripcion,SEC.Descripcion as SubEstadoContactoDescripcion")
-                //.Append(",C.EmpresaID")
-                .Append("FROM Contacto C")
-                .Append("LEFT JOIN Tema T on T.TemaID = C.TemaID")
-                .Append("LEFT JOIN EstadoContacto EC on EC.EstadoContactoID = C.EstadoContactoID")
-                //JLA>Pregunta>Para enganchar el subestado hay que tener en cuenta el GrupoID?, y el TipoCuentaID? de donde lo saco?
-                .Append("LEFT JOIN SubEstadoContacto SEC on SEC.EstadoContactoID = C.EstadoContactoID")
-                .Append("LEFT JOIN GrupoUsuario GU on GU.GrupoUsuarioID = C.GrupoUsuarioID")
-                .Append("LEFT JOIN Grupo G on G.GrupoID = GU.GrupoID")
-                .Append("LEFT JOIN Empresa Emp on Emp.EmpresaID = C.EmpresaID");
+                JsonResult rta;
+            try {
+                var db = new PetaPoco.Database("jlapc");
+                var sql = PetaPoco.Sql.Builder
+                    .Append("SELECT ")
+                    .Append("C.*")
+                    //.Append("C.Asunto, C.FechaAlta, C.TipoContactoID")
+                    .Append(",Emp.RazonSocial,T.Descripcion as TemaDescripcion, Emp.Codigo as EmpresaCodigo")
+                    .Append(",GU.Descripcion as GrupoUsuarioDescripcion, GU.GrupoID, G.Descripcion as GrupoDescripcion")
+                    .Append(",EC.Descripcion as EstadoContactoDescripcion,SEC.Descripcion as SubEstadoContactoDescripcion")
+                    //.Append(",C.EmpresaID")
+                    .Append("FROM Contacto C")
+                    .Append("LEFT JOIN Tema T on T.TemaID = C.TemaID")
+                    .Append("LEFT JOIN EstadoContacto EC on EC.EstadoContactoID = C.EstadoContactoID")
+                    //JLA>Pregunta>Para enganchar el subestado hay que tener en cuenta el GrupoID?, y el TipoCuentaID? de donde lo saco?
+                    .Append("LEFT JOIN SubEstadoContacto SEC on SEC.EstadoContactoID = C.EstadoContactoID")
+                    .Append("LEFT JOIN GrupoUsuario GU on GU.GrupoUsuarioID = C.GrupoUsuarioID")
+                    .Append("LEFT JOIN Grupo G on G.GrupoID = GU.GrupoID")
+                    .Append("LEFT JOIN Empresa Emp on Emp.EmpresaID = C.EmpresaID");
 
-            sql.Append("WHERE 1 = 1");
-            if (empresaID != -1) {
-                sql.Append(" AND C.EmpresaID = @0",empresaID);
+                sql.Append("WHERE 1 = 1");
+                if (EmpresaID != -1) {
+                    sql.Append(" AND C.EmpresaID = @0", EmpresaID);
+                }
+                if (EstadoContactoID != -1) {
+                    sql.Append(" AND C.EstadoContactoID = @0", EstadoContactoID);
+                }
+                if (ComienzoDesde != null && ComienzoDesde != "") {
+                    sql.Append(" AND C.Comienzo >= @0", ComienzoDesde);
+                }
+                if (ComienzoHasta != null && ComienzoHasta != "") {
+                    sql.Append(" AND C.Comienzo <= @0", ComienzoHasta);
+                }
+                /*
+                if (Codigo != null) {
+                    sql.Append(" AND Emp.Codigo = @0", Codigo);
+                }
+
+                if (RazonSocial != null) {
+                    sql.Append(" AND Emp.RazonSocial = @0", RazonSocial);
+                }
+                */
+                var items = db.Page<dynamic>(pageNumber, itemsPerPage, sql);
+                rta = new JsonResult() { Data = new { data = items }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            } catch (Exception e) {
+                rta = new JsonResult() { Data = new { data = "", error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
-
-            if (Codigo != null) {
-                sql.Append(" AND Emp.Codigo = @0", Codigo);
-            }
-
-            if (RazonSocial != null) {
-                sql.Append(" AND Emp.RazonSocial = @0", RazonSocial);
-            }
-
-            var items = db.Page<dynamic>(pageNumber, itemsPerPage, sql);
-            JsonResult rta = new JsonResult() { Data = items, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             return rta.Data;
         }
 
@@ -65,9 +81,28 @@ namespace WebApiClarity.Controllers {
                 .Append("FROM Contacto C")
                 .Append("WHERE C.ContactoID=@0", id);
             var items = db.Query<Contacto>(sql);
-            return (new JsonResult() { Data = items, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+            return (new JsonResult() { Data = new { data = items }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
         }
 
+
+        // POST:  CREATE Y UPDATE
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.AcceptVerbs("POST")]
+        public object POST([FromBody] Contacto item) {
+            try {
+                var db = new PetaPoco.Database("jlapc");
+                if (item.ContactoID == 0) {
+                    db.Insert(item);
+                } else {
+                    db.Update(item);
+                }
+                return (new JsonResult() { Data = new { ok = true, error = "" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+            } catch (Exception e) {
+                return (new JsonResult() { Data = new { ok = false, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
+            }
+        }
+
+        /*
         // PUT:  UPDATE
         [System.Web.Http.HttpPut]
         [System.Web.Http.AcceptVerbs("PUT")]
@@ -149,7 +184,7 @@ namespace WebApiClarity.Controllers {
                 return (new JsonResult() { Data = new { ok = false, error = e.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet }).Data;
             }
         }
-
+        */
         // DELETE:  DELETE
         [System.Web.Http.HttpDelete]
         [System.Web.Http.AcceptVerbs("DELETE")]

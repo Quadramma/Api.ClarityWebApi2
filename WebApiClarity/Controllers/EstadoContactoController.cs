@@ -21,7 +21,7 @@ namespace WebApiClarity.Controllers
                 .Append("SELECT EC.*")
                 .Append("FROM EstadoContacto EC");
             var items = db.Page<dynamic>(pageNumber, itemsPerPage, sql);
-            JsonResult rta = new JsonResult() { Data = items, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            JsonResult rta = new JsonResult() { Data = new { data = items }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             return rta.Data;
         }
 
