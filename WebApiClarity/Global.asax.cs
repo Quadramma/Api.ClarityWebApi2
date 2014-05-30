@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using ClarityWebApi.App_Start;
+using WebApiClarity.App_Start;
 
 namespace ClarityWebApi
 {
@@ -12,8 +13,16 @@ namespace ClarityWebApi
         protected void Application_Start()
         {
 
+
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new TokenAuthHandler());
+
+
             //register cors handler
-            GlobalConfiguration.Configuration.MessageHandlers.Add(new CorsHandler());
+            //GlobalConfiguration.Configuration.MessageHandlers.Add(new CorsHandler());
+
+            
+
+            
 
             AreaRegistration.RegisterAllAreas();
            // RegisterGlobalFilters(GlobalFilters.Filters);
