@@ -19,7 +19,7 @@ namespace ClarityWebApi {
             //GlobalConfiguration.Configuration.MessageHandlers.Add(new CorsHandler());
 
 
-            var cors = new EnableCorsAttribute("*", "*", "*");
+            var cors = new EnableCorsAttribute("http://192.168.11.111:1337/,*", "*", "*");
             GlobalConfiguration.Configuration.EnableCors(cors);
 
            

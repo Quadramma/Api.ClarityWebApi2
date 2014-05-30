@@ -94,6 +94,7 @@
     <Compile Include="App_Start\TokenAuthHandler.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Config\Config.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
@@ -134,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\LOCAL IIS.pubxml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Models\Generated\PetaPoco.Generator.ttinclude" />
