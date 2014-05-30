@@ -31,9 +31,9 @@ namespace ClarityWebApi.App_Start {
             if (isCorsRequest) {
                 if (isPreflightRequest) {
                     HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-                    //string requestOrigin = request.Headers.GetValues(Origin).First();
-                    //response.Headers.Add(AccessControlAllowOrigin, requestOrigin);
-                    response.Headers.Add(AccessControlAllowOrigin, "*");
+                    string requestOrigin = request.Headers.GetValues(Origin).First();
+                    response.Headers.Add(AccessControlAllowOrigin, requestOrigin);
+                    //response.Headers.Add(AccessControlAllowOrigin, "*");
                     string accessControlRequestMethod = methods;
                     response.Headers.Add(AccessControlAllowMethods, accessControlRequestMethod);
                     string requestedHeaders = headers;

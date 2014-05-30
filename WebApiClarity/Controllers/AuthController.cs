@@ -4,12 +4,14 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using WebApiClarity.Configuration;
 using WebApiClarity.Models;
 
 namespace WebApiClarity.Controllers {
+
     public class AuthController : ApiController {
 
         static public string DecodeFrom64(string encodedData) {
